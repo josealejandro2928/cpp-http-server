@@ -1,0 +1,5 @@
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/http_server.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/server.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/app.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/rebuild_cache.dir

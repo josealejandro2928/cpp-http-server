@@ -15,7 +15,7 @@ using namespace std;
 
 namespace HttpServer {
 
-    using Middleware = function<ResponseMiddleware *(Request &)>;
+    using Middleware = function<void(Request &)>;
 
     class Router {
     private:

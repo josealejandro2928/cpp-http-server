@@ -9,9 +9,15 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
     HttpServer::Server server("9000", 10);
     auto &router = server.getRouter();
-    router.registerRoute(HttpServer::HttpMethod::GET, "/", [](auto &request) -> HttpServer::ResponseMiddleware * {
+    router.registerRoute(HttpServer::HttpMethod::GET, "/", [](auto &request) {
         request.sendResponse(request, 200, "Hello World");
-        return nullptr;
+    });
+
+    router.registerRoute(HttpServer::HttpMethod::GET, "/error", [](auto &request) {
+        std::cout << "Error route called\n";
+    });
+    router.registerRoute(HttpServer::HttpMethod::GET, "/raise", [](auto &request) {
+        throw std::runtime_error("Error raised");
     });
 
     if (server.start() < 0) {

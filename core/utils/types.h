@@ -50,11 +50,5 @@ namespace HttpServer {
         std::map<std::string, std::string> query;
     };
 
-    struct ResponseMiddleware {
-        std::string data;
-        int statusCode;
-
-        ~ResponseMiddleware() = default;
-    };
 }
 #endif //HTTP_SERVER_TYPES_H

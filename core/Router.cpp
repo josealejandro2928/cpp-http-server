@@ -10,18 +10,6 @@
 
 namespace HttpServer {
 
-
-//    void Router::registerRoute(HttpMethod method, string &&path, const Middleware &middleware) {
-//        switch (method) {
-//            case HttpMethod::GET:
-//                GetRoutes[path].push_back(middleware);
-//                break;
-//            default:
-//                throw std::invalid_argument("Unknown HTTP VERB");
-//        }
-//
-//    }
-
     void Router::registerRoute(HttpMethod method, string &&path, const Middleware &middleware) {
         switch (method) {
             case HttpMethod::GET:
@@ -45,26 +33,20 @@ namespace HttpServer {
     }
 
     void Router::processCallStacks(string &path, Request &req, map<string, vector<Middleware>> &Routes) {
-        ResponseMiddleware *response = nullptr;
         if (Routes.find(path) != Routes.end()) {
             for (auto &middleware: Routes[path]) {
                 try {
-                    delete response;
-                    response = nullptr;
-                    response = middleware(req);
+                    middleware(req);
                     if (req.hasSendResponseBeenCalled) {
-                        delete response;
                         return;
                     }
                 } catch (std::exception &e) {
-                    delete response;
                     req.sendResponse(req, 500, e.what());
                     return;
                 }
             }
-            if (response != nullptr) {
-                req.sendResponse(req, response->statusCode, response->data);
-                delete response;
+            if (!req.hasSendResponseBeenCalled) {
+                req.sendResponse(req, 400, "You must call sendResponse in your middleware at some point.");
             }
         }
         req.sendResponse(req, 404, "Not Found");

@@ -9,6 +9,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <vector>
+#include <future>
 
 namespace HttpServer {
 
@@ -41,6 +42,14 @@ namespace HttpServer {
         }
 
 
+    }
+
+    static void cleanFuturesThreadData(std::vector<std::future<void>> &futures) {
+        for (int i = 0; i < futures.size(); i++) {
+            if (futures[i].wait_for(std::chrono::milliseconds(0)) == std::future_status::ready) {
+                futures.erase(futures.begin() + i);
+            }
+        }
     }
 
     int Server::start() {
@@ -89,6 +98,7 @@ namespace HttpServer {
 
         sockaddr_storage client_addr;
         socklen_t client_addr_size = sizeof(client_addr);
+        std::vector<std::future<void>> futures;
 
         try {
             while (true) {
@@ -98,7 +108,11 @@ namespace HttpServer {
                     continue;
                 }
                 std::cout << "New connection\n";
-                processIncomingConnections(newFD);
+                cleanFuturesThreadData(futures);
+                std::future<void> response = std::async(std::launch::async, &Server::processIncomingConnections, this,
+                                                        newFD);
+                futures.push_back(std::move(response));
+                cleanFuturesThreadData(futures);
             }
 
         } catch (std::exception &e) {
@@ -109,7 +123,8 @@ namespace HttpServer {
         }
     }
 
-    Router& Server::getRouter() {
+
+    Router &Server::getRouter() {
         return router;
     }
 

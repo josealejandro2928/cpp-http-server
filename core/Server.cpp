@@ -36,9 +36,8 @@ namespace HttpServer {
             std::cerr << "Error while processing request: " << e.what() << "\n";
             Request request;
             request.setNewFD(newFD);
-            request.sendResponse(request, 500,
-                                 "{\"message\": \"Internal server error\",\"error\": \"" + std::string(e.what()) +
-                                 "\"}");
+            request.sendResponse(request, 500, "Internal server error: " + std::string(e.what()), ContentType::TEXT);
+
         }
 
 

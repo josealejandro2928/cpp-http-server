@@ -7,6 +7,7 @@
 #include "string"
 #include "map"
 #include "Router.h"
+#include "utils/types.h"
 
 namespace HttpServer {
 
@@ -29,7 +30,7 @@ namespace HttpServer {
         if (req.getMethod() == "POST") {
             return;
         }
-        req.sendResponse(req, 404, "Not Found");
+        req.sendResponse(req, 404, "Not Found", ContentType::TEXT);
     }
 
     void Router::processCallStacks(string &path, Request &req, map<string, vector<Middleware>> &Routes) {
@@ -41,15 +42,16 @@ namespace HttpServer {
                         return;
                     }
                 } catch (std::exception &e) {
-                    req.sendResponse(req, 500, e.what());
+                    req.sendResponse(req, 500, e.what(), ContentType::TEXT);
                     return;
                 }
             }
             if (!req.hasSendResponseBeenCalled) {
-                req.sendResponse(req, 400, "You must call sendResponse in your middleware at some point.");
+                req.sendResponse(req, 400, "You must call sendResponse in your middleware at some point.",
+                                 ContentType::TEXT);
             }
         }
-        req.sendResponse(req, 404, "Not Found");
+        req.sendResponse(req, 404, "Not Found", ContentType::TEXT);
     }
 
 }

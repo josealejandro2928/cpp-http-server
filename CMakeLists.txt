@@ -13,9 +13,11 @@ add_library(http_server
         core/utils/utils.h
         core/utils/utils.cpp
         core/Router.h
-        core/Router.cpp)
+        core/Router.cpp
+        core/exceptions/Exceptions.h
+        core/utils/types.cpp)
 
-target_link_libraries(http_server PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(http_server PUBLIC nlohmann_json::nlohmann_json)
 
 add_executable(server main.cpp)
 target_link_libraries(server PRIVATE http_server)

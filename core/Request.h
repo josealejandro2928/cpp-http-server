@@ -8,6 +8,7 @@
 #include <map>
 #include <string>
 #include "utils/types.h"
+#include "nlohmann/json.hpp"
 
 namespace HttpServer {
     class Request {
@@ -47,7 +48,37 @@ namespace HttpServer {
 
         void setNewFD(int _newFD) { newFD = _newFD; }
 
-        void sendResponse(Request &, int, std::string);
+        void sendResponse(Request &, int, const std::string &, const std::string &);
+
+        template<typename T>
+        void sendJson(Request &req, int statusCode, const T &data) {
+            nlohmann::json j = data;
+            sendResponse(req, statusCode, j.dump(), ContentType::JSON);
+        }
+
+        void sendJson(Request &req, int statusCode, const nlohmann::json &data) {
+            sendResponse(req, statusCode, data.dump(), ContentType::JSON);
+        }
+
+        void sendText(Request &, int, const std::string &);
+
+        template<typename T>
+        T getBodyObject() {
+            std::string bodyStr = getBody();
+            std::string contentType;
+            if (!getHeader("Content-Type").empty()) {
+                contentType = getHeader("Content-Type");
+            } else if (!getHeader("content-type").empty()) {
+                contentType = getHeader("content-type");
+            } else {
+                contentType = "application/json";
+            }
+            if (contentType == "application/json") {
+                return nlohmann::json::parse(bodyStr).get<T>();
+            } else {
+                throw std::runtime_error("Unsupported content type: " + contentType);
+            }
+        }
 
         bool hasSendResponseBeenCalled = false;
     };

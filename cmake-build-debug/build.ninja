@@ -77,6 +77,13 @@ build CMakeFiles/http_server.dir/core/Router.cpp.o: CXX_COMPILER__http_server_un
   OBJECT_DIR = CMakeFiles/http_server.dir
   OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core
 
+build CMakeFiles/http_server.dir/core/utils/types.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/utils/types.cpp || cmake_object_order_depends_target_http_server
+  DEP_FILE = CMakeFiles/http_server.dir/core/utils/types.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  OBJECT_DIR = CMakeFiles/http_server.dir
+  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/utils
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target http_server
@@ -85,7 +92,7 @@ build CMakeFiles/http_server.dir/core/Router.cpp.o: CXX_COMPILER__http_server_un
 #############################################
 # Link the static library libhttp_server.a
 
-build libhttp_server.a: CXX_STATIC_LIBRARY_LINKER__http_server_Debug CMakeFiles/http_server.dir/core/Server.cpp.o CMakeFiles/http_server.dir/core/Request.cpp.o CMakeFiles/http_server.dir/core/utils/utils.cpp.o CMakeFiles/http_server.dir/core/Router.cpp.o
+build libhttp_server.a: CXX_STATIC_LIBRARY_LINKER__http_server_Debug CMakeFiles/http_server.dir/core/Server.cpp.o CMakeFiles/http_server.dir/core/Request.cpp.o CMakeFiles/http_server.dir/core/utils/utils.cpp.o CMakeFiles/http_server.dir/core/Router.cpp.o CMakeFiles/http_server.dir/core/utils/types.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/http_server.dir
   POST_BUILD = :
@@ -105,6 +112,7 @@ build cmake_object_order_depends_target_server: phony || cmake_object_order_depe
 build CMakeFiles/server.dir/main.cpp.o: CXX_COMPILER__server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/main.cpp || cmake_object_order_depends_target_server
   DEP_FILE = CMakeFiles/server.dir/main.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
 
@@ -137,6 +145,7 @@ build cmake_object_order_depends_target_app: phony || cmake_object_order_depends
 build CMakeFiles/app.dir/App/app.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/App/app.cpp || cmake_object_order_depends_target_app
   DEP_FILE = CMakeFiles/app.dir/App/app.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/app.dir
   OBJECT_FILE_DIR = CMakeFiles/app.dir/App
 

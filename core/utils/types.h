@@ -43,12 +43,19 @@ namespace HttpServer {
         SERVICE_UNAVAILABLE = 503,
         GATEWAY_TIMEOUT = 504
     };
+
+    struct ContentType {
+        static const std::string TEXT;
+        static const std::string JSON;
+        static const std::string HTML;
+        static const std::string XML;
+        static const std::string FORM;
+    };
     struct PathMethodAndQueryParams {
         std::string path;
         std::string fullPath;
         HttpMethod method;
         std::map<std::string, std::string> query;
     };
-
 }
 #endif //HTTP_SERVER_TYPES_H

@@ -9,6 +9,10 @@
 #include "utils/utils.h"
 #include <sys/socket.h>
 #include <unistd.h>
+#include "nlohmann/json.hpp"
+#include "exceptions/Exceptions.h"
+
+using json = nlohmann::json;
 
 namespace HttpServer {
     void Request::addHeader(const std::string &key, const std::string &value) {
@@ -90,15 +94,32 @@ namespace HttpServer {
         return os;
     }
 
-    void Request::sendResponse(Request &req, int statusCode = 200,
-                               const std::string message = "{\"message\": \"Hello from server\"}") {
-        std::vector<std::string> parts = {"HTTP/1.1 ", std::to_string(statusCode), " ",
-                                          getHttpStatusResponseStrFromStatus(statusCode),
-                                          "\r\nContent-Type: application/nlohmann_json\r\n\r\n", message};
+    void Request::sendResponse(Request &req, int statusCode, const std::string &message,
+                               const std::string &contentType = ContentType::TEXT) {
+        std::string response =
+                "HTTP/1.1 " + std::to_string(statusCode) + " " + getHttpStatusResponseStrFromStatus(statusCode) +
+                "\r\n";
 
-        std::string response = strJoin(parts, "");
+        response += "Content-Type: " + contentType + "\r\n\r\n";
+
+        if (contentType == ContentType::JSON) {
+            try {
+                auto json = json::parse(message);
+                response += json.dump();
+            } catch (const json::parse_error &e) {
+                response += "{}";
+            }
+        } else if (contentType == ContentType::TEXT) {
+            response += message;
+        } else {
+            throw HttpException("Unsupported content type: " + contentType);
+        }
         hasSendResponseBeenCalled = true;
         send(req.getNewFD(), response.data(), response.length(), 0);
         close(req.getNewFD());
+    }
+
+    void Request::sendText(Request &req, int statusCode, const std::string &data) {
+        sendResponse(req, statusCode, data, ContentType::TEXT);
     }
 }

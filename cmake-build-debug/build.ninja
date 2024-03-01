@@ -49,40 +49,40 @@ cmake_ninja_workdir = /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/
 
 build cmake_object_order_depends_target_http_server: phony || CMakeFiles/http_server.dir
 
-build CMakeFiles/http_server.dir/core/Server.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/Server.cpp || cmake_object_order_depends_target_http_server
-  DEP_FILE = CMakeFiles/http_server.dir/core/Server.cpp.o.d
+build CMakeFiles/http_server.dir/core/http_server/Server.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/http_server/Server.cpp || cmake_object_order_depends_target_http_server
+  DEP_FILE = CMakeFiles/http_server.dir/core/http_server/Server.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/http_server.dir
-  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core
+  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/http_server
 
-build CMakeFiles/http_server.dir/core/Request.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/Request.cpp || cmake_object_order_depends_target_http_server
-  DEP_FILE = CMakeFiles/http_server.dir/core/Request.cpp.o.d
+build CMakeFiles/http_server.dir/core/http_server/Request.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/http_server/Request.cpp || cmake_object_order_depends_target_http_server
+  DEP_FILE = CMakeFiles/http_server.dir/core/http_server/Request.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/http_server.dir
-  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core
+  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/http_server
 
-build CMakeFiles/http_server.dir/core/utils/utils.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/utils/utils.cpp || cmake_object_order_depends_target_http_server
-  DEP_FILE = CMakeFiles/http_server.dir/core/utils/utils.cpp.o.d
+build CMakeFiles/http_server.dir/core/http_server/utils/utils.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/http_server/utils/utils.cpp || cmake_object_order_depends_target_http_server
+  DEP_FILE = CMakeFiles/http_server.dir/core/http_server/utils/utils.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/http_server.dir
-  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/utils
+  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/http_server/utils
 
-build CMakeFiles/http_server.dir/core/Router.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/Router.cpp || cmake_object_order_depends_target_http_server
-  DEP_FILE = CMakeFiles/http_server.dir/core/Router.cpp.o.d
+build CMakeFiles/http_server.dir/core/http_server/Router.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/http_server/Router.cpp || cmake_object_order_depends_target_http_server
+  DEP_FILE = CMakeFiles/http_server.dir/core/http_server/Router.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/http_server.dir
-  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core
+  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/http_server
 
-build CMakeFiles/http_server.dir/core/utils/types.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/utils/types.cpp || cmake_object_order_depends_target_http_server
-  DEP_FILE = CMakeFiles/http_server.dir/core/utils/types.cpp.o.d
+build CMakeFiles/http_server.dir/core/http_server/utils/types.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/http_server/utils/types.cpp || cmake_object_order_depends_target_http_server
+  DEP_FILE = CMakeFiles/http_server.dir/core/http_server/utils/types.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/http_server.dir
-  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/utils
+  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/http_server/utils
 
 
 # =============================================================================
@@ -92,7 +92,7 @@ build CMakeFiles/http_server.dir/core/utils/types.cpp.o: CXX_COMPILER__http_serv
 #############################################
 # Link the static library libhttp_server.a
 
-build libhttp_server.a: CXX_STATIC_LIBRARY_LINKER__http_server_Debug CMakeFiles/http_server.dir/core/Server.cpp.o CMakeFiles/http_server.dir/core/Request.cpp.o CMakeFiles/http_server.dir/core/utils/utils.cpp.o CMakeFiles/http_server.dir/core/Router.cpp.o CMakeFiles/http_server.dir/core/utils/types.cpp.o
+build libhttp_server.a: CXX_STATIC_LIBRARY_LINKER__http_server_Debug CMakeFiles/http_server.dir/core/http_server/Server.cpp.o CMakeFiles/http_server.dir/core/http_server/Request.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/utils.cpp.o CMakeFiles/http_server.dir/core/http_server/Router.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/types.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/http_server.dir
   POST_BUILD = :
@@ -112,7 +112,7 @@ build cmake_object_order_depends_target_server: phony || cmake_object_order_depe
 build CMakeFiles/server.dir/main.cpp.o: CXX_COMPILER__server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/main.cpp || cmake_object_order_depends_target_server
   DEP_FILE = CMakeFiles/server.dir/main.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
 
@@ -142,33 +142,26 @@ build server: CXX_EXECUTABLE_LINKER__server_Debug CMakeFiles/server.dir/main.cpp
 
 build cmake_object_order_depends_target_app: phony || cmake_object_order_depends_target_http_server
 
-build CMakeFiles/app.dir/App/app.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/App/app.cpp || cmake_object_order_depends_target_app
-  DEP_FILE = CMakeFiles/app.dir/App/app.cpp.o.d
+build CMakeFiles/app.dir/app_crud_api/app.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/app_crud_api/app.cpp || cmake_object_order_depends_target_app
+  DEP_FILE = CMakeFiles/app.dir/app_crud_api/app.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/app_crud_api -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/app.dir
-  OBJECT_FILE_DIR = CMakeFiles/app.dir/App
+  OBJECT_FILE_DIR = CMakeFiles/app.dir/app_crud_api
 
-build CMakeFiles/app.dir/App/controllers/ControllerBase.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/App/controllers/ControllerBase.cpp || cmake_object_order_depends_target_app
-  DEP_FILE = CMakeFiles/app.dir/App/controllers/ControllerBase.cpp.o.d
+build CMakeFiles/app.dir/app_crud_api/services/UserService.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/app_crud_api/services/UserService.cpp || cmake_object_order_depends_target_app
+  DEP_FILE = CMakeFiles/app.dir/app_crud_api/services/UserService.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/app_crud_api -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/app.dir
-  OBJECT_FILE_DIR = CMakeFiles/app.dir/App/controllers
+  OBJECT_FILE_DIR = CMakeFiles/app.dir/app_crud_api/services
 
-build CMakeFiles/app.dir/App/services/UserService.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/App/services/UserService.cpp || cmake_object_order_depends_target_app
-  DEP_FILE = CMakeFiles/app.dir/App/services/UserService.cpp.o.d
+build CMakeFiles/app.dir/app_crud_api/models/Models.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/app_crud_api/models/Models.cpp || cmake_object_order_depends_target_app
+  DEP_FILE = CMakeFiles/app.dir/app_crud_api/models/Models.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/app_crud_api -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/app.dir
-  OBJECT_FILE_DIR = CMakeFiles/app.dir/App/services
-
-build CMakeFiles/app.dir/App/models/Models.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/App/models/Models.cpp || cmake_object_order_depends_target_app
-  DEP_FILE = CMakeFiles/app.dir/App/models/Models.cpp.o.d
-  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
-  OBJECT_DIR = CMakeFiles/app.dir
-  OBJECT_FILE_DIR = CMakeFiles/app.dir/App/models
+  OBJECT_FILE_DIR = CMakeFiles/app.dir/app_crud_api/models
 
 
 # =============================================================================
@@ -178,7 +171,7 @@ build CMakeFiles/app.dir/App/models/Models.cpp.o: CXX_COMPILER__app_unscanned_De
 #############################################
 # Link the executable app
 
-build app: CXX_EXECUTABLE_LINKER__app_Debug CMakeFiles/app.dir/App/app.cpp.o CMakeFiles/app.dir/App/controllers/ControllerBase.cpp.o CMakeFiles/app.dir/App/services/UserService.cpp.o CMakeFiles/app.dir/App/models/Models.cpp.o | libhttp_server.a || libhttp_server.a
+build app: CXX_EXECUTABLE_LINKER__app_Debug CMakeFiles/app.dir/app_crud_api/app.cpp.o CMakeFiles/app.dir/app_crud_api/services/UserService.cpp.o CMakeFiles/app.dir/app_crud_api/models/Models.cpp.o | libhttp_server.a || libhttp_server.a
   FLAGS = -g
   LINK_LIBRARIES = libhttp_server.a
   OBJECT_DIR = CMakeFiles/app.dir

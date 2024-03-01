@@ -5,12 +5,12 @@
 #ifndef HTTP_SERVER_USERCONTROLLER_H
 #define HTTP_SERVER_USERCONTROLLER_H
 
+#include "http_server/exceptions/Exceptions.h"
 #include "iostream"
 #include <vector>
 #include "ControllerBase.h"
-#include "../dto/RequestDtos.h"
-#include "../services/UserService.h"
-#include "../../core/exceptions/Exceptions.h"
+#include "dto/RequestDtos.h"
+#include "services/UserService.h"
 
 using namespace userService;
 

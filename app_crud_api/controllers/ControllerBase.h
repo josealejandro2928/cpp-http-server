@@ -7,18 +7,18 @@
 
 
 #include <utility>
-
-#include "../../core/Server.h"
+#include "http_server/Server.h"
+#include "string"
 
 class ControllerBase {
 protected:
     HttpServer::Router *router = nullptr;
-    string basePath;
+    std::string basePath;
 public:
 
     ControllerBase() = delete;
 
-    ControllerBase(HttpServer::Router *router, string basePath) : basePath(std::move(basePath)), router(router) {}
+    ControllerBase(HttpServer::Router *router, std::string basePath) : basePath(std::move(basePath)), router(router) {}
 
     virtual void registerEndpoints() = 0;
 };

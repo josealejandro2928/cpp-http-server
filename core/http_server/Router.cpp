@@ -7,8 +7,8 @@
 #include "string"
 #include "map"
 #include "Router.h"
-#include "utils/types.h"
-#include "utils/utils.h"
+#include "http_server/utils/types.h"
+#include "http_server/utils/utils.h"
 #include "exceptions/Exceptions.h"
 #include <execinfo.h>
 #include <iostream>
@@ -82,11 +82,11 @@ namespace HttpServer {
         auto *ptr = dynamic_cast<HttpException *>(&e);
         if (ptr) {
             ErrorResponseData errorResponseData(ptr->getCode(), ptr->what());
-            req.sendJson<ErrorResponseData>(req, 500, errorResponseData);
+            req.sendJson<ErrorResponseData>(req, errorResponseData.code, errorResponseData);
             return;
         }
         ErrorResponseData errorResponseData(500, "Internal Server Error" + std::string(e.what()));
-        req.sendJson<ErrorResponseData>(req, 500, errorResponseData);
+        req.sendJson<ErrorResponseData>(req, errorResponseData.code, errorResponseData);
     }
 
     static void processCallbacksSequence(Request &req, vector<Middleware> &middlewares) {

@@ -6,11 +6,11 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "utils/utils.h"
+#include "http_server/utils/utils.h"
 #include <sys/socket.h>
 #include <unistd.h>
 #include "nlohmann/json.hpp"
-#include "exceptions/Exceptions.h"
+#include "http_server/exceptions/Exceptions.h"
 
 using json = nlohmann::json;
 

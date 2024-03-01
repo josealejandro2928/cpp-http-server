@@ -8,6 +8,8 @@
 #include <exception>
 #include <string>
 #include <utility>
+#include <vector>
+#include "nlohmann/json.hpp"
 
 namespace HttpServer {
     class HttpException : public std::exception {
@@ -45,9 +47,9 @@ namespace HttpServer {
     struct ErrorResponseData {
         int code;
         std::string message;
-        std::vector<string> errors;
+        std::vector<std::string> errors;
 
-        ErrorResponseData(int code, std::string message, std::vector<string> errors) : code(code),
+        ErrorResponseData(int code, std::string message, std::vector<std::string> errors) : code(code),
                                                                                        message(std::move(message)),
                                                                                        errors(std::move(errors)) {}
 

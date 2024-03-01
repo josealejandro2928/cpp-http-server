@@ -7,7 +7,7 @@
 
 #include <map>
 #include <string>
-#include "utils/types.h"
+#include "http_server/utils/types.h"
 #include "nlohmann/json.hpp"
 
 namespace HttpServer {

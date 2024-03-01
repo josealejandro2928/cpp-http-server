@@ -3,6 +3,8 @@ project(http_server)
 
 set(CMAKE_CXX_STANDARD 20)
 
+add_subdirectory(core/external/nlohmann_json)
+
 add_library(http_server
         core/Server.h
         core/Server.cpp
@@ -12,6 +14,8 @@ add_library(http_server
         core/utils/utils.cpp
         core/Router.h
         core/Router.cpp)
+
+target_link_libraries(http_server PRIVATE nlohmann_json::nlohmann_json)
 
 add_executable(server main.cpp)
 target_link_libraries(server PRIVATE http_server)

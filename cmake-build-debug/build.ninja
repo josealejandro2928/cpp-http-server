@@ -52,24 +52,28 @@ build cmake_object_order_depends_target_http_server: phony || CMakeFiles/http_se
 build CMakeFiles/http_server.dir/core/Server.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/Server.cpp || cmake_object_order_depends_target_http_server
   DEP_FILE = CMakeFiles/http_server.dir/core/Server.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/http_server.dir
   OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core
 
 build CMakeFiles/http_server.dir/core/Request.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/Request.cpp || cmake_object_order_depends_target_http_server
   DEP_FILE = CMakeFiles/http_server.dir/core/Request.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/http_server.dir
   OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core
 
 build CMakeFiles/http_server.dir/core/utils/utils.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/utils/utils.cpp || cmake_object_order_depends_target_http_server
   DEP_FILE = CMakeFiles/http_server.dir/core/utils/utils.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/http_server.dir
   OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/utils
 
 build CMakeFiles/http_server.dir/core/Router.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/Router.cpp || cmake_object_order_depends_target_http_server
   DEP_FILE = CMakeFiles/http_server.dir/core/Router.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/http_server.dir
   OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core
 
@@ -177,6 +181,34 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /mnt/DATA/03-CODING/C++/http-server/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build core/external/nlohmann_json/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/core/external/nlohmann_json && /snap/clion/265/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build core/external/nlohmann_json/edit_cache: phony core/external/nlohmann_json/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build core/external/nlohmann_json/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/core/external/nlohmann_json && /snap/clion/265/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/mnt/DATA/03-CODING/C++/http-server -B/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build core/external/nlohmann_json/rebuild_cache: phony core/external/nlohmann_json/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
 # Target aliases.
 
 build http_server: phony libhttp_server.a
@@ -189,7 +221,14 @@ build http_server: phony libhttp_server.a
 #############################################
 # Folder: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug
 
-build all: phony libhttp_server.a server app
+build all: phony libhttp_server.a server app core/external/nlohmann_json/all
+
+# =============================================================================
+
+#############################################
+# Folder: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/core/external/nlohmann_json
+
+build core/external/nlohmann_json/all: phony
 
 # =============================================================================
 # Built-in targets
@@ -198,14 +237,14 @@ build all: phony libhttp_server.a server app
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /mnt/DATA/03-CODING/C++/http-server/CMakeLists.txt /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-C.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-C.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-Initialize.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.27.8/CMakeCCompiler.cmake CMakeFiles/3.27.8/CMakeCXXCompiler.cmake CMakeFiles/3.27.8/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /mnt/DATA/03-CODING/C++/http-server/CMakeLists.txt /mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/CMakeLists.txt /mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/cmake/config.cmake.in /mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in /mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/cmake/pkg-config.pc.in /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakePackageConfigHelpers.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-C.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/ExternalProject.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/ExternalProject/shared_internal_commands.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/GNUInstallDirs.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-C.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-Initialize.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/UnixPaths.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.27.8/CMakeCCompiler.cmake CMakeFiles/3.27.8/CMakeCXXCompiler.cmake CMakeFiles/3.27.8/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /mnt/DATA/03-CODING/C++/http-server/CMakeLists.txt /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-C.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-C.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-Initialize.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.27.8/CMakeCCompiler.cmake CMakeFiles/3.27.8/CMakeCXXCompiler.cmake CMakeFiles/3.27.8/CMakeSystem.cmake: phony
+build /mnt/DATA/03-CODING/C++/http-server/CMakeLists.txt /mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/CMakeLists.txt /mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/cmake/config.cmake.in /mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in /mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/cmake/pkg-config.pc.in /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakePackageConfigHelpers.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-C.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/ExternalProject.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/ExternalProject/shared_internal_commands.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/GNUInstallDirs.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-C.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-Initialize.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/UnixPaths.cmake /snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.27.8/CMakeCCompiler.cmake CMakeFiles/3.27.8/CMakeCXXCompiler.cmake CMakeFiles/3.27.8/CMakeSystem.cmake: phony
 
 
 #############################################

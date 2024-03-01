@@ -94,7 +94,7 @@ namespace HttpServer {
                                const std::string message = "{\"message\": \"Hello from server\"}") {
         std::vector<std::string> parts = {"HTTP/1.1 ", std::to_string(statusCode), " ",
                                           getHttpStatusResponseStrFromStatus(statusCode),
-                                          "\r\nContent-Type: application/json\r\n\r\n", message};
+                                          "\r\nContent-Type: application/nlohmann_json\r\n\r\n", message};
 
         std::string response = strJoin(parts, "");
         hasSendResponseBeenCalled = true;

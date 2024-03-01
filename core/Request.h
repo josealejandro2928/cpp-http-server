@@ -18,6 +18,7 @@ namespace HttpServer {
         HttpMethod method = HttpMethod::GET;
         std::string path;
         std::map<std::string, std::string> query;
+        std::map<std::string, std::string> requestParams;
         std::string fullPath;
         int newFD;
 
@@ -71,14 +72,18 @@ namespace HttpServer {
             } else if (!getHeader("content-type").empty()) {
                 contentType = getHeader("content-type");
             } else {
-                contentType = "application/json";
+                contentType = ContentType::TEXT;
             }
-            if (contentType == "application/json") {
+            if (contentType == ContentType::JSON) {
                 return nlohmann::json::parse(bodyStr).get<T>();
             } else {
-                throw std::runtime_error("Unsupported content type: " + contentType);
+                throw std::runtime_error(
+                        "Unsupported content type: " + contentType + " for extraction of object from body.");
             }
         }
+
+        std::map<std::string, std::string> &getAllRequestParams();
+        std::string& getRequestParam(const std::string &key);
 
         bool hasSendResponseBeenCalled = false;
     };

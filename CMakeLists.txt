@@ -22,7 +22,14 @@ target_link_libraries(http_server PUBLIC nlohmann_json::nlohmann_json)
 add_executable(server main.cpp)
 target_link_libraries(server PRIVATE http_server)
 
-add_executable(app App/app.cpp)
+add_executable(app App/app.cpp
+        App/controllers/ControllerBase.cpp
+        App/controllers/UserController.h
+        App/services/UserService.cpp
+        App/models/Models.h
+        App/models/Models.cpp
+        App/dto/RequestDtos.h
+        App/services/UserService.h)
 target_link_libraries(app PRIVATE http_server)
 
 # Specify include directories

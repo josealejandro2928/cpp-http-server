@@ -42,6 +42,19 @@ namespace HttpServer {
         NotFoundException(std::string msg) : HttpException(std::move(msg), 404) {}
     };
 
+    struct ErrorResponseData {
+        int code;
+        std::string message;
+        std::vector<string> errors;
+
+        ErrorResponseData(int code, std::string message, std::vector<string> errors) : code(code),
+                                                                                       message(std::move(message)),
+                                                                                       errors(std::move(errors)) {}
+
+        ErrorResponseData(int code, std::string message) : code(code), message(std::move(message)) {}
+    };
+
+    NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(ErrorResponseData, code, message, errors)
 }
 
 

@@ -20,8 +20,17 @@ namespace HttpServer {
     class Router {
     private:
         map <string, vector<Middleware>> GetRoutes;
+        map <string, vector<Middleware>> PostRoutes;
+        map <string, vector<Middleware>> PatchRoutes;
+        map <string, vector<Middleware>> PutRoutes;
+        map <string, vector<Middleware>> DeleteRoutes;
     public:
-        void registerRoute(HttpMethod method, string &&path, const Middleware &middleware);
+        Router() = default;
+        Router(const Router &) = delete;
+
+        Router operator=(const Router &) = delete;
+
+        void registerRoute(HttpMethod method, const string &path, const Middleware &middleware);
 
         void switchRouter(Request &req);
 

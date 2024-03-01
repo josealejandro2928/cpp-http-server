@@ -149,6 +149,27 @@ build CMakeFiles/app.dir/App/app.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/D
   OBJECT_DIR = CMakeFiles/app.dir
   OBJECT_FILE_DIR = CMakeFiles/app.dir/App
 
+build CMakeFiles/app.dir/App/controllers/ControllerBase.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/App/controllers/ControllerBase.cpp || cmake_object_order_depends_target_app
+  DEP_FILE = CMakeFiles/app.dir/App/controllers/ControllerBase.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  OBJECT_DIR = CMakeFiles/app.dir
+  OBJECT_FILE_DIR = CMakeFiles/app.dir/App/controllers
+
+build CMakeFiles/app.dir/App/services/UserService.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/App/services/UserService.cpp || cmake_object_order_depends_target_app
+  DEP_FILE = CMakeFiles/app.dir/App/services/UserService.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  OBJECT_DIR = CMakeFiles/app.dir
+  OBJECT_FILE_DIR = CMakeFiles/app.dir/App/services
+
+build CMakeFiles/app.dir/App/models/Models.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/App/models/Models.cpp || cmake_object_order_depends_target_app
+  DEP_FILE = CMakeFiles/app.dir/App/models/Models.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  OBJECT_DIR = CMakeFiles/app.dir
+  OBJECT_FILE_DIR = CMakeFiles/app.dir/App/models
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target app
@@ -157,7 +178,7 @@ build CMakeFiles/app.dir/App/app.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/D
 #############################################
 # Link the executable app
 
-build app: CXX_EXECUTABLE_LINKER__app_Debug CMakeFiles/app.dir/App/app.cpp.o | libhttp_server.a || libhttp_server.a
+build app: CXX_EXECUTABLE_LINKER__app_Debug CMakeFiles/app.dir/App/app.cpp.o CMakeFiles/app.dir/App/controllers/ControllerBase.cpp.o CMakeFiles/app.dir/App/services/UserService.cpp.o CMakeFiles/app.dir/App/models/Models.cpp.o | libhttp_server.a || libhttp_server.a
   FLAGS = -g
   LINK_LIBRARIES = libhttp_server.a
   OBJECT_DIR = CMakeFiles/app.dir

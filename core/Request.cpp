@@ -122,4 +122,15 @@ namespace HttpServer {
     void Request::sendText(Request &req, int statusCode, const std::string &data) {
         sendResponse(req, statusCode, data, ContentType::TEXT);
     }
+
+    std::map<std::string, std::string> &Request::getAllRequestParams() {
+        return requestParams;
+    }
+
+    std::string &Request::getRequestParam(const std::string &key) {
+        if (requestParams.find(key) != requestParams.end()) {
+            return requestParams[key];
+        }
+        throw UnprocessableEntityException("Request param not found: " + key);
+    }
 }

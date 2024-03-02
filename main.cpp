@@ -1,50 +1,41 @@
 #include <iostream>
-#include "http_server/Server.h"
-#include <thread>
-#include "nlohmann/json.hpp"
-
-using json = nlohmann::json;
-
-struct Response {
-    long sum;
-};
-
-struct RequestData {
-    std::string name;
-    std::string lastName;
-};
-
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Response, sum)
-
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(RequestData, name, lastName)
+#include "vector"
+#include "list"
+#include "http_server/utils/utils.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    HttpServer::Server server("9000", 10);
-    HttpServer::Router &router = server.getRouter();
-    auto middleware = [](HttpServer::Request &request) {
-//        std::this_thread::sleep_for(std::chrono::seconds(10));
-
-        long sum = 0;
-        for (int i = 0; i < 1000000000; i++) {
-            sum += i;
-        }
-        auto data = request.getBodyObject<RequestData>();
-        string name, lastName;
-        name = data.name;
-        lastName = data.lastName;
-        std::cout << name << " " << lastName << std::endl;
-        Response response{sum};
-        request.sendJson<Response>(request, 200, response);
-    };
-    router.registerRoute(HttpServer::HttpMethod::GET, "/hello", middleware);
-
-    router.registerRoute(HttpServer::HttpMethod::GET, "/", [](HttpServer::Request &request) -> void {
-        request.sendText(request, 200, "Hello World");
+    std::cout << "Testing Map:::::::::::::" << std::endl;
+    std::vector<int> data = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    auto res = HttpServer::mapFn<std::vector<int>, int>(data, [](const int &el) {
+        return el * el;
+    });
+    auto res2 = HttpServer::mapFn<std::list<int>, std::string>({40, 50}, [](const int &el) {
+        auto data = el * el;
+        return "This is a string: " + std::to_string(data);
     });
 
-    if (server.start() < 0) {
-        std::cerr << "Error while starting server\n";
+    auto res3 = HttpServer::mapFn<std::vector<std::string>, char>({"hello", "World"}, [](const std::string &el) {
+        return el[0];
+    });
+
+    for (const auto &el: res) {
+        std::cout << el << " ";
     }
-    return 0;
+    std::cout << std::endl;
+    for (const auto &el: res2) {
+        std::cout << el << " ";
+    }
+    std::cout << std::endl;
+    for (const auto &el: res3) {
+        std::cout << el << " ";
+    }
+    std::cout << std::endl;
+    std::cout << "Testing Filter::::::::::::::::" << std::endl;
+    auto filterElements = HttpServer::filterFn<std::vector<int>>(data, [](const int &el) {
+        return el % 2 == 0;
+    });
+
+    for (const auto &el: filterElements) {
+        std::cout << el << " ";
+    }
 }

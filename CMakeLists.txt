@@ -15,7 +15,9 @@ add_library(http_server
         core/http_server/Router.h
         core/http_server/Router.cpp
         core/http_server/exceptions/Exceptions.h
-        core/http_server/utils/types.cpp)
+        core/http_server/utils/types.cpp
+        core/http_server/utils/Logging.h
+        core/http_server/utils/Logging.cpp)
 
 # Set the include directories for http_server target
 target_include_directories(http_server PUBLIC
@@ -34,7 +36,9 @@ add_executable(app app_crud_api/app.cpp
         app_crud_api/models/Models.h
         app_crud_api/models/Models.cpp
         app_crud_api/dto/RequestDtos.h
-        app_crud_api/services/UserService.h)
+        app_crud_api/services/UserService.h
+        app_crud_api/middlewares/Middlewares.h
+        app_crud_api/middlewares/Middlewares.cpp)
 
 target_link_libraries(app PRIVATE http_server)
 

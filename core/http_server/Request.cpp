@@ -115,6 +115,9 @@ namespace HttpServer {
             throw HttpException("Unsupported content type: " + contentType);
         }
         hasSendResponseBeenCalled = true;
+        for (auto &cb: registerCallbacksOnFinish) {
+            cb(statusCode);
+        }
         send(req.getNewFD(), response.data(), response.length(), 0);
         close(req.getNewFD());
     }
@@ -132,5 +135,20 @@ namespace HttpServer {
             return requestParams[key];
         }
         throw UnprocessableEntityException("Request param not found: " + key);
+    }
+
+    void Request::onRequestFinish(const std::function<void(int statusCode)> &cb) {
+        registerCallbacksOnFinish.push_back(cb);
+    }
+
+    void Request::setRequestAttribute(const std::string &key, const std::any &value) {
+        requestAttributes[key] = value;
+    }
+
+    std::any &Request::getRequestAttribute(const std::string &key) {
+        if (requestAttributes.find(key) != requestAttributes.end()) {
+            return requestAttributes[key];
+        }
+        throw UnprocessableEntityException("Request attribute not found: " + key);
     }
 }

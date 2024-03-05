@@ -30,7 +30,7 @@ namespace HttpServer {
     template<typename T, typename K>
     std::vector<K> mapFn(const T &iterable, const std::function<K(const typename T::value_type &)> &predicate) {
         std::vector<K> res;
-        for (const auto el: iterable) {
+        for (const auto &el: iterable) {
             K output = predicate(el);
             res.push_back(output);
         }
@@ -38,12 +38,34 @@ namespace HttpServer {
     }
 
     template<typename T>
-    std::vector<typename T::value_type> filterFn(const T &iterable, const std::function<bool(const typename T::value_type &)> &predicate) {
+    std::vector<typename T::value_type>
+    filterFn(const T &iterable, const std::function<bool(const typename T::value_type &)> &predicate) {
         std::vector<typename T::value_type> res;
-        for (const auto el: iterable) {
+        for (const auto &el: iterable) {
             if (predicate(el)) {
                 res.push_back(el);
             }
+        }
+        return res;
+    }
+
+    template<typename T>
+    int *
+    findFn(T &iterable, const std::function<bool(typename T::value_type &)> &predicate) {
+        for (auto &el: iterable) {
+            if (predicate(el)) {
+                return &el;
+            }
+        }
+        return nullptr;
+    }
+
+    template<typename T, typename K>
+    K reduceFn(const T &iterable, const std::function<K(K &, const typename T::value_type &, int)> &predicate,
+               K initValue) {
+        K res = initValue;
+        for (auto it = iterable.begin(); it != iterable.end(); it++) {
+            res = predicate(res, *it, it - iterable.begin());
         }
         return res;
     }

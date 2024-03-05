@@ -20,6 +20,8 @@ namespace HttpServer {
         std::map<std::string, std::string> query;
         std::map<std::string, std::string> requestParams;
         std::string fullPath;
+        std::vector<std::function<void(int statusCode)>> registerCallbacksOnFinish;
+        std::map<std::string, std::any> requestAttributes;
         int newFD;
 
     public:
@@ -83,9 +85,14 @@ namespace HttpServer {
         }
 
         std::map<std::string, std::string> &getAllRequestParams();
-        std::string& getRequestParam(const std::string &key);
+
+        std::string &getRequestParam(const std::string &key);
 
         bool hasSendResponseBeenCalled = false;
+
+        void onRequestFinish(const std::function<void(int statusCode)> &cb);
+        void setRequestAttribute(const std::string &key, const std::any &value);
+        std::any& getRequestAttribute(const std::string &key);
     };
 }
 

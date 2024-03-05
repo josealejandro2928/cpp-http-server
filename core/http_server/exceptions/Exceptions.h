@@ -18,30 +18,35 @@ namespace HttpServer {
         int code;
 
     public:
-        HttpException(std::string msg, int errorCode = 500) : message(std::move(msg)), code(errorCode) {}
+        explicit HttpException(std::string msg, int errorCode = 500) : message(std::move(msg)), code(errorCode) {}
 
-        const char *what() const noexcept override {
+        [[nodiscard]] const char *what() const noexcept override {
             return message.c_str();
         }
 
-        int getCode() const noexcept {
+        [[nodiscard]] int getCode() const noexcept {
             return code;
         }
     };
 
     class BadRequestException : public HttpException {
     public:
-        BadRequestException(std::string msg) : HttpException(std::move(msg), 400) {}
+        explicit BadRequestException(std::string msg) : HttpException(std::move(msg), 400) {}
     };
 
     class UnprocessableEntityException : public HttpException {
     public:
-        UnprocessableEntityException(std::string msg) : HttpException(std::move(msg), 400) {}
+        explicit UnprocessableEntityException(std::string msg) : HttpException(std::move(msg), 400) {}
     };
 
     class NotFoundException : public HttpException {
     public:
-        NotFoundException(std::string msg) : HttpException(std::move(msg), 404) {}
+        explicit NotFoundException(std::string msg) : HttpException(std::move(msg), 404) {}
+    };
+
+    class UnauthorizedException : public HttpException {
+    public:
+        explicit UnauthorizedException(std::string msg) : HttpException(std::move(msg), 401) {}
     };
 
     struct ErrorResponseData {
@@ -50,8 +55,8 @@ namespace HttpServer {
         std::vector<std::string> errors;
 
         ErrorResponseData(int code, std::string message, std::vector<std::string> errors) : code(code),
-                                                                                       message(std::move(message)),
-                                                                                       errors(std::move(errors)) {}
+                                                                                            message(std::move(message)),
+                                                                                            errors(std::move(errors)) {}
 
         ErrorResponseData(int code, std::string message) : code(code), message(std::move(message)) {}
     };

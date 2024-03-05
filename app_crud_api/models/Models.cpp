@@ -18,6 +18,9 @@ Task::Task(std::string title, std::string description, TaskStatus status, User &
                                                                                            description(std::move(
                                                                                                    description)),
                                                                                            status(status),
-                                                                                           creator(creator) {
+                                                                                           userId(creator.id),
+                                                                                           user(creator) {
     id = globalTaskId++;
 }
+
+

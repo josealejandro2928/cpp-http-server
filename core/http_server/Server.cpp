@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <vector>
 #include <future>
+#include "http_server/utils/Logging.h"
 
 namespace HttpServer {
 
@@ -92,12 +93,17 @@ namespace HttpServer {
             freeaddrinfo(res);
             return -6;
         }
-
-        std::cout << "Server listening on port " << portNum << std::endl;
+        std::string message = "Server listening on port " + string(portNum);
+        Logging::debug(message.c_str());
 
         sockaddr_storage client_addr;
         socklen_t client_addr_size = sizeof(client_addr);
         std::vector<std::future<void>> futures;
+
+        // Running the onStart Callbacks
+        for (auto &cb: startCallbacks) {
+            cb();
+        }
 
         try {
             while (true) {
@@ -106,7 +112,6 @@ namespace HttpServer {
                     std::cerr << "Error while Accepting on socket\n";
                     continue;
                 }
-                std::cout << "New connection\n";
                 cleanFuturesThreadData(futures);
                 std::future<void> response = std::async(std::launch::async, &Server::processIncomingConnections, this,
                                                         newFD);
@@ -115,7 +120,7 @@ namespace HttpServer {
             }
 
         } catch (std::exception &e) {
-            std::cerr << "Server crached: " << e.what() << "\n";
+            std::cerr << "Server crashed: " << e.what() << "\n";
             close(sockFD);
             freeaddrinfo(res);
             return 0;
@@ -127,4 +132,13 @@ namespace HttpServer {
         return router;
     }
 
+    void Server::startListening() {
+        if (start() < 0) {
+            std::cerr << "Error while starting server\n";
+        }
+    }
+
+    void Server::onServerStart(const std::function<void()> &cb) {
+        startCallbacks.push_back(cb);
+    }
 };

@@ -84,6 +84,13 @@ build CMakeFiles/http_server.dir/core/http_server/utils/types.cpp.o: CXX_COMPILE
   OBJECT_DIR = CMakeFiles/http_server.dir
   OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/http_server/utils
 
+build CMakeFiles/http_server.dir/core/http_server/utils/Logging.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/http_server/utils/Logging.cpp || cmake_object_order_depends_target_http_server
+  DEP_FILE = CMakeFiles/http_server.dir/core/http_server/utils/Logging.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  OBJECT_DIR = CMakeFiles/http_server.dir
+  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/http_server/utils
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target http_server
@@ -92,7 +99,7 @@ build CMakeFiles/http_server.dir/core/http_server/utils/types.cpp.o: CXX_COMPILE
 #############################################
 # Link the static library libhttp_server.a
 
-build libhttp_server.a: CXX_STATIC_LIBRARY_LINKER__http_server_Debug CMakeFiles/http_server.dir/core/http_server/Server.cpp.o CMakeFiles/http_server.dir/core/http_server/Request.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/utils.cpp.o CMakeFiles/http_server.dir/core/http_server/Router.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/types.cpp.o
+build libhttp_server.a: CXX_STATIC_LIBRARY_LINKER__http_server_Debug CMakeFiles/http_server.dir/core/http_server/Server.cpp.o CMakeFiles/http_server.dir/core/http_server/Request.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/utils.cpp.o CMakeFiles/http_server.dir/core/http_server/Router.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/types.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/Logging.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/http_server.dir
   POST_BUILD = :
@@ -163,6 +170,13 @@ build CMakeFiles/app.dir/app_crud_api/models/Models.cpp.o: CXX_COMPILER__app_uns
   OBJECT_DIR = CMakeFiles/app.dir
   OBJECT_FILE_DIR = CMakeFiles/app.dir/app_crud_api/models
 
+build CMakeFiles/app.dir/app_crud_api/middlewares/Middlewares.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/app_crud_api/middlewares/Middlewares.cpp || cmake_object_order_depends_target_app
+  DEP_FILE = CMakeFiles/app.dir/app_crud_api/middlewares/Middlewares.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/app_crud_api -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/core/external/nlohmann_json/include
+  OBJECT_DIR = CMakeFiles/app.dir
+  OBJECT_FILE_DIR = CMakeFiles/app.dir/app_crud_api/middlewares
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target app
@@ -171,7 +185,7 @@ build CMakeFiles/app.dir/app_crud_api/models/Models.cpp.o: CXX_COMPILER__app_uns
 #############################################
 # Link the executable app
 
-build app: CXX_EXECUTABLE_LINKER__app_Debug CMakeFiles/app.dir/app_crud_api/app.cpp.o CMakeFiles/app.dir/app_crud_api/services/UserService.cpp.o CMakeFiles/app.dir/app_crud_api/models/Models.cpp.o | libhttp_server.a || libhttp_server.a
+build app: CXX_EXECUTABLE_LINKER__app_Debug CMakeFiles/app.dir/app_crud_api/app.cpp.o CMakeFiles/app.dir/app_crud_api/services/UserService.cpp.o CMakeFiles/app.dir/app_crud_api/models/Models.cpp.o CMakeFiles/app.dir/app_crud_api/middlewares/Middlewares.cpp.o | libhttp_server.a || libhttp_server.a
   FLAGS = -g
   LINK_LIBRARIES = libhttp_server.a
   OBJECT_DIR = CMakeFiles/app.dir

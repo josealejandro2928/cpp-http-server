@@ -10,22 +10,23 @@
 
 extern std::vector<User> users;
 
-namespace userService {
-    class UserService {
-    public:
-        static std::vector<User> users;
 
-        static User createUser(CreateUserRequest &request);
+class UserService {
+public:
+    static std::vector<User> users;
 
-        static User *findUserByEmail(const std::string &email);
+    static User createUser(CreateUserRequest &request);
 
-        static User *findUserById(const std::string &id);
+    static User *findUserByEmail(const std::string &email);
 
-        static std::vector<User> &findAll();
+    static User *findUserById(const std::string &id);
 
-    };
+    static std::vector<User> &findAll();
 
-}
+    static void readUsersFromFile();
+
+};
+
 
 #endif //HTTP_SERVER_USERSERVICE_H
 

@@ -9,11 +9,14 @@
 #include "string"
 #include "nlohmann/json.hpp"
 
+
 struct User {
-    int id;
+    int id{};
     std::string name;
     std::string email;
     std::string password;
+
+    User() = default;
 
     User(std::string name, std::string email, std::string password);
 };
@@ -29,8 +32,9 @@ struct Task {
     std::string title;
     std::string description;
     TaskStatus status;
-    User &creator;
-
+    int userId;
+    User user;
+    Task() = default;
     Task(std::string title, std::string description, TaskStatus status, User &creator);
 };
 

@@ -14,7 +14,7 @@ int main() {
         return "This is a string: " + std::to_string(data);
     });
 
-    auto res3 = HttpServer::mapFn<std::vector<std::string>, char>({"hello", "World"}, [](const std::string &el) {
+    auto res3 = HttpServer::mapFn<std::vector<std::string>, char>({"hello", "World"}, [](auto &el) {
         return el[0];
     });
 
@@ -37,5 +37,36 @@ int main() {
 
     for (const auto &el: filterElements) {
         std::cout << el << " ";
+    }
+    std::cout << std::endl;
+    std::cout << "Testing Find::::::::::::::::" << std::endl;
+    auto elementFound = HttpServer::findFn<std::vector<int>>(data, [](auto &el) {
+        return el == 9;
+    });
+    if (elementFound)
+        std::cout << "Found el:" << *elementFound << std::endl;
+    else
+        std::cout << "Not Found el " << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "Testing =Reduce::::::::::::::::" << std::endl;
+    int sum = HttpServer::reduceFn<std::vector<int>, int>(data, [](int &acc, auto &el, int index) {
+        acc += el;
+        return acc;
+    }, 0);
+    std::cout << "The output of the reduce: " << sum << std::endl;
+
+    auto elementsReduced = HttpServer::reduceFn<std::vector<int>,
+            std::vector<int>>(data,
+                              [&](auto &acc, auto &el, int index) {
+                                  if (index % 2 == 0) {
+                                      acc.push_back(data[index] *
+                                                    data[index]);
+                                  }
+                                  return acc;
+                              }, {});
+    std::cout << "Reduce Elements" << std::endl;
+    for (auto &el: elementsReduced) {
+        std::cout << el << ",";
     }
 }

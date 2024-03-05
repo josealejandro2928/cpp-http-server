@@ -39,22 +39,54 @@ namespace HttpServer {
 
     }
 
+    void Router::registerRoute(HttpMethod method, const string &path, const std::vector<Middleware> &middlewares) {
+        for (const auto &midd: middlewares) {
+            switch (method) {
+                case HttpMethod::GET:
+                    GetRoutes[path].push_back(midd);
+                    break;
+                case HttpMethod::POST:
+                    PostRoutes[path].push_back(midd);
+                    break;
+                case HttpMethod::DELETE:
+                    DeleteRoutes[path].push_back(midd);
+                    break;
+                case HttpMethod::PATCH:
+                    PatchRoutes[path].push_back(midd);
+                    break;
+                case HttpMethod::PUT:
+                    PutRoutes[path].push_back(midd);
+                    break;
+                default:
+                    throw std::invalid_argument("Unknown HTTP VERB");
+            }
+        }
+    }
+
+    void Router::use(const Middleware &middleware) {
+        globalMiddlewares["*"].push_back(middleware);
+    }
+
+    void Router::use(const string &prefixPath, const Middleware &middleware) {
+        globalMiddlewares[prefixPath].push_back(middleware);
+    }
+
     void Router::switchRouter(Request &req) {
         string path = req.getPath();
         if (req.getMethod() == "GET") {
-            return Router::processCallStacks(path, req, GetRoutes);
+            return processCallStacks(path, req, GetRoutes);
         }
         if (req.getMethod() == "POST") {
-            return Router::processCallStacks(path, req, PostRoutes);
+            return processCallStacks(path, req, PostRoutes);
         }
         if (req.getMethod() == "PUT") {
-            return Router::processCallStacks(path, req, PutRoutes);
+            return processCallStacks(path, req, PutRoutes);
         }
         if (req.getMethod() == "PATCH") {
-            return Router::processCallStacks(path, req, PatchRoutes);
+            return processCallStacks(path, req, PatchRoutes);
         }
         if (req.getMethod() == "DELETE") {
-            return Router::processCallStacks(path, req, DeleteRoutes);
+            return processCallStacks(path, req, DeleteRoutes);
         }
         req.sendResponse(req, 404, "Not Found", ContentType::TEXT);
     }
@@ -89,26 +121,42 @@ namespace HttpServer {
         req.sendJson<ErrorResponseData>(req, errorResponseData.code, errorResponseData);
     }
 
-    static void processCallbacksSequence(Request &req, vector<Middleware> &middlewares) {
+    static bool
+    processCallbacksSequence(Request &req, vector<Middleware> &middlewares, bool isShouldReturnAtTheEnd = true) {
         for (auto &middleware: middlewares) {
             try {
                 middleware(req);
                 if (req.hasSendResponseBeenCalled) {
-                    return;
+                    return true;
                 }
             } catch (std::exception &e) {
 //                    printStackTrace();
                 processErrors(req, e);
-                return;
+                return true;
             }
         }
-        if (!req.hasSendResponseBeenCalled) {
+        if (isShouldReturnAtTheEnd && !req.hasSendResponseBeenCalled) {
             ErrorResponseData errorResponseData(400, "You must call sendResponse in your middleware at some point.");
             req.sendJson<ErrorResponseData>(req, 400, errorResponseData);
         }
+        return false;
     }
 
     void Router::processCallStacks(string &path, Request &req, map<string, vector<Middleware>> &Routes) {
+        // Process first any global middlewares
+        if (globalMiddlewares.find("*") != globalMiddlewares.end()) {
+            bool res = processCallbacksSequence(req, globalMiddlewares["*"], false);
+            if (res) return;
+        }
+        // Then process the global middlewares for prefixPath, the ones used with use function that takes a prefixPath
+        for(auto& [keyPath,middlewares] : globalMiddlewares){
+            if(keyPath == "*") continue;
+            if(path.find(keyPath) == 0){
+                bool res = processCallbacksSequence(req, middlewares, false);
+                if (res) return;
+            }
+        }
+        // Then Process the normal routes middlewares
         for (auto &[key, middlewaresStack]: Routes) {
             if (key == path) {
                 processCallbacksSequence(req, middlewaresStack);
@@ -132,7 +180,7 @@ namespace HttpServer {
                         newRequestParams[registeredPathParts[i].substr(1)] = requestedPathParts[i];
                     }
                 }
-                if(isMatch) {
+                if (isMatch) {
                     requestParams = newRequestParams;
                     processCallbacksSequence(req, middlewaresStack);
                     return;

@@ -11,11 +11,19 @@ namespace HttpServer {
         char *portNum;
         unsigned int backLog;
         Router router;
+
+        int start();
+
+        void processIncomingConnections(int);
+
+        std::vector<std::function<void()>> startCallbacks;
     public:
         Server(const char *portNum, unsigned int backLog);
-        void processIncomingConnections(int);
-        int start();
-        Router& getRouter();
+
+        Router &getRouter();
+
+        void startListening();
+        void onServerStart(const std::function<void()>&);
 
     };
 }

@@ -38,7 +38,13 @@ add_executable(app app_crud_api/app.cpp
         app_crud_api/dto/RequestDtos.h
         app_crud_api/services/UserService.h
         app_crud_api/middlewares/Middlewares.h
-        app_crud_api/middlewares/Middlewares.cpp)
+        app_crud_api/middlewares/Middlewares.cpp
+        app_crud_api/services/AuthService.h
+        app_crud_api/services/AuthService.cpp
+        app_crud_api/controllers/TaskController.h
+        app_crud_api/services/TaskService.h
+        app_crud_api/services/TaskService.cpp
+        app_crud_api/dto/ResponseDto.h)
 
 target_link_libraries(app PRIVATE http_server)
 

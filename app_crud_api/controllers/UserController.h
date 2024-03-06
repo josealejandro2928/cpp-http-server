@@ -10,23 +10,34 @@
 #include <vector>
 #include "ControllerBase.h"
 #include "dto/RequestDtos.h"
+#include "dto/ResponseDto.h"
 #include "services/UserService.h"
+#include "services/AuthService.h"
+#include "middlewares/Middlewares.h"
+#include "nlohmann/json.hpp"
+#include "http_server/utils/utils.h"
+
+using json = nlohmann::json;
 
 class UserController : public ControllerBase {
 
 public:
     static void createUser(HttpServer::Request &req) {
-        std::cout << "Create user" << std::endl;
         auto createUserBody = req.getBodyObject<CreateUserRequest>();
         auto userFound = UserService::findUserByEmail(createUserBody.email);
         if (userFound != nullptr) throw HttpServer::BadRequestException("The email is already taken");
         auto user = UserService::createUser(createUserBody);
-        req.sendJson<User>(req, 201, user);
+        auto responseEntity = ResponseEntity<UserResponseDto>{user.toDto()};
+        req.sendJson<ResponseEntity<UserResponseDto>>(req, 201, responseEntity);
     }
 
     static void findAllUsers(HttpServer::Request &req) {
         std::cout << "Find All users" << std::endl;
-        req.sendJson<vector<User>>(req, 200, UserService::findAll());
+        auto users = HttpServer::mapFn<std::vector<User>, UserResponseDto>(UserService::findAll(),
+                                                                           [](const User &user) {
+                                                                               return user.toDto();
+                                                                           });
+        req.sendJson<ResponseEntity<vector<UserResponseDto>>>(req, 200, ResponseEntity<vector<UserResponseDto>>{users});
     }
 
     static void findUser(HttpServer::Request &req) {
@@ -34,7 +45,20 @@ public:
         string &userId = req.getRequestParam("userId");
         User *user = UserService::findUserById(userId);
         if (user == nullptr) throw HttpServer::NotFoundException("User not found with id:" + userId);
-        req.sendJson<User>(req, 200, *user);
+        req.sendJson<ResponseEntity<UserResponseDto>>(req, 200, ResponseEntity<UserResponseDto>{user->toDto()});
+    }
+
+    static void loginUser(HttpServer::Request &req) {
+        auto userLoginRequest = req.getBodyObject<LoginRequest>();
+        User *user = UserService::findUserByEmail(userLoginRequest.email);
+        if (!user) throw HttpServer::UnauthorizedException("User not found");
+        if (user->password != userLoginRequest.password) throw HttpServer::UnauthorizedException("Invalid password");
+        auto tokenData = AuthService::generateToken(*user);
+        AuthService::setToken(tokenData.token, &tokenData);
+        json response;
+        response["token"] = tokenData.token;
+        response["user"] = user->toDto();
+        req.sendJson(req, 200, response);
     }
 
 public:
@@ -42,9 +66,11 @@ public:
                                                                                                        basePath) {}
 
     void registerEndpoints() override {
-        router->registerRoute(HttpServer::HttpMethod::POST, basePath, createUser);
-        router->registerRoute(HttpServer::HttpMethod::GET, basePath, findAllUsers);
-        router->registerRoute(HttpServer::HttpMethod::GET, basePath + "/:userId", findUser);
+        router->postMethod(basePath + "/login", loginUser);
+        router->getMethod(basePath, findAllUsers);
+        router->postMethod(basePath, {Middlewares::usersAuthentication, createUser});
+        router->getMethod(basePath + "/:userId",
+                          {Middlewares::usersAuthentication, findUser});
     }
 };
 

@@ -14,13 +14,16 @@ User::User(std::string name, std::string email, std::string password) : name(std
     id = globalUserId++;
 }
 
-Task::Task(std::string title, std::string description, TaskStatus status, User &creator) : title(std::move(title)),
-                                                                                           description(std::move(
-                                                                                                   description)),
-                                                                                           status(status),
-                                                                                           userId(creator.id),
-                                                                                           user(creator) {
-    id = globalTaskId++;
+UserResponseDto User::toDto() const {
+    return UserResponseDto{id, name, email};
 }
 
+Task::Task(std::string title, std::string description, std::string status, User &creator) : title(std::move(title)),
+                                                                                            description(std::move(
+                                                                                                    description)),
+                                                                                            status(std::move(status)),
+                                                                                            userId(creator.id),
+                                                                                            user(creator) {
+    id = globalTaskId++;
+}
 

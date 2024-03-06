@@ -36,7 +36,6 @@ namespace HttpServer {
         }
         return res;
     }
-
     template<typename T>
     std::vector<typename T::value_type>
     filterFn(const T &iterable, const std::function<bool(const typename T::value_type &)> &predicate) {

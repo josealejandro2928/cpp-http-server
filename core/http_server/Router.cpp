@@ -149,9 +149,9 @@ namespace HttpServer {
             if (res) return;
         }
         // Then process the global middlewares for prefixPath, the ones used with use function that takes a prefixPath
-        for(auto& [keyPath,middlewares] : globalMiddlewares){
-            if(keyPath == "*") continue;
-            if(path.find(keyPath) == 0){
+        for (auto &[keyPath, middlewares]: globalMiddlewares) {
+            if (keyPath == "*") continue;
+            if (path.find(keyPath) == 0) {
                 bool res = processCallbacksSequence(req, middlewares, false);
                 if (res) return;
             }
@@ -189,6 +189,46 @@ namespace HttpServer {
 
         }
         req.sendResponse(req, 404, "Not Found", ContentType::TEXT);
+    }
+
+    void Router::getMethod(const string &path, const Middleware &middleware) {
+        registerRoute(HttpMethod::GET, path, middleware);
+    }
+
+    void Router::getMethod(const string &path, const vector<Middleware> &middlewares) {
+        registerRoute(HttpMethod::GET, path, middlewares);
+    }
+
+    void Router::postMethod(const string &path, const Middleware &middleware) {
+        registerRoute(HttpMethod::POST, path, middleware);
+    }
+
+    void Router::postMethod(const string &path, const vector<Middleware> &middlewares) {
+        registerRoute(HttpMethod::POST, path, middlewares);
+    }
+
+    void Router::putMethod(const string &path, const Middleware &middleware) {
+        registerRoute(HttpMethod::PUT, path, middleware);
+    }
+
+    void Router::putMethod(const string &path, const vector<Middleware> &middlewares) {
+        registerRoute(HttpMethod::PUT, path, middlewares);
+    }
+
+    void Router::patchMethod(const string &path, const Middleware &middleware) {
+        registerRoute(HttpMethod::PATCH, path, middleware);
+    }
+
+    void Router::patchMethod(const string &path, const vector<Middleware> &middlewares) {
+        registerRoute(HttpMethod::PATCH, path, middlewares);
+    }
+
+    void Router::deleteMethod(const string &path, const Middleware &middleware) {
+        registerRoute(HttpMethod::DELETE, path, middleware);
+    }
+
+    void Router::deleteMethod(const string &path, const vector<Middleware> &middlewares) {
+        registerRoute(HttpMethod::DELETE, path, middlewares);
     }
 
 

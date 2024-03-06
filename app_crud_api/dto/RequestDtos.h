@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include "models/Models.h"
 #include <nlohmann/json.hpp>
 
 struct CreateUserRequest {
@@ -16,5 +17,20 @@ struct CreateUserRequest {
 };
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(CreateUserRequest, name, email, password)
+
+struct LoginRequest {
+    std::string email;
+    std::string password;
+};
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(LoginRequest, email, password)
+
+struct CreateTaskRequest {
+    std::string title;
+    std::string description;
+    std::string status = "PENDING";
+};
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(CreateTaskRequest, title, description, status)
 
 #endif //HTTP_SERVER_REQUESTDTOS_H

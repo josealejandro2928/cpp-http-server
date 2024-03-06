@@ -8,9 +8,6 @@
 #include "models/Models.h"
 #include "dto/RequestDtos.h"
 
-extern std::vector<User> users;
-
-
 class UserService {
 public:
     static std::vector<User> users;

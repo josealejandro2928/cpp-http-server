@@ -5,6 +5,7 @@
 #include "http_server/utils/Logging.h"
 #include "thread"
 #include "middlewares/Middlewares.h"
+#include "controllers/TaskController.h"
 
 namespace hs = HttpServer;
 
@@ -17,7 +18,9 @@ int main() {
 
     // Defining controllers
     UserController userController(&server.getRouter(), "/users");
+    TaskController taskController(&server.getRouter(), "/tasks");
     userController.registerEndpoints();
+    taskController.registerEndpoints();
 
     // Defining middlewares
     server.getRouter().use(hs::Logging::httpRequestLog);

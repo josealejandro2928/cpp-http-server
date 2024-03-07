@@ -71,8 +71,8 @@ namespace HttpServer {
         ss << std::put_time(std::localtime(&in_time_t), "[%Y-%m-%d %X]");
         ss << " [" << getpid() << "]";
         ss << " " << levelStr << " - " << msg;
-        std::cout << ss.str() << std::endl;
 
+        std::cout << ss.str() << std::endl;
     }
 
     void Logging::httpRequestLog(Request &request) {

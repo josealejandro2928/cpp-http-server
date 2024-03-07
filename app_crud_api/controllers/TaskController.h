@@ -6,6 +6,7 @@
 #define HTTP_SERVER_TASKCONTROLLER_H
 
 #include "http_server/exceptions/Exceptions.h"
+#include "http_server/utils/utils.h"
 #include "iostream"
 #include <vector>
 #include "ControllerBase.h"
@@ -27,14 +28,24 @@ public:
             TaskController::possibleStatus + 3) {
             throw HttpServer::BadRequestException("Invalid status");
         }
-        auto loggedInUser = any_cast<User *>(req.getRequestAttribute("loggedInUser"));
+        auto loggedInUser = any_cast<std::shared_ptr<User>>(req.getRequestAttribute("loggedInUser"));
         Task task = TaskService::createTask(createTaskRequest, *loggedInUser);
-        req.sendJson<Task>(req, 201, task);
+        json response;
+        response["data"] = task.toDto();
+        req.sendJson(req, 201, response);
     }
 
     static void findAllTask(HttpServer::Request &req) {
-        auto loggedInUser = any_cast<User *>(req.getRequestAttribute("loggedInUser"));
-        req.sendJson<vector<Task>>(req, 200, TaskService::getTasks(*loggedInUser));
+        auto loggedInUser = any_cast<std::shared_ptr<User>>(req.getRequestAttribute("loggedInUser"));
+        RequestFilterTask filter;
+        if (req.getQuery().count("title") > 0) {
+            filter.title = req.getQuery()["title"];
+        }
+        if (req.getQuery().count("status") > 0) {
+            auto parts = HttpServer::strSplit(req.getQuery()["status"], ',');
+            filter.status = parts;
+        }
+        req.sendJson<vector<Task>>(req, 200, TaskService::getTasks(*loggedInUser,filter));
     }
 
 

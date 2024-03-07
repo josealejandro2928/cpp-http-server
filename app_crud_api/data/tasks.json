@@ -1,0 +1,28 @@
+[
+  {
+    "description": "This is the first task",
+    "id": 1,
+    "status": "PENDING",
+    "title": "First Task",
+    "user": {
+      "email": "jalejandroc2928@gmail.com",
+      "id": 1,
+      "name": "Jose Alejandro",
+      "password": "123456"
+    },
+    "userId": 1
+  },
+  {
+    "description": "This is the first task",
+    "id": 2,
+    "status": "IN_PROGRESS",
+    "title": "Clean my house",
+    "user": {
+      "email": "jalejandroc2928@gmail.com",
+      "id": 1,
+      "name": "Jose Alejandro",
+      "password": "123456"
+    },
+    "userId": 1
+  }
+]

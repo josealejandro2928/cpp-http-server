@@ -30,14 +30,8 @@
     "password": "1234password"
   },
   {
-    "email": "jalejandro2928@gmail.com",
+    "email": "carlos1@gmail.com",
     "id": 6,
-    "name": "Jose A",
-    "password": "123456"
-  },
-  {
-    "email": "carlos@gmail.com",
-    "id": 7,
     "name": "Carlos",
     "password": "123456"
   }

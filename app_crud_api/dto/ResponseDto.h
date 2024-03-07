@@ -15,4 +15,15 @@ struct UserResponseDto {
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(UserResponseDto, id, name, email)
 
+struct TaskResponseDto {
+    int id;
+    std::string title;
+    std::string description;
+    std::string status;
+    int userId;
+    UserResponseDto user;
+};
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(TaskResponseDto, id, title, description, status, userId, user)
+
 #endif //HTTP_SERVER_RESPONSEDTO_H

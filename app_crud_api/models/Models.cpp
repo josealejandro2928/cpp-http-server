@@ -28,3 +28,7 @@ Task::Task(std::string title, std::string description, std::string status, User 
     id = globalTaskId++;
 }
 
+TaskResponseDto Task::toDto() const {
+    return TaskResponseDto(id, title, description, status, userId, user.toDto());
+}
+

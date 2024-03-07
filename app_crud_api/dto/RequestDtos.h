@@ -33,4 +33,9 @@ struct CreateTaskRequest {
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(CreateTaskRequest, title, description, status)
 
+struct RequestFilterTask {
+    std::string title;
+    std::vector<std::string> status;
+};
+
 #endif //HTTP_SERVER_REQUESTDTOS_H

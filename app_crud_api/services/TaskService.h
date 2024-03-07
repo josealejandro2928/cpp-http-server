@@ -9,12 +9,10 @@
 #include "dto/RequestDtos.h"
 
 class TaskService {
-    static std::vector<Task> tasks;
-    static std::mutex tasksMutex;
 public:
-    static Task createTask(CreateTaskRequest &, User&);
+    static Task createTask(CreateTaskRequest &, User &);
 
-    static std::vector<Task> getTasks( User&);
+    static std::vector<Task> getTasks(User &, RequestFilterTask &);
 
     static void getTask();
 

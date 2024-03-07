@@ -30,7 +30,7 @@ void DataStorage::addUser(User &user, int index) {
         }
         users[index] = user;
     }
-    // call syncData
+    syncUsers();
 
 }
 
@@ -44,7 +44,7 @@ void DataStorage::addTask(Task &task, int index) {
         }
         tasks[index] = task;
     }
-    // call syncData
+    syncTasks();
 
 }
 
@@ -70,7 +70,7 @@ void DataStorage::syncUsers() {
 void DataStorage::syncTasks() {
     auto taskPath = dataPath / "tasks.json";
     std::ofstream file(taskPath);
-    nlohmann::json j = taskPath;
+    nlohmann::json j = tasks;
     file << j;
 }
 
@@ -122,6 +122,7 @@ void DataStorage::deleteTask(int index) {
         throw std::invalid_argument("Index out of bounds");
     }
     tasks.erase(tasks.begin() + index);
+    syncTasks();
 }
 
 void DataStorage::deleteUser(int index) {
@@ -130,7 +131,7 @@ void DataStorage::deleteUser(int index) {
         throw std::invalid_argument("Index out of bounds");
     }
     users.erase(users.begin() + index);
-
+    syncUsers();
 }
 
 DataStorage::~DataStorage() {

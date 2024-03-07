@@ -4,25 +4,33 @@
 
 #include "TaskService.h"
 #include "http_server/utils/utils.h"
-
-std::vector<Task> TaskService::tasks = {};
-std::mutex TaskService::tasksMutex = {};
+#include "data/DataStorage.h"
+namespace hs = HttpServer;
 
 Task TaskService::createTask(CreateTaskRequest &taskRequest, User &loggedUser) {
-    std::lock_guard<std::mutex> lock(tasksMutex);
+    auto &dataStorage = DataStorage::getInstance("");
     Task task = Task(taskRequest.title, taskRequest.description, taskRequest.status, loggedUser);
-    tasks.push_back(task);
+    dataStorage.addTask(task);
     return task;
 }
 
-std::vector<Task> TaskService::getTasks(User &loggedUser) {
-    auto data = HttpServer::filterFn(TaskService::tasks, [&loggedUser](const Task &task) {
-        return task.userId == loggedUser.id;
+std::vector<Task> TaskService::getTasks(User &loggedUser, RequestFilterTask &filter) {
+    auto &dataStorage = DataStorage::getInstance("");
+    auto tasks = dataStorage.getTasks();
+    tasks = hs::filterFn(tasks, [&loggedUser, & filter](const Task &task) {
+        auto res = task.userId == loggedUser.id;
+        if(!filter.title.empty()){
+            res&=(task.title.find(filter.title)!=std::string::npos);
+        }
+        if(!filter.status.empty()){
+            res&=(std::find(filter.status.begin(), filter.status.end(), task.status) != filter.status.end());
+        }
+        return res;
     });
-    std::sort(data.begin(), data.end(), [](const Task &a, const Task &b) {
+    std::sort(tasks.begin(), tasks.end(), [](const Task &a, const Task &b) {
         return a.id < b.id;
     });
-    return data;
+    return tasks;
 }
 
 

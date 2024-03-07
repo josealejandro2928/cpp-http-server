@@ -48,7 +48,7 @@ namespace HttpServer {
         }
     }
 
-    vector<string> strSplit(string &data, char limiter) {
+    vector <string> strSplit(string &data, char limiter) {
         vector<string> result;
         stringstream ss(data);
         string chunk;
@@ -58,7 +58,7 @@ namespace HttpServer {
         return result;
     }
 
-    string strJoin(vector<string> &data, string &&limiter) {
+    string strJoin(vector <string> &data, string &&limiter) {
         string result;
         for (int i = 0; i < data.size(); i++) {
             result += data[i];
@@ -90,7 +90,13 @@ namespace HttpServer {
             vector<string> queryParts = strSplit(pathAndQuery[1], '&');
             for (auto &queryPart: queryParts) {
                 vector<string> queryParam = strSplit(queryPart, '=');
-                result.query[queryParam[0]] = queryParam[1];
+                if (queryParam.size() == 1)
+                    result.query[queryParam[0]] = "";
+                else if (queryParam.size() == 2) {
+                    result.query[queryParam[0]] = queryParam[1];
+                } else {
+                    throw std::invalid_argument("Invalid query param");
+                }
             }
         }
         return result;
@@ -129,7 +135,6 @@ namespace HttpServer {
         }
 
     }
-
 
 
 }

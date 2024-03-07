@@ -21,6 +21,9 @@ public:
 
     static std::vector<User> findAll();
 
+    static void deleteUser(const std::string &id);
+    static User updateUser(const std::string &id, const UpdateUserRequest &request);
+
 };
 
 

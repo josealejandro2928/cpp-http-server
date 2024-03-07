@@ -32,6 +32,7 @@ public:
     static void readTokensFromFile();
 
     static void syncData();
+    static void logoutUser(const std::string &email);
 };
 
 class InvalidTokenException : public std::exception {

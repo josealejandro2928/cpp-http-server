@@ -18,6 +18,13 @@ struct CreateUserRequest {
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(CreateUserRequest, name, email, password)
 
+struct UpdateUserRequest {
+    std::string name;
+    std::string password;
+};
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(UpdateUserRequest, name, password)
+
 struct LoginRequest {
     std::string email;
     std::string password;

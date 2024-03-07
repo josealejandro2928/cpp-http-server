@@ -80,6 +80,17 @@ void AuthService::readTokensFromFile() {
     }
 }
 
+void AuthService::logoutUser(const std::string &email) {
+    for (auto it = authTokens.begin(); it != authTokens.end();) {
+        if (it->second.email == email) {
+            it = authTokens.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
+}
+
 
 
 

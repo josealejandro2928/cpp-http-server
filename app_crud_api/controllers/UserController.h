@@ -67,16 +67,43 @@ public:
         req.sendJson(req, 200, response);
     }
 
+    static void logoutUser(HttpServer::Request &req) {
+        auto loggedInUser = any_cast<std::shared_ptr<User>>(req.getRequestAttribute("loggedInUser"));
+        AuthService::logoutUser(loggedInUser->email);
+        req.sendJson(req, 200, json({{"message", "Logged out"}}));
+    }
+
+    static void deleteUser(HttpServer::Request &req) {
+        string &userId = req.getRequestParam("userId");
+        UserService::deleteUser(userId);
+        req.sendJson(req, 200, json({{"message", "User deleted"}}));
+    }
+
+    static void updateUser(HttpServer::Request &req) {
+        string &userId = req.getRequestParam("userId");
+        auto createUserBody = req.getBodyObject<UpdateUserRequest>();
+        auto user = UserService::updateUser(userId, createUserBody);
+        json response;
+        response["data"] = user.toDto();
+        req.sendJson(req, 200, response);
+    }
+
 public:
     explicit UserController(HttpServer::Router *router, const string &basePath = "/") : ControllerBase(router,
                                                                                                        basePath) {}
 
     void registerEndpoints() override {
         router->postMethod(basePath + "/login", loginUser);
+        router->postMethod(basePath + "/logout", {Middlewares::usersAuthentication, logoutUser});
         router->getMethod(basePath, findAllUsers);
         router->postMethod(basePath, {Middlewares::usersAuthentication, createUser});
         router->getMethod(basePath + "/:userId",
                           {Middlewares::usersAuthentication, findUser});
+
+        router->deleteMethod(basePath + "/:userId",
+                             {Middlewares::usersAuthentication, deleteUser});
+
+        router->putMethod(basePath + "/:userId", {Middlewares::usersAuthentication, updateUser});
     }
 };
 

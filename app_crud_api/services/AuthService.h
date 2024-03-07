@@ -10,12 +10,16 @@
 #include "models/Models.h"
 #include "mutex"
 #include "chrono"
+#include "filesystem"
+
+namespace fs = std::filesystem;
 
 class AuthService {
 private:
     static std::chrono::duration<std::chrono::system_clock::rep, std::chrono::system_clock::period> TTL;
     static std::mutex authTokenMutex;
     static std::unordered_map<std::string, UserTokenData> authTokens;
+    static fs::path dataPath;
 public:
     static UserTokenData generateToken(User &user);
 
@@ -24,6 +28,10 @@ public:
     static UserTokenData *getTokenData(const std::string &token);
 
     static UserTokenData *validateToken(std::string &);
+
+    static void readTokensFromFile();
+
+    static void syncData();
 };
 
 class InvalidTokenException : public std::exception {

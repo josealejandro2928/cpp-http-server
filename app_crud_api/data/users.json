@@ -1,32 +1,44 @@
 [
   {
+    "email": "jalejandroc2928@gmail.com",
     "id": 1,
     "name": "Jose Alejandro",
-    "email": "jalejandroc2928@gmail.com",
     "password": "123456"
   },
   {
+    "email": "jane.smith@example.com",
     "id": 2,
     "name": "Jane Smith",
-    "email": "jane.smith@example.com",
     "password": "secret456"
   },
   {
+    "email": "alice.johnson@example.com",
     "id": 3,
     "name": "Alice Johnson",
-    "email": "alice.johnson@example.com",
     "password": "mypassword789"
   },
   {
+    "email": "bob.brown@example.com",
     "id": 4,
     "name": "Bob Brown",
-    "email": "bob.brown@example.com",
     "password": "pass1234"
   },
   {
+    "email": "charlie.davis@example.com",
     "id": 5,
     "name": "Charlie Davis",
-    "email": "charlie.davis@example.com",
     "password": "1234password"
+  },
+  {
+    "email": "jalejandro2928@gmail.com",
+    "id": 6,
+    "name": "Jose A",
+    "password": "123456"
+  },
+  {
+    "email": "carlos@gmail.com",
+    "id": 7,
+    "name": "Carlos",
+    "password": "123456"
   }
 ]

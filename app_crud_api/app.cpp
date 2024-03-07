@@ -6,6 +6,8 @@
 #include "thread"
 #include "middlewares/Middlewares.h"
 #include "controllers/TaskController.h"
+#include "services/AuthService.h"
+#include "data/DataStorage.h"
 
 namespace hs = HttpServer;
 
@@ -24,12 +26,14 @@ int main() {
 
     // Defining middlewares
     server.getRouter().use(hs::Logging::httpRequestLog);
-    server.getRouter().use(Middlewares::apiAuthentication);
+//    server.getRouter().use(Middlewares::apiAuthentication);
 
     server.onServerStart([]() {
         hs::Logging::info("<<<<<>>>>>Server started<<<<<>>>>>");
-        UserService::readUsersFromFile();
-        hs::Logging::info("<<<<<>>>>>Users loaded from file<<<<<>>>>>");
+        hs::Logging::info("<<<<<>>>>>Loading data from dataStorage files<<<<<>>>>>");
+        DataStorage::getInstance(fs::current_path().parent_path() / "app_crud_api" / "data");
+        AuthService::readTokensFromFile();
+        hs::Logging::info("<<<<<>>>>>Tokens loaded from file<<<<<>>>>>");
     });
     server.startListening();
     return 0;

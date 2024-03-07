@@ -6,8 +6,9 @@
 
 #include <utility>
 
-int globalUserId = 1;
-int globalTaskId = 1;
+
+int User::globalUserId = 1;
+int Task::globalTaskId = 1;
 
 User::User(std::string name, std::string email, std::string password) : name(std::move(name)), email(std::move(email)),
                                                                         password(std::move(password)) {

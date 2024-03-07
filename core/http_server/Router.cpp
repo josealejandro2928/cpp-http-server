@@ -10,9 +10,8 @@
 #include "http_server/utils/types.h"
 #include "http_server/utils/utils.h"
 #include "exceptions/Exceptions.h"
-#include <execinfo.h>
 #include <iostream>
-#include <cstdlib>
+#include <boost/stacktrace.hpp>
 
 namespace HttpServer {
 
@@ -91,23 +90,9 @@ namespace HttpServer {
         req.sendResponse(req, 404, "Not Found", ContentType::TEXT);
     }
 
-    static void printStackTrace() {
-        void *addrlist[64];
-        int addrlen = backtrace(addrlist, sizeof(addrlist) / sizeof(void *));
-
-        if (addrlen == 0) {
-            std::cerr << "  <empty, possibly corrupt>\n";
-            return;
-        }
-
-        char **symbollist = backtrace_symbols(addrlist, addrlen);
-
-        // Print the stack trace
-        for (int i = 4; i < addrlen; i++) {
-            std::cerr << symbollist[i] << "\n";
-        }
-
-        free(symbollist);
+    static void printStackTrace(std::exception &e) {
+        std::cerr << "Exception: " << e.what() << '\n'
+                  << "Stack trace:\n" << boost::stacktrace::stacktrace();
     }
 
     static void processErrors(Request &req, std::exception &e) {
@@ -117,7 +102,8 @@ namespace HttpServer {
             req.sendJson<ErrorResponseData>(req, errorResponseData.code, errorResponseData);
             return;
         }
-        ErrorResponseData errorResponseData(500, "Internal Server Error" + std::string(e.what()));
+        printStackTrace(e);
+        ErrorResponseData errorResponseData(500, "Internal Server Error" + string(e.what()));
         req.sendJson<ErrorResponseData>(req, errorResponseData.code, errorResponseData);
     }
 
@@ -130,8 +116,11 @@ namespace HttpServer {
                     return true;
                 }
             } catch (std::exception &e) {
-//                    printStackTrace();
                 processErrors(req, e);
+                return true;
+            }catch (...){
+                ErrorResponseData errorResponseData(500, "Internal Server Error");
+                req.sendJson<ErrorResponseData>(req, 500, errorResponseData);
                 return true;
             }
         }
@@ -158,7 +147,11 @@ namespace HttpServer {
         }
         // Then Process the normal routes middlewares
         for (auto &[key, middlewaresStack]: Routes) {
-            if (key == path) {
+            std::string processedPath = key;
+            if (processedPath[processedPath.size() - 1] == '/') {
+                processedPath = processedPath.substr(0, processedPath.size() - 1);
+            }
+            if (key == path || processedPath == path) {
                 processCallbacksSequence(req, middlewaresStack);
                 return;
             } else {

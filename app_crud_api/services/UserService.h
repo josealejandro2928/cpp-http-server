@@ -7,20 +7,19 @@
 
 #include "models/Models.h"
 #include "dto/RequestDtos.h"
+#include "filesystem"
+
+namespace fs = std::filesystem;
 
 class UserService {
 public:
-    static std::vector<User> users;
-
     static User createUser(CreateUserRequest &request);
 
-    static User *findUserByEmail(const std::string &email);
+    static std::shared_ptr<User> findUserByEmail(const std::string &email);
 
-    static User *findUserById(const std::string &id);
+    static std::shared_ptr<User> findUserById(const std::string &id);
 
-    static std::vector<User> &findAll();
-
-    static void readUsersFromFile();
+    static std::vector<User> findAll();
 
 };
 

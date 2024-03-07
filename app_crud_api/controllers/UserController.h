@@ -18,6 +18,7 @@
 #include "http_server/utils/utils.h"
 
 using json = nlohmann::json;
+namespace hs = HttpServer;
 
 class UserController : public ControllerBase {
 
@@ -26,31 +27,36 @@ public:
         auto createUserBody = req.getBodyObject<CreateUserRequest>();
         auto userFound = UserService::findUserByEmail(createUserBody.email);
         if (userFound != nullptr) throw HttpServer::BadRequestException("The email is already taken");
+        json response;
         auto user = UserService::createUser(createUserBody);
-        auto responseEntity = ResponseEntity<UserResponseDto>{user.toDto()};
-        req.sendJson<ResponseEntity<UserResponseDto>>(req, 201, responseEntity);
+        response["data"] = user.toDto();
+        req.sendJson(req, 201, response);
     }
 
     static void findAllUsers(HttpServer::Request &req) {
-        std::cout << "Find All users" << std::endl;
-        auto users = HttpServer::mapFn<std::vector<User>, UserResponseDto>(UserService::findAll(),
-                                                                           [](const User &user) {
-                                                                               return user.toDto();
-                                                                           });
-        req.sendJson<ResponseEntity<vector<UserResponseDto>>>(req, 200, ResponseEntity<vector<UserResponseDto>>{users});
+//        auto users = hs::mapFn<std::vector<User>, UserResponseDto>(UserService::findAll(),
+//                                                                   [](const User &user) {
+//                                                                       return user.toDto();
+//                                                                   });
+
+        auto users = UserService::findAll();
+        json response;
+        response["data"] = users;
+        req.sendJson(req, 200, response);
     }
 
     static void findUser(HttpServer::Request &req) {
-        std::cout << "Find user By Id" << std::endl;
         string &userId = req.getRequestParam("userId");
-        User *user = UserService::findUserById(userId);
+        auto user = UserService::findUserById(userId);
         if (user == nullptr) throw HttpServer::NotFoundException("User not found with id:" + userId);
-        req.sendJson<ResponseEntity<UserResponseDto>>(req, 200, ResponseEntity<UserResponseDto>{user->toDto()});
+        json response;
+        response["data"] = user->toDto();
+        req.sendJson(req, 200, response);
     }
 
     static void loginUser(HttpServer::Request &req) {
         auto userLoginRequest = req.getBodyObject<LoginRequest>();
-        User *user = UserService::findUserByEmail(userLoginRequest.email);
+        auto user = UserService::findUserByEmail(userLoginRequest.email);
         if (!user) throw HttpServer::UnauthorizedException("User not found");
         if (user->password != userLoginRequest.password) throw HttpServer::UnauthorizedException("Invalid password");
         auto tokenData = AuthService::generateToken(*user);

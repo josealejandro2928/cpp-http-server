@@ -16,10 +16,12 @@ struct User {
     std::string name;
     std::string email;
     std::string password;
+    static int globalUserId;
 
     User() = default;
 
     User(std::string name, std::string email, std::string password);
+
     [[nodiscard]] UserResponseDto toDto() const;
 };
 
@@ -33,6 +35,7 @@ struct Task {
     std::string status;
     int userId;
     User user;
+    static int globalTaskId;
 
     Task() = default;
 
@@ -42,10 +45,11 @@ struct Task {
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Task, id, title, description, status, userId, user)
 
 struct UserTokenData {
-    int userId;
     std::string email;
     long exp;
     std::string token;
 };
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(UserTokenData, email, token, exp)
 
 #endif //HTTP_SERVER_MODELS_H

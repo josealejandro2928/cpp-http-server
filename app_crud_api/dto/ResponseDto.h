@@ -7,26 +7,6 @@
 
 #include <nlohmann/json.hpp>
 
-template<class T>
-class ResponseEntity {
-public:
-    T &data;
-
-    explicit ResponseEntity(T &data) : data(data) {}
-    explicit ResponseEntity(T &&data) : data(data) {}
-
-};
-
-template<class T>
-void from_json(const nlohmann::json &j, ResponseEntity<T> &res) {
-    res.data = j.get<T>();
-}
-
-template<class T>
-void to_json(nlohmann::json &j, const ResponseEntity<T> &res) {
-    j["data"] = res.data;
-}
-
 struct UserResponseDto {
     int id;
     std::string name;

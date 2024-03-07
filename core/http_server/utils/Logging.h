@@ -17,6 +17,8 @@ namespace HttpServer {
             ERROR
         };
 
+        static std::mutex logMutex; // Mutex to protect logging
+
         static void log(const Level level, const char *msg);
 
         static void httpRequestLog(Request &request);

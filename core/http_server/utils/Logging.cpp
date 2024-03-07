@@ -15,6 +15,7 @@
 #include <arpa/inet.h>
 
 namespace HttpServer {
+
     std::string getHostname() {
         std::array<char, HOST_NAME_MAX> hostname;
         hostname.fill(0);
@@ -44,7 +45,10 @@ namespace HttpServer {
         return hostIP;
     }
 
+    std::mutex Logging::logMutex = {};
+
     void Logging::log(const Level level, const char *msg) {
+        std::lock_guard<std::mutex> lock(logMutex);
         if (!Logging::enable) return;
         std::string levelStr;
         switch (level) {

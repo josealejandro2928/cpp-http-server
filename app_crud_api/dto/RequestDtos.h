@@ -8,6 +8,7 @@
 
 #include <string>
 #include "models/Models.h"
+#include "http_server/exceptions/Exceptions.h"
 #include <nlohmann/json.hpp>
 
 struct CreateUserRequest {
@@ -33,16 +34,21 @@ struct LoginRequest {
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(LoginRequest, email, password)
 
 struct CreateTaskRequest {
+    static std::string possibleStatus[3];
     std::string title;
     std::string description;
     std::string status = "PENDING";
+
+    void validate() const;
 };
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(CreateTaskRequest, title, description, status)
+
 
 struct RequestFilterTask {
     std::string title;
     std::vector<std::string> status;
 };
+
 
 #endif //HTTP_SERVER_REQUESTDTOS_H

@@ -10,7 +10,7 @@
 #include <vector>
 #include "ControllerBase.h"
 #include "dto/RequestDtos.h"
-#include "dto/ResponseDto.h"
+#include "dto/ResponseDtos.h"
 #include "services/UserService.h"
 #include "services/AuthService.h"
 #include "middlewares/Middlewares.h"
@@ -75,8 +75,10 @@ public:
 
     static void deleteUser(HttpServer::Request &req) {
         string &userId = req.getRequestParam("userId");
+        auto loggedInUser = any_cast<std::shared_ptr<User>>(req.getRequestAttribute("loggedInUser"));
+        if(loggedInUser->id == std::stoi(userId)) throw HttpServer::BadRequestException("User cannot delete itself");
         UserService::deleteUser(userId);
-        req.sendJson(req, 200, json({{"message", "User deleted"}}));
+        req.sendJson(req, 204);
     }
 
     static void updateUser(HttpServer::Request &req) {

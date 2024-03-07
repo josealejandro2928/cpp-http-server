@@ -14,11 +14,11 @@ public:
 
     static std::vector<Task> getTasks(User &, RequestFilterTask &);
 
-    static void getTask();
+    static std::shared_ptr<Task> getTask(int id);
 
-    static void updateTask();
+    static Task updateTask(int id, CreateTaskRequest &);
 
-    static void deleteTask();
+    static void deleteTask(int id);
 
 };
 

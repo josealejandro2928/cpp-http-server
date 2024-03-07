@@ -44,9 +44,10 @@ add_executable(app app_crud_api/app.cpp
         app_crud_api/controllers/TaskController.h
         app_crud_api/services/TaskService.h
         app_crud_api/services/TaskService.cpp
-        app_crud_api/dto/ResponseDto.h
+        app_crud_api/dto/ResponseDtos.h
         app_crud_api/data/DataStorage.h
-        app_crud_api/data/DataStorage.cpp)
+        app_crud_api/data/DataStorage.cpp
+        app_crud_api/dto/RequestDtos.cpp)
 
 target_link_libraries(app PRIVATE http_server)
 

@@ -63,6 +63,10 @@ namespace HttpServer {
             sendResponse(req, statusCode, data.dump(), ContentType::JSON);
         }
 
+        void sendJson(Request &req, int statusCode) {
+            sendResponse(req, statusCode, "", ContentType::JSON);
+        }
+
         void sendText(Request &, int, const std::string &);
 
         template<typename T>

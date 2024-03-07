@@ -103,11 +103,13 @@ namespace HttpServer {
         response += "Content-Type: " + contentType + "\r\n\r\n";
 
         if (contentType == ContentType::JSON) {
-            try {
-                auto json = json::parse(message);
-                response += json.dump();
-            } catch (const json::parse_error &e) {
-                response += "{}";
+            if (!message.empty()) {
+                try {
+                    auto json = json::parse(message);
+                    response += json.dump();
+                } catch (const json::parse_error &e) {
+                    response += "{}";
+                }
             }
         } else if (contentType == ContentType::TEXT) {
             response += message;

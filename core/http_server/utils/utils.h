@@ -49,8 +49,8 @@ namespace HttpServer {
     }
 
     template<typename T>
-    int *
-    findFn(T &iterable, const std::function<bool(typename T::value_type &)> &predicate) {
+
+    typename T::value_type * findFn(T &iterable, const std::function<bool(typename T::value_type &)> &predicate) {
         for (auto &el: iterable) {
             if (predicate(el)) {
                 return &el;

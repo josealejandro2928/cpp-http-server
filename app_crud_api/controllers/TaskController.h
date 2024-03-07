@@ -19,15 +19,21 @@
 using json = nlohmann::json;
 
 class TaskController : public ControllerBase {
-    static std::string possibleStatus[3];
-
 public:
+    static std::shared_ptr<Task> checkTaskOwnership(int taskId, int userId) {
+        auto task = TaskService::getTask(taskId);
+        if (!task) {
+            throw HttpServer::NotFoundException("Task not found");
+        }
+        if (task->userId != userId) {
+            throw HttpServer::UnauthorizedException("You are not the owner of this task");
+        }
+        return task;
+    }
+
     static void createTask(HttpServer::Request &req) {
         auto createTaskRequest = req.getBodyObject<CreateTaskRequest>();
-        if (std::find(TaskController::possibleStatus, TaskController::possibleStatus + 3, createTaskRequest.status) ==
-            TaskController::possibleStatus + 3) {
-            throw HttpServer::BadRequestException("Invalid status");
-        }
+        createTaskRequest.validate();
         auto loggedInUser = any_cast<std::shared_ptr<User>>(req.getRequestAttribute("loggedInUser"));
         Task task = TaskService::createTask(createTaskRequest, *loggedInUser);
         json response;
@@ -45,7 +51,36 @@ public:
             auto parts = HttpServer::strSplit(req.getQuery()["status"], ',');
             filter.status = parts;
         }
-        req.sendJson<vector<Task>>(req, 200, TaskService::getTasks(*loggedInUser,filter));
+        req.sendJson<vector<Task>>(req, 200, TaskService::getTasks(*loggedInUser, filter));
+    }
+
+    static void getTask(hs::Request &req) {
+        string &taskId = req.getRequestParam("taskId");
+        auto loggedInUser = any_cast<std::shared_ptr<User>>(req.getRequestAttribute("loggedInUser"));
+        auto task = checkTaskOwnership(std::stoi(taskId), loggedInUser->id);
+        json response;
+        response["data"] = task->toDto();
+        req.sendJson(req, 200, response);
+    }
+
+    static void updateTask(hs::Request &req) {
+        string &taskId = req.getRequestParam("taskId");
+        auto requestBody = req.getBodyObject<CreateTaskRequest>();
+        requestBody.validate();
+        auto loggedInUser = any_cast<std::shared_ptr<User>>(req.getRequestAttribute("loggedInUser"));
+        auto task = checkTaskOwnership(std::stoi(taskId), loggedInUser->id);
+        auto newTask = TaskService::updateTask(task->id, requestBody);
+        json response;
+        response["data"] = newTask.toDto();
+        req.sendJson(req, 201, response);
+    }
+
+    static void deleteTask(hs::Request &req) {
+        string &taskId = req.getRequestParam("taskId");
+        auto loggedInUser = any_cast<std::shared_ptr<User>>(req.getRequestAttribute("loggedInUser"));
+        auto task = checkTaskOwnership(std::stoi(taskId), loggedInUser->id);
+        TaskService::deleteTask(std::stoi(taskId));
+        req.sendJson(req, 204);
     }
 
 
@@ -56,9 +91,10 @@ public:
     void registerEndpoints() override {
         router->postMethod(basePath, {Middlewares::usersAuthentication, createTask});
         router->getMethod(basePath, {Middlewares::usersAuthentication, findAllTask});
+        router->getMethod(basePath + "/:taskId", {Middlewares::usersAuthentication, getTask});
+        router->putMethod(basePath + "/:taskId", {Middlewares::usersAuthentication, updateTask});
+        router->deleteMethod(basePath + "/:taskId", {Middlewares::usersAuthentication, deleteTask});
     }
 };
-
-std::string TaskController::possibleStatus[3] = {"PENDING", "IN_PROGRESS", "DONE"};
 
 #endif //HTTP_SERVER_TASKCONTROLLER_H

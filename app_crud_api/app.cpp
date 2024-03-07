@@ -12,7 +12,7 @@
 namespace hs = HttpServer;
 
 int main() {
-    hs::Server server("9000", 10);
+    hs::Server server("9000");
 
     server.getRouter().registerRoute(hs::HttpMethod::GET, "/", [](hs::Request &request) {
         request.sendText(request, 200, "Hello World");

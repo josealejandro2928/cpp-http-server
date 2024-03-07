@@ -3,8 +3,6 @@ project(http_server)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_subdirectory(core/external/nlohmann_json)
-
 add_library(http_server
         core/http_server/Server.h
         core/http_server/Server.cpp
@@ -19,13 +17,30 @@ add_library(http_server
         core/http_server/utils/Logging.h
         core/http_server/utils/Logging.cpp)
 
-# Set the include directories for http_server target
 target_include_directories(http_server PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/core>
-        $<INSTALL_INTERFACE:core> # for install targets
+        $<INSTALL_INTERFACE:core>
 )
 
+include(FetchContent)
+FetchContent_Declare(
+        json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_BRANCH master
+)
+FetchContent_MakeAvailable(json)
+
 target_link_libraries(http_server PUBLIC nlohmann_json::nlohmann_json)
+
+
+install(TARGETS http_server
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin)
+
+install(DIRECTORY core/http_server/
+        DESTINATION include/http_server/
+        FILES_MATCHING PATTERN "*.h")
 
 add_executable(server main.cpp)
 target_link_libraries(server PRIVATE http_server)
@@ -54,8 +69,3 @@ target_link_libraries(app PRIVATE http_server)
 target_include_directories(app PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/app_crud_api
 )
-
-# Specify include directories
-#target_include_directories(http_server PUBLIC http_server)
-#target_include_directories(server PRIVATE http_server)
-#target_include_directories(app PRIVATE http_server)

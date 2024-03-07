@@ -18,6 +18,10 @@ namespace HttpServer {
         this->portNum = (char *) portNum;
         this->backLog = backLog;
     }
+    Server::Server(const char *portNum) {
+        this->portNum = (char *) portNum;
+        this->backLog = SOMAXCONN;
+    }
 
     void Server::processIncomingConnections(int newFD) {
         try {

@@ -44,7 +44,15 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/core/external/nlohmann_json/cmake_install.cmake")
+  include("/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/json-build/cmake_install.cmake")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/libhttp_server.a")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/http_server/" TYPE DIRECTORY FILES "/mnt/DATA/03-CODING/C++/http-server/core/http_server/" FILES_MATCHING REGEX "/[^/]*\\.h$")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

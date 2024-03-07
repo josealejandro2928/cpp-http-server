@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include "types.h"
+#include "http_server/exceptions/Exceptions.h"
 
 using namespace std;
 namespace HttpServer {
@@ -82,9 +83,11 @@ namespace HttpServer {
     PathMethodAndQueryParams processRequestPathMethodAndQueryParams(string &request) {
         vector<string> parts = strSplit(request, ' ');
         PathMethodAndQueryParams result;
+        if (parts.size() < 2) throw BadRequestException("Invalid request path");
         result.method = StringToHttpMethod(parts[0]);
         result.fullPath = parts[1];
         vector<string> pathAndQuery = strSplit(parts[1], '?');
+        if (pathAndQuery.empty()) throw BadRequestException("Invalid request path");
         result.path = pathAndQuery[0];
         if (pathAndQuery.size() > 1) {
             vector<string> queryParts = strSplit(pathAndQuery[1], '&');

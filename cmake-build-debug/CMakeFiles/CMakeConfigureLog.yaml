@@ -507,3 +507,34 @@ events:
       
       
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/snap/clion/265/bin/cmake/linux/x64/share/cmake-3.27/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "cmake-build-debug/_deps/googletest-src/googletest/cmake/internal_utils.cmake:65 (find_package)"
+      - "cmake-build-debug/_deps/googletest-src/googletest/CMakeLists.txt:93 (config_compiler_and_linker)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-Ezertf"
+      binary: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-Ezertf"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-Ezertf'
+        
+        Run Build Command(s): /snap/clion/265/bin/ninja/linux/x64/ninja -v cmTC_ee32e
+        [1/2] /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -fdiagnostics-color=always -o CMakeFiles/cmTC_ee32e.dir/src.c.o -c /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-Ezertf/src.c
+        [2/2] : && /usr/bin/cc  -rdynamic CMakeFiles/cmTC_ee32e.dir/src.c.o -o cmTC_ee32e   && :
+        
+      exitCode: 0
+...

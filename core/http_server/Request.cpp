@@ -30,6 +30,36 @@ namespace HttpServer {
         return "";
     }
 
+    static void validateRequest(Request &req) {
+        static const std::string validMethods[] = {"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"};
+        if (std::find(std::begin(validMethods), std::end(validMethods), req.getMethod()) == std::end(validMethods)) {
+            throw BadRequestException("Unsupported HTTP method");
+        }
+
+        if (req.getPath().empty() || req.getPath().front() != '/') {
+            throw BadRequestException("Invalid request path");
+        }
+
+        if (req.getMethod() == "POST" || req.getMethod() == "PUT" || req.getMethod() == "PATCH") {
+            std::string contentType = req.getHeader("Content-Type");
+            std::string contentLength = req.getHeader("Content-Length");
+
+            if (contentType.empty()) {
+                throw BadRequestException("Missing Content-Type header");
+            }
+
+            if (contentLength.empty() || !std::all_of(contentLength.begin(), contentLength.end(), ::isdigit)) {
+                throw BadRequestException("Invalid or missing Content-Length header");
+            }
+        }
+        if(req.getFullPath().empty()) {
+            throw BadRequestException("Invalid request path");
+        }
+        if(req.getHeader("Host").empty()) {
+            throw BadRequestException("Missing Host header");
+        }
+    }
+
     Request Request::makeRequest(std::string &request) {
         Request req;
         std::istringstream requestStream(request);
@@ -44,7 +74,7 @@ namespace HttpServer {
                     std::string headerValue = line.substr(colonPos + 2,
                                                           line.size() - colonPos - 3); // Adjust for ": " and "\r"
                     req.addHeader(headerName, headerValue);
-                } else {
+                } else if (!line.empty()) {
                     auto parsedMethodQueryAndPath = processRequestPathMethodAndQueryParams(line);
                     req.method = parsedMethodQueryAndPath.method;
                     req.path = parsedMethodQueryAndPath.path;
@@ -63,6 +93,10 @@ namespace HttpServer {
         while (std::getline(requestStream, bodyLine)) {
             req.body += bodyLine + "\n";
         }
+        while (req.body.back() == '\n') {
+            req.body.pop_back();
+        }
+        validateRequest(req);
         return req;
     }
 

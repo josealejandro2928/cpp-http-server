@@ -3,7 +3,6 @@
 //
 #include "controllers/UserController.h"
 #include "http_server/utils/Logging.h"
-#include "thread"
 #include "middlewares/Middlewares.h"
 #include "controllers/TaskController.h"
 #include "services/AuthService.h"

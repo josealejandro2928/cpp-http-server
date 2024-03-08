@@ -18,9 +18,17 @@ namespace HttpServer {
         this->portNum = (char *) portNum;
         this->backLog = backLog;
     }
+
     Server::Server(const char *portNum) {
         this->portNum = (char *) portNum;
         this->backLog = SOMAXCONN;
+    }
+
+    static void defaultServerErrorHandler(const std::exception &e, int newFD) {
+        std::cerr << "Error while processing request: " << e.what() << "\n";
+        Request request;
+        request.setNewFD(newFD);
+        request.sendResponse(request, 500, "Internal server error: " + std::string(e.what()), ContentType::TEXT);
     }
 
     void Server::processIncomingConnections(int newFD) {
@@ -35,17 +43,12 @@ namespace HttpServer {
             buffer[bytesRead] = '\0';
             std::string requestStr(buffer);
             Request request = Request::makeRequest(requestStr);
+            request.exceptionHandler = this->globalExceptionHandler;
             request.setNewFD(newFD);
             router.switchRouter(request);
         } catch (std::exception &e) {
-            std::cerr << "Error while processing request: " << e.what() << "\n";
-            Request request;
-            request.setNewFD(newFD);
-            request.sendResponse(request, 500, "Internal server error: " + std::string(e.what()), ContentType::TEXT);
-
+            defaultServerErrorHandler(e, newFD);
         }
-
-
     }
 
     static void cleanFuturesThreadData(std::vector<std::future<void>> &futures) {
@@ -144,5 +147,9 @@ namespace HttpServer {
 
     void Server::onServerStart(const std::function<void()> &cb) {
         startCallbacks.push_back(cb);
+    }
+
+    void Server::setGlobalExceptionHandler(const function<void(std::exception &, Request &)> &fn) {
+        this->globalExceptionHandler = fn;
     }
 };

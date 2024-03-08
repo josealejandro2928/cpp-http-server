@@ -52,10 +52,10 @@ namespace HttpServer {
                 throw BadRequestException("Invalid or missing Content-Length header");
             }
         }
-        if(req.getFullPath().empty()) {
+        if (req.getFullPath().empty()) {
             throw BadRequestException("Invalid request path");
         }
-        if(req.getHeader("Host").empty()) {
+        if (req.getHeader("Host").empty()) {
             throw BadRequestException("Missing Host header");
         }
     }
@@ -187,4 +187,5 @@ namespace HttpServer {
         }
         throw UnprocessableEntityException("Request attribute not found: " + key);
     }
+
 }

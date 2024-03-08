@@ -3,6 +3,8 @@ project(http_server)
 
 set(CMAKE_CXX_STANDARD 20)
 
+enable_testing()
+
 add_library(http_server
         core/http_server/Server.h
         core/http_server/Server.cpp
@@ -70,26 +72,4 @@ target_include_directories(app PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/app_crud_api
 )
 
-include(FetchContent)
-FetchContent_Declare(
-        googletest
-        URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-)
-# For Windows: Prevent overriding the parent project's compiler/linker settings
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
-
-enable_testing()
-add_executable(
-        tests
-        testing/request_obj_test.cpp
-)
-#target_link_libraries(tests PRIVATE http_server)
-target_link_libraries(
-        tests
-        gtest_main
-        http_server
-)
-
-include(GoogleTest)
-gtest_discover_tests(tests)
+add_subdirectory(testing)

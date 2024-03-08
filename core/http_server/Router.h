@@ -8,14 +8,14 @@
 #include "vector"
 #include "string"
 #include "map"
-#include "Request.h"
 #include "functional"
+#include "Request.h"
 
 using namespace std;
 
 namespace HttpServer {
 
-    using Middleware = function<void(Request &)>;
+    using Middleware = function<void(HttpServer::Request &)>;
 
     class Router {
     private:

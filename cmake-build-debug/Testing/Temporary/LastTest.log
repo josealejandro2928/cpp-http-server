@@ -1,3 +1,273 @@
-Start testing: Mar 07 20:49 CET
+Start testing: Mar 08 13:14 CET
 ----------------------------------------------------------
-End testing: Mar 07 20:49 CET
+1/10 Testing: RequestTest.TestingBasicRequestObjectFormation
+1/10 Test: RequestTest.TestingBasicRequestObjectFormation
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.TestingBasicRequestObjectFormation" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.TestingBasicRequestObjectFormation" start time: Mar 08 13:14 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.TestingBasicRequestObjectFormation
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.TestingBasicRequestObjectFormation
+[       OK ] RequestTest.TestingBasicRequestObjectFormation (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.TestingBasicRequestObjectFormation" end time: Mar 08 13:14 CET
+"RequestTest.TestingBasicRequestObjectFormation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/10 Testing: RequestTest.TestingQueryParams
+2/10 Test: RequestTest.TestingQueryParams
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.TestingQueryParams" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.TestingQueryParams" start time: Mar 08 13:14 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.TestingQueryParams
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.TestingQueryParams
+[       OK ] RequestTest.TestingQueryParams (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.TestingQueryParams" end time: Mar 08 13:14 CET
+"RequestTest.TestingQueryParams" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/10 Testing: RequestTest.TestingPlainTextBody
+3/10 Test: RequestTest.TestingPlainTextBody
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.TestingPlainTextBody" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.TestingPlainTextBody" start time: Mar 08 13:14 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.TestingPlainTextBody
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.TestingPlainTextBody
+[       OK ] RequestTest.TestingPlainTextBody (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.TestingPlainTextBody" end time: Mar 08 13:14 CET
+"RequestTest.TestingPlainTextBody" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/10 Testing: RequestTest.TestingJsonBody
+4/10 Test: RequestTest.TestingJsonBody
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.TestingJsonBody" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.TestingJsonBody" start time: Mar 08 13:14 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.TestingJsonBody
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.TestingJsonBody
+[       OK ] RequestTest.TestingJsonBody (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.TestingJsonBody" end time: Mar 08 13:14 CET
+"RequestTest.TestingJsonBody" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/10 Testing: RequestTest.TestingTextRequestBodyWithNewlines
+5/10 Test: RequestTest.TestingTextRequestBodyWithNewlines
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.TestingTextRequestBodyWithNewlines" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.TestingTextRequestBodyWithNewlines" start time: Mar 08 13:14 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.TestingTextRequestBodyWithNewlines
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.TestingTextRequestBodyWithNewlines
+[       OK ] RequestTest.TestingTextRequestBodyWithNewlines (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.TestingTextRequestBodyWithNewlines" end time: Mar 08 13:14 CET
+"RequestTest.TestingTextRequestBodyWithNewlines" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/10 Testing: RequestTest.MalformedRequestLineThrowsException
+6/10 Test: RequestTest.MalformedRequestLineThrowsException
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.MalformedRequestLineThrowsException" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.MalformedRequestLineThrowsException" start time: Mar 08 13:14 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.MalformedRequestLineThrowsException
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.MalformedRequestLineThrowsException
+[       OK ] RequestTest.MalformedRequestLineThrowsException (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.MalformedRequestLineThrowsException" end time: Mar 08 13:14 CET
+"RequestTest.MalformedRequestLineThrowsException" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/10 Testing: RequestTest.InvalidHttpMethodThrowsException
+7/10 Test: RequestTest.InvalidHttpMethodThrowsException
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.InvalidHttpMethodThrowsException" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.InvalidHttpMethodThrowsException" start time: Mar 08 13:14 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.InvalidHttpMethodThrowsException
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.InvalidHttpMethodThrowsException
+[       OK ] RequestTest.InvalidHttpMethodThrowsException (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.InvalidHttpMethodThrowsException" end time: Mar 08 13:14 CET
+"RequestTest.InvalidHttpMethodThrowsException" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/10 Testing: RequestTest.IncorrectlyFormattedRequestLineThrowsException
+8/10 Test: RequestTest.IncorrectlyFormattedRequestLineThrowsException
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.IncorrectlyFormattedRequestLineThrowsException" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.IncorrectlyFormattedRequestLineThrowsException" start time: Mar 08 13:14 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.IncorrectlyFormattedRequestLineThrowsException
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.IncorrectlyFormattedRequestLineThrowsException
+[       OK ] RequestTest.IncorrectlyFormattedRequestLineThrowsException (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.IncorrectlyFormattedRequestLineThrowsException" end time: Mar 08 13:14 CET
+"RequestTest.IncorrectlyFormattedRequestLineThrowsException" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/10 Testing: RequestTest.MissingContentLengthThrowsException
+9/10 Test: RequestTest.MissingContentLengthThrowsException
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.MissingContentLengthThrowsException" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.MissingContentLengthThrowsException" start time: Mar 08 13:14 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.MissingContentLengthThrowsException
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.MissingContentLengthThrowsException
+[       OK ] RequestTest.MissingContentLengthThrowsException (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.MissingContentLengthThrowsException" end time: Mar 08 13:14 CET
+"RequestTest.MissingContentLengthThrowsException" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/10 Testing: RequestTest.MissingHostHeaderThrowsException
+10/10 Test: RequestTest.MissingHostHeaderThrowsException
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.MissingHostHeaderThrowsException" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.MissingHostHeaderThrowsException" start time: Mar 08 13:14 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.MissingHostHeaderThrowsException
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.MissingHostHeaderThrowsException
+[       OK ] RequestTest.MissingHostHeaderThrowsException (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.MissingHostHeaderThrowsException" end time: Mar 08 13:14 CET
+"RequestTest.MissingHostHeaderThrowsException" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Mar 08 13:14 CET

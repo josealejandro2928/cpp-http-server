@@ -7,8 +7,22 @@
 #include "controllers/TaskController.h"
 #include "services/AuthService.h"
 #include "data/DataStorage.h"
+#include "http_server/exceptions/Exceptions.h"
 
 namespace hs = HttpServer;
+
+void globalErrorHandler(std::exception &exc, hs::Request &req) {
+    string message = "Custom Global Error Handler: " + string(exc.what());
+    hs::Logging::error(message.c_str());
+    auto *ptr = dynamic_cast<hs::HttpException *>(&exc);
+    if (ptr) {
+        hs::ErrorResponseData errorResponseData(ptr->getCode(), ptr->what());
+        req.sendJson<hs::ErrorResponseData>(req, errorResponseData.code, errorResponseData);
+        return;
+    }
+    hs::ErrorResponseData errorResponseData(500, "Internal Server Error" + string(exc.what()));
+    req.sendJson<hs::ErrorResponseData>(req, errorResponseData.code, errorResponseData);
+}
 
 int main() {
     hs::Server server("9000");
@@ -34,6 +48,7 @@ int main() {
         AuthService::readTokensFromFile();
         hs::Logging::info("<<<<<>>>>>Tokens loaded from file<<<<<>>>>>");
     });
+    server.setGlobalExceptionHandler(globalErrorHandler);
     server.startListening();
     return 0;
 }

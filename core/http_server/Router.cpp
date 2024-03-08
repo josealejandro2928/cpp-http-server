@@ -70,42 +70,57 @@ namespace HttpServer {
         globalMiddlewares[prefixPath].push_back(middleware);
     }
 
-    void Router::switchRouter(Request &req) {
-        string path = req.getPath();
-        if (req.getMethod() == "GET") {
-            return processCallStacks(path, req, GetRoutes);
-        }
-        if (req.getMethod() == "POST") {
-            return processCallStacks(path, req, PostRoutes);
-        }
-        if (req.getMethod() == "PUT") {
-            return processCallStacks(path, req, PutRoutes);
-        }
-        if (req.getMethod() == "PATCH") {
-            return processCallStacks(path, req, PatchRoutes);
-        }
-        if (req.getMethod() == "DELETE") {
-            return processCallStacks(path, req, DeleteRoutes);
-        }
-        req.sendResponse(req, 404, "Not Found", ContentType::TEXT);
-    }
-
     static void printStackTrace(std::exception &e) {
         std::cerr << "Exception: " << e.what() << '\n'
                   << "Stack trace:\n" << boost::stacktrace::stacktrace();
     }
 
     static void processErrors(Request &req, std::exception &e) {
-        auto *ptr = dynamic_cast<HttpException *>(&e);
-        if (ptr) {
-            ErrorResponseData errorResponseData(ptr->getCode(), ptr->what());
-            req.sendJson<ErrorResponseData>(req, errorResponseData.code, errorResponseData);
+        if (req.exceptionHandler) {
+            req.exceptionHandler(e, req);
+            if (!req.hasSendResponseBeenCalled) {
+                ErrorResponseData errorResponseData(400,
+                                                    "You must call sendResponse in your middleware at some point.");
+                req.sendJson<ErrorResponseData>(req, 400, errorResponseData);
+            }
             return;
+        } else {
+            auto *ptr = dynamic_cast<HttpException *>(&e);
+            if (ptr) {
+                ErrorResponseData errorResponseData(ptr->getCode(), ptr->what());
+                req.sendJson<ErrorResponseData>(req, errorResponseData.code, errorResponseData);
+                return;
+            }
+            printStackTrace(e);
+            ErrorResponseData errorResponseData(500, "Internal Server Error" + string(e.what()));
+            req.sendJson<ErrorResponseData>(req, errorResponseData.code, errorResponseData);
         }
-        printStackTrace(e);
-        ErrorResponseData errorResponseData(500, "Internal Server Error" + string(e.what()));
-        req.sendJson<ErrorResponseData>(req, errorResponseData.code, errorResponseData);
     }
+
+    void Router::switchRouter(Request &req) {
+        try {
+            string path = req.getPath();
+            if (req.getMethod() == "GET") {
+                return processCallStacks(path, req, GetRoutes);
+            }
+            if (req.getMethod() == "POST") {
+                return processCallStacks(path, req, PostRoutes);
+            }
+            if (req.getMethod() == "PUT") {
+                return processCallStacks(path, req, PutRoutes);
+            }
+            if (req.getMethod() == "PATCH") {
+                return processCallStacks(path, req, PatchRoutes);
+            }
+            if (req.getMethod() == "DELETE") {
+                return processCallStacks(path, req, DeleteRoutes);
+            }
+            throw UnprocessableEntityException("Unsupported METHOD at the moment");
+        } catch (std::exception &exc) {
+            processErrors(req, exc);
+        }
+    }
+
 
     static bool
     processCallbacksSequence(Request &req, vector<Middleware> &middlewares, bool isShouldReturnAtTheEnd = true) {
@@ -118,7 +133,7 @@ namespace HttpServer {
             } catch (std::exception &e) {
                 processErrors(req, e);
                 return true;
-            }catch (...){
+            } catch (...) {
                 ErrorResponseData errorResponseData(500, "Internal Server Error");
                 req.sendJson<ErrorResponseData>(req, 500, errorResponseData);
                 return true;
@@ -181,7 +196,7 @@ namespace HttpServer {
             }
 
         }
-        req.sendResponse(req, 404, "Not Found", ContentType::TEXT);
+        throw NotFoundException("Route " + req.getFullPath() + " not found!");
     }
 
     void Router::getMethod(const string &path, const Middleware &middleware) {

@@ -59,6 +59,20 @@ namespace HttpServer {
         return result;
     }
 
+    std::vector<std::string> strSplit(const std::string& s, const std::string& delimiter) {
+        std::vector<std::string> parts;
+        auto start = 0U;
+        auto end = s.find(delimiter);
+        while (end != std::string::npos) {
+            parts.push_back(s.substr(start, end - start));
+            start = end + delimiter.length();
+            end = s.find(delimiter, start);
+        }
+        parts.push_back(s.substr(start, end));
+        return parts;
+    }
+
+
     string strJoin(vector <string> &data, string &&limiter) {
         string result;
         for (int i = 0; i < data.size(); i++) {
@@ -138,6 +152,58 @@ namespace HttpServer {
         }
 
     }
+
+    std::string urlDecode(const std::string &str) {
+        std::string result;
+        result.reserve(str.size());
+        for (size_t i = 0; i < str.length(); ++i) {
+            if (str[i] == '%') {
+                if (i + 2 < str.length()) {
+                    std::string hex = str.substr(i + 1, 2);
+                    char decodedChar = static_cast<char>(std::stoi(hex, nullptr, 16));
+                    result += decodedChar;
+                    i += 2;
+                }
+            } else if (str[i] == '+') {
+                result += ' ';
+            } else {
+                result += str[i];
+            }
+        }
+
+        return result;
+    }
+
+    std::map<std::string, std::vector<std::string>> processURLEncodedFormBody(std::string &bodyStr) {
+        // "name=Jose%20Alejandro%20Concepcion%20Alvarez&email=jalejandroc2928%40gmail.com&password=123456.Aa"
+        auto parts = strSplit(bodyStr, '&');
+        std::map<string, std::vector<std::string>> result;
+        for (auto &part: parts) {
+            auto keyVal = strSplit(part, '=');
+            if (keyVal.empty()) continue;
+            if (keyVal.size() == 1) {
+                result[keyVal[0]].emplace_back("");
+            } else {
+                result[keyVal[0]].emplace_back(urlDecode(keyVal[1]));
+            }
+        }
+        return result;
+    }
+
+    void parseMultipartFormData(const std::string& body, const std::string& boundary) {
+        auto parts = strSplit(body, "--" + boundary + "\r\n");
+        for (auto& part : parts) {
+            if (part.empty() || part == "--\r\n") continue;
+            auto headersEndPos = part.find("\r\n\r\n");
+            if (headersEndPos != std::string::npos) {
+                auto headersPart = part.substr(0, headersEndPos);
+                auto bodyPart = part.substr(headersEndPos + 4, part.length() - headersEndPos - 6); // Subtract 6 to remove the trailing "\r\n" and "--"
+                // Here you can parse headersPart to extract information like name, filename, etc.
+                // And process bodyPart as needed
+            }
+        }
+    }
+
 
 
 }

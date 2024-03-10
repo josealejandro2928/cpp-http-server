@@ -22,6 +22,7 @@ namespace HttpServer {
 
     ///////// FUNCTIONS ////////////
     std::vector<std::string> strSplit(std::string &data, char limiter);
+    std::vector<std::string> strSplit(const std::string& s, const std::string& delimiter);
 
     std::string strJoin(std::vector<std::string> &data, std::string &&limiter);
 
@@ -36,6 +37,7 @@ namespace HttpServer {
         }
         return res;
     }
+
     template<typename T>
     std::vector<typename T::value_type>
     filterFn(const T &iterable, const std::function<bool(const typename T::value_type &)> &predicate) {
@@ -50,7 +52,7 @@ namespace HttpServer {
 
     template<typename T>
 
-    typename T::value_type * findFn(T &iterable, const std::function<bool(typename T::value_type &)> &predicate) {
+    typename T::value_type *findFn(T &iterable, const std::function<bool(typename T::value_type &)> &predicate) {
         for (auto &el: iterable) {
             if (predicate(el)) {
                 return &el;
@@ -68,6 +70,11 @@ namespace HttpServer {
         }
         return res;
     }
+
+    std::string urlDecode(const std::string& );
+    std::map<std::string, std::vector<std::string>> processURLEncodedFormBody(std::string &);
+    void parseMultipartFormData(const std::string&, const std::string&);
+
 }
 
 

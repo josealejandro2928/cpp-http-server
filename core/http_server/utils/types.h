@@ -47,6 +47,7 @@ namespace HttpServer {
     struct ContentType {
         static const std::string TEXT;
         static const std::string JSON;
+        static const std::string FORM_URL_ENCODED;
         static const std::string HTML;
         static const std::string XML;
         static const std::string FORM;

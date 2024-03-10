@@ -16,7 +16,7 @@
 #include "middlewares/Middlewares.h"
 #include "nlohmann/json.hpp"
 #include "http_server/utils/utils.h"
-
+#include "ranges"
 using json = nlohmann::json;
 namespace hs = HttpServer;
 
@@ -39,9 +39,10 @@ public:
 //                                                                       return user.toDto();
 //                                                                   });
 
-        auto users = UserService::findAll();
+        auto usersViews = UserService::findAll() | std::views::transform([&](User& user){return user.toDto();});
+        auto userDto =   std::vector<UserResponseDto>(usersViews.begin(),usersViews.end());
         json response;
-        response["data"] = users;
+        response["data"] = userDto;
         req.sendJson(req, 200, response);
     }
 

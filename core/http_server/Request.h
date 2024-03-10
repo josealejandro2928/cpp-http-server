@@ -8,8 +8,11 @@
 #include <map>
 #include <string>
 #include "http_server/utils/types.h"
+#include "http_server/utils/utils.h"
+#include "http_server/exceptions/Exceptions.h"
 #include "nlohmann/json.hpp"
 
+using json = nlohmann::json;
 namespace HttpServer {
     class Request {
     private:
@@ -25,6 +28,7 @@ namespace HttpServer {
         int newFD = 0;
     public:
         std::function<void(std::exception &, Request &)> exceptionHandler = nullptr;
+
         Request() = default;
 
         void addHeader(const std::string &key, const std::string &value);
@@ -69,6 +73,18 @@ namespace HttpServer {
 
         void sendText(Request &, int, const std::string &);
 
+        std::map<std::string, std::string> &getAllRequestParams();
+
+        std::string &getRequestParam(const std::string &key);
+
+        bool hasSendResponseBeenCalled = false;
+
+        void onRequestFinish(const std::function<void(int statusCode)> &cb);
+
+        void setRequestAttribute(const std::string &key, const std::any &value);
+
+        std::any &getRequestAttribute(const std::string &key);
+
         template<typename T>
         T getBodyObject() {
             std::string bodyStr = getBody();
@@ -81,24 +97,30 @@ namespace HttpServer {
                 contentType = ContentType::TEXT;
             }
             if (contentType == ContentType::JSON) {
-                return nlohmann::json::parse(bodyStr).get<T>();
+                return json::parse(bodyStr).get<T>();
+            } else if (contentType == ContentType::FORM_URL_ENCODED) {
+                auto map_body = processURLEncodedFormBody(bodyStr);
+                json data;
+                for (auto &[key, value]: map_body) {
+                    if (value.size() > 1) {
+                        data[key] = value;
+                    } else {
+                        data[key] = value[0];
+                    }
+                }
+                return data.get<T>();
+            } else if (contentType.find(ContentType::FORM) ==0) {
+                throw std::runtime_error(
+                        "Unsupported content type for the moment");
+//                auto parts = strSplit(contentType, "; boundary=");
+//                if (parts.size() != 2) { throw BadRequestException("Invalid form multipart body encoded"); }
+//                parseMultipartFormData(bodyStr, parts.back());
+//                return T();
             } else {
                 throw std::runtime_error(
-                        "Unsupported content type: " + contentType + " for extraction of object from body.");
+                        " Unsupported content type: " + contentType + " for extraction of object from body.");
             }
         }
-
-        std::map<std::string, std::string> &getAllRequestParams();
-
-        std::string &getRequestParam(const std::string &key);
-
-        bool hasSendResponseBeenCalled = false;
-
-        void onRequestFinish(const std::function<void(int statusCode)> &cb);
-
-        void setRequestAttribute(const std::string &key, const std::any &value);
-
-        std::any &getRequestAttribute(const std::string &key);
     };
 }
 

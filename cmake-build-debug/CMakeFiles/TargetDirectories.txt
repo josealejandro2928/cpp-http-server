@@ -1,7 +1,6 @@
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/http_server.dir
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/server.dir
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/app.dir
-/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/tests.dir
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/test.dir
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/edit_cache.dir
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/CMakeFiles/rebuild_cache.dir
@@ -16,6 +15,14 @@
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/json-build/CMakeFiles/install.dir
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/json-build/CMakeFiles/install/local.dir
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/json-build/CMakeFiles/install/strip.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/CMakeFiles/tests.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/CMakeFiles/test.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/CMakeFiles/edit_cache.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/CMakeFiles/rebuild_cache.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/CMakeFiles/list_install_components.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/CMakeFiles/install.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/CMakeFiles/install/local.dir
+/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/CMakeFiles/install/strip.dir
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-build/CMakeFiles/test.dir
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-build/CMakeFiles/edit_cache.dir
 /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-build/CMakeFiles/rebuild_cache.dir

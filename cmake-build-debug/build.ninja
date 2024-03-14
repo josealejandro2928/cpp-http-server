@@ -212,6 +212,20 @@ build CMakeFiles/app.dir/app_crud_api/dto/RequestDtos.cpp.o: CXX_COMPILER__app_u
   OBJECT_DIR = CMakeFiles/app.dir
   OBJECT_FILE_DIR = CMakeFiles/app.dir/app_crud_api/dto
 
+build CMakeFiles/app.dir/app_crud_api/services/TaskWorkerService.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/app_crud_api/services/TaskWorkerService.cpp || cmake_object_order_depends_target_app
+  DEP_FILE = CMakeFiles/app.dir/app_crud_api/services/TaskWorkerService.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/app_crud_api -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/json-src/include
+  OBJECT_DIR = CMakeFiles/app.dir
+  OBJECT_FILE_DIR = CMakeFiles/app.dir/app_crud_api/services
+
+build CMakeFiles/app.dir/app_crud_api/services/ComputationService.cpp.o: CXX_COMPILER__app_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/app_crud_api/services/ComputationService.cpp || cmake_object_order_depends_target_app
+  DEP_FILE = CMakeFiles/app.dir/app_crud_api/services/ComputationService.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/app_crud_api -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/json-src/include
+  OBJECT_DIR = CMakeFiles/app.dir
+  OBJECT_FILE_DIR = CMakeFiles/app.dir/app_crud_api/services
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target app
@@ -220,7 +234,7 @@ build CMakeFiles/app.dir/app_crud_api/dto/RequestDtos.cpp.o: CXX_COMPILER__app_u
 #############################################
 # Link the executable app
 
-build app: CXX_EXECUTABLE_LINKER__app_Debug CMakeFiles/app.dir/app_crud_api/app.cpp.o CMakeFiles/app.dir/app_crud_api/services/UserService.cpp.o CMakeFiles/app.dir/app_crud_api/models/Models.cpp.o CMakeFiles/app.dir/app_crud_api/middlewares/Middlewares.cpp.o CMakeFiles/app.dir/app_crud_api/services/AuthService.cpp.o CMakeFiles/app.dir/app_crud_api/services/TaskService.cpp.o CMakeFiles/app.dir/app_crud_api/data/DataStorage.cpp.o CMakeFiles/app.dir/app_crud_api/dto/RequestDtos.cpp.o | libhttp_server.a || libhttp_server.a
+build app: CXX_EXECUTABLE_LINKER__app_Debug CMakeFiles/app.dir/app_crud_api/app.cpp.o CMakeFiles/app.dir/app_crud_api/services/UserService.cpp.o CMakeFiles/app.dir/app_crud_api/models/Models.cpp.o CMakeFiles/app.dir/app_crud_api/middlewares/Middlewares.cpp.o CMakeFiles/app.dir/app_crud_api/services/AuthService.cpp.o CMakeFiles/app.dir/app_crud_api/services/TaskService.cpp.o CMakeFiles/app.dir/app_crud_api/data/DataStorage.cpp.o CMakeFiles/app.dir/app_crud_api/dto/RequestDtos.cpp.o CMakeFiles/app.dir/app_crud_api/services/TaskWorkerService.cpp.o CMakeFiles/app.dir/app_crud_api/services/ComputationService.cpp.o | libhttp_server.a || libhttp_server.a
   FLAGS = -g
   LINK_LIBRARIES = libhttp_server.a
   OBJECT_DIR = CMakeFiles/app.dir

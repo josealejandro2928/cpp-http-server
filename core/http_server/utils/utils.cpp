@@ -59,7 +59,7 @@ namespace HttpServer {
         return result;
     }
 
-    std::vector<std::string> strSplit(const std::string& s, const std::string& delimiter) {
+    std::vector<std::string> strSplit(const std::string &s, const std::string &delimiter) {
         std::vector<std::string> parts;
         auto start = 0U;
         auto end = s.find(delimiter);
@@ -137,6 +137,8 @@ namespace HttpServer {
                 return "Forbidden";
             case 404:
                 return "Not Found";
+            case 422:
+                return "Unprocessable Entity";
             case 405:
                 return "Method Not Allowed";
             case 500:
@@ -190,20 +192,20 @@ namespace HttpServer {
         return result;
     }
 
-    void parseMultipartFormData(const std::string& body, const std::string& boundary) {
+    void parseMultipartFormData(const std::string &body, const std::string &boundary) {
         auto parts = strSplit(body, "--" + boundary + "\r\n");
-        for (auto& part : parts) {
+        for (auto &part: parts) {
             if (part.empty() || part == "--\r\n") continue;
             auto headersEndPos = part.find("\r\n\r\n");
             if (headersEndPos != std::string::npos) {
                 auto headersPart = part.substr(0, headersEndPos);
-                auto bodyPart = part.substr(headersEndPos + 4, part.length() - headersEndPos - 6); // Subtract 6 to remove the trailing "\r\n" and "--"
+                auto bodyPart = part.substr(headersEndPos + 4, part.length() - headersEndPos -
+                                                               6); // Subtract 6 to remove the trailing "\r\n" and "--"
                 // Here you can parse headersPart to extract information like name, filename, etc.
                 // And process bodyPart as needed
             }
         }
     }
-
 
 
 }

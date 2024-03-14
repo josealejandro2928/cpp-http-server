@@ -50,5 +50,11 @@ struct RequestFilterTask {
     std::vector<std::string> status;
 };
 
+struct ComputeNPrimesRequest {
+    std::vector<long> primesToCompute;
+    bool blockedResult = false;
+};
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(ComputeNPrimesRequest, primesToCompute, blockedResult)
 
 #endif //HTTP_SERVER_REQUESTDTOS_H

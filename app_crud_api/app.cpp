@@ -8,7 +8,8 @@
 #include "services/AuthService.h"
 #include "data/DataStorage.h"
 #include "http_server/exceptions/Exceptions.h"
-
+#include "controllers/ComputationController.h"
+#include "nlohmann/json.hpp"
 namespace hs = HttpServer;
 
 void globalErrorHandler(std::exception &exc, hs::Request &req) {
@@ -17,6 +18,12 @@ void globalErrorHandler(std::exception &exc, hs::Request &req) {
     auto *ptr = dynamic_cast<hs::HttpException *>(&exc);
     if (ptr) {
         hs::ErrorResponseData errorResponseData(ptr->getCode(), ptr->what());
+        req.sendJson<hs::ErrorResponseData>(req, errorResponseData.code, errorResponseData);
+        return;
+    }
+    auto *ptr2 = dynamic_cast<nlohmann::json::exception*>(&exc);
+    if(ptr2){
+        hs::ErrorResponseData errorResponseData(422, ptr2->what());
         req.sendJson<hs::ErrorResponseData>(req, errorResponseData.code, errorResponseData);
         return;
     }
@@ -34,8 +41,10 @@ int main() {
     // Defining controllers
     UserController userController(&server.getRouter(), "/users");
     TaskController taskController(&server.getRouter(), "/tasks");
+    ComputationController computationController(&server.getRouter(), "/computation");
     userController.registerEndpoints();
     taskController.registerEndpoints();
+    computationController.registerEndpoints();
 
     // Defining middlewares
     server.getRouter().use(hs::Logging::httpRequestLog);
@@ -49,6 +58,7 @@ int main() {
         hs::Logging::info("<<<<<>>>>>Tokens loaded from file<<<<<>>>>>");
     });
     server.setGlobalExceptionHandler(globalErrorHandler);
+
     server.startListening();
     return 0;
 }

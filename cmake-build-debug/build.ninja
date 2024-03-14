@@ -91,6 +91,13 @@ build CMakeFiles/http_server.dir/core/http_server/utils/Logging.cpp.o: CXX_COMPI
   OBJECT_DIR = CMakeFiles/http_server.dir
   OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/http_server/utils
 
+build CMakeFiles/http_server.dir/core/http_server/concurrency/ThreadPool.cpp.o: CXX_COMPILER__http_server_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/core/http_server/concurrency/ThreadPool.cpp || cmake_object_order_depends_target_http_server
+  DEP_FILE = CMakeFiles/http_server.dir/core/http_server/concurrency/ThreadPool.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/json-src/include
+  OBJECT_DIR = CMakeFiles/http_server.dir
+  OBJECT_FILE_DIR = CMakeFiles/http_server.dir/core/http_server/concurrency
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target http_server
@@ -99,7 +106,7 @@ build CMakeFiles/http_server.dir/core/http_server/utils/Logging.cpp.o: CXX_COMPI
 #############################################
 # Link the static library libhttp_server.a
 
-build libhttp_server.a: CXX_STATIC_LIBRARY_LINKER__http_server_Debug CMakeFiles/http_server.dir/core/http_server/Server.cpp.o CMakeFiles/http_server.dir/core/http_server/Request.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/utils.cpp.o CMakeFiles/http_server.dir/core/http_server/Router.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/types.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/Logging.cpp.o
+build libhttp_server.a: CXX_STATIC_LIBRARY_LINKER__http_server_Debug CMakeFiles/http_server.dir/core/http_server/Server.cpp.o CMakeFiles/http_server.dir/core/http_server/Request.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/utils.cpp.o CMakeFiles/http_server.dir/core/http_server/Router.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/types.cpp.o CMakeFiles/http_server.dir/core/http_server/utils/Logging.cpp.o CMakeFiles/http_server.dir/core/http_server/concurrency/ThreadPool.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/http_server.dir
   POST_BUILD = :

@@ -26,6 +26,7 @@ namespace HttpServer {
         std::vector<std::function<void(int statusCode)>> registerCallbacksOnFinish;
         std::map<std::string, std::any> requestAttributes;
         int newFD = 0;
+        std::string port;
     public:
         std::function<void(std::exception &, Request &)> exceptionHandler = nullptr;
 
@@ -109,7 +110,7 @@ namespace HttpServer {
                     }
                 }
                 return data.get<T>();
-            } else if (contentType.find(ContentType::FORM) ==0) {
+            } else if (contentType.find(ContentType::FORM) == 0) {
                 throw std::runtime_error(
                         "Unsupported content type for the moment");
 //                auto parts = strSplit(contentType, "; boundary=");
@@ -120,6 +121,18 @@ namespace HttpServer {
                 throw std::runtime_error(
                         " Unsupported content type: " + contentType + " for extraction of object from body.");
             }
+        }
+
+        inline std::string &getPort() {
+            return this->port;
+        }
+
+        inline void setPort(int p) {
+            this->port = std::to_string(p);
+        }
+
+        inline void setPort(char *p) {
+            this->port = std::string(p);
         }
     };
 }

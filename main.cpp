@@ -1,72 +1,69 @@
 #include <iostream>
 #include "vector"
 #include "list"
-#include "http_server/utils/utils.h"
+#include "http_server/concurrency/ThreadPool.h"
+
+using namespace HttpServer;
+
+long sumUpTo(int n) {
+    long sum = 0;
+    for (int i = 0; i <= n; i++) {
+        sum += i;
+    }
+    return sum;
+}
+
+void printPoolState(ThreadPool &pool) {
+    std::cout << "Printing the State of the Thread Pool" << std::endl;
+    for (const auto &task: pool.getTaskQueueState()) {
+        std::cout << *task << std::endl;
+    }
+}
 
 int main() {
-    std::cout << "Testing Map:::::::::::::" << std::endl;
-    std::vector<int> data = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    auto res = HttpServer::mapFn<std::vector<int>, int>(data, [](const int &el) {
-        return el * el;
+    std::cout << "Creating a task...." << std::endl;
+    ThreadPool pool(2);
+
+    pool.submit([]() {
+        while (true) {
+            std::cout << "Long task running..." << std::endl;
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        }
+        return 0;
     });
-    auto res2 = HttpServer::mapFn<std::list<int>, std::string>({40, 50}, [](const int &el) {
-        auto data = el * el;
-        return "This is a string: " + std::to_string(data);
+    printPoolState(pool);
+    // Start measuring time
+    auto start = std::chrono::steady_clock::now();
+    std::vector<std::shared_ptr<TaskThread>> taskFutures;
+    for (int i = 0; i < 10; i++) {
+        auto t1 = pool.submit(sumUpTo, 1000000000);
+        taskFutures.push_back(t1);
+    }
+
+    std::cout << "Waiting for all the task result" << std::endl;
+    printPoolState(pool);
+    int index = 0;
+    for (auto &t: taskFutures) {
+        auto res = t->get<long>();
+        std::cout << "Result of the task" << index << " Blocking: " << res << std::endl;
+        index++;
+    }
+    printPoolState(pool);
+
+    auto end = std::chrono::steady_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    std::cout << "All tasks completed in " << elapsed << " milliseconds." << std::endl;
+    pool.submit([]() {
+        std::cout << "This is another stuff" << std::endl;
+        return 0;
     });
 
-    auto res3 = HttpServer::mapFn<std::vector<std::string>, char>({"hello", "World"}, [](auto &el) {
-        return el[0];
+    pool.submit(sumUpTo, 100)->addOnFinishCallback([](TaskThread *t) {
+        std::cout << "THis is the final " << t->get<long>() << std::endl;
     });
 
-    for (const auto &el: res) {
-        std::cout << el << " ";
-    }
-    std::cout << std::endl;
-    for (const auto &el: res2) {
-        std::cout << el << " ";
-    }
-    std::cout << std::endl;
-    for (const auto &el: res3) {
-        std::cout << el << " ";
-    }
-    std::cout << std::endl;
-    std::cout << "Testing Filter::::::::::::::::" << std::endl;
-    auto filterElements = HttpServer::filterFn<std::vector<int>>(data, [](const int &el) {
-        return el % 2 == 0;
-    });
+//    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
-    for (const auto &el: filterElements) {
-        std::cout << el << " ";
-    }
-    std::cout << std::endl;
-    std::cout << "Testing Find::::::::::::::::" << std::endl;
-    auto elementFound = HttpServer::findFn<std::vector<int>>(data, [](auto &el) {
-        return el == 9;
-    });
-    if (elementFound)
-        std::cout << "Found el:" << *elementFound << std::endl;
-    else
-        std::cout << "Not Found el " << std::endl;
-
-    std::cout << std::endl;
-    std::cout << "Testing =Reduce::::::::::::::::" << std::endl;
-    int sum = HttpServer::reduceFn<std::vector<int>, int>(data, [](int &acc, auto &el, int index) {
-        acc += el;
-        return acc;
-    }, 0);
-    std::cout << "The output of the reduce: " << sum << std::endl;
-
-    auto elementsReduced = HttpServer::reduceFn<std::vector<int>,
-            std::vector<int>>(data,
-                              [&](auto &acc, auto &el, int index) {
-                                  if (index % 2 == 0) {
-                                      acc.push_back(data[index] *
-                                                    data[index]);
-                                  }
-                                  return acc;
-                              }, {});
-    std::cout << "Reduce Elements" << std::endl;
-    for (auto &el: elementsReduced) {
-        std::cout << el << ",";
-    }
+    return 0;
 }

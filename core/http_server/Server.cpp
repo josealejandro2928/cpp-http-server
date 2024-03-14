@@ -75,6 +75,7 @@ namespace HttpServer {
             }
 
             Request request = Request::makeRequest(requestStr);
+            request.setPort(this->portNum);
             request.exceptionHandler = this->globalExceptionHandler;
             request.setNewFD(newFD);
             router.switchRouter(request);

@@ -80,7 +80,7 @@ namespace HttpServer {
         auto start = std::chrono::system_clock::now();
         request.onRequestFinish([&request, start](int statusCode) {
             std::stringstream ss;
-            ss << "Request: " << "[" << request.getMethod() << "] " << Logging::hostIP
+            ss << "Request: " << "[" << request.getMethod() << "] " << Logging::hostIP << ":" << request.getPort()
                << request.getFullPath();
             auto end = std::chrono::system_clock::now();
             auto elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();

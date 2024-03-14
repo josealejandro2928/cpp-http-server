@@ -409,6 +409,13 @@ build testing/CMakeFiles/tests.dir/request_obj_test.cpp.o: CXX_COMPILER__tests_u
   OBJECT_DIR = testing/CMakeFiles/tests.dir
   OBJECT_FILE_DIR = testing/CMakeFiles/tests.dir
 
+build testing/CMakeFiles/tests.dir/thread_pool_test.cpp.o: CXX_COMPILER__tests_unscanned_Debug /mnt/DATA/03-CODING/C++/http-server/testing/thread_pool_test.cpp || cmake_object_order_depends_target_tests
+  DEP_FILE = testing/CMakeFiles/tests.dir/thread_pool_test.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/mnt/DATA/03-CODING/C++/http-server/core -I/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/json-src/include -isystem /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/include -isystem /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest
+  OBJECT_DIR = testing/CMakeFiles/tests.dir
+  OBJECT_FILE_DIR = testing/CMakeFiles/tests.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target tests
@@ -417,7 +424,7 @@ build testing/CMakeFiles/tests.dir/request_obj_test.cpp.o: CXX_COMPILER__tests_u
 #############################################
 # Link the executable testing/tests
 
-build testing/tests testing/tests[1]_tests.cmake | ${cmake_ninja_workdir}testing/tests[1]_tests.cmake: CXX_EXECUTABLE_LINKER__tests_Debug testing/CMakeFiles/tests.dir/request_obj_test.cpp.o | lib/libgtest_main.a libhttp_server.a lib/libgtest.a || lib/libgtest.a lib/libgtest_main.a libhttp_server.a
+build testing/tests testing/tests[1]_tests.cmake | ${cmake_ninja_workdir}testing/tests[1]_tests.cmake: CXX_EXECUTABLE_LINKER__tests_Debug testing/CMakeFiles/tests.dir/request_obj_test.cpp.o testing/CMakeFiles/tests.dir/thread_pool_test.cpp.o | lib/libgtest_main.a libhttp_server.a lib/libgtest.a || lib/libgtest.a lib/libgtest_main.a libhttp_server.a
   FLAGS = -g
   LINK_LIBRARIES = lib/libgtest_main.a  libhttp_server.a  lib/libgtest.a
   OBJECT_DIR = testing/CMakeFiles/tests.dir

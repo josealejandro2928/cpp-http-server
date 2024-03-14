@@ -18,36 +18,39 @@
 
 namespace HttpServer {
     class TaskThread {
-    private:
+    public:
         enum class TaskThreadStatus {
             SUCCESS, IN_PROGRESS, FAILED, CANCELLED
         };
+    private:
         static int GlobalTaskId;
         std::mutex mx;
         int taskId;
         std::condition_variable condition;
         TaskThreadStatus status;
-        int threadId;
+        std::thread::id threadId;
         std::function<std::any()> functionCb = nullptr;
         std::any result;
-        std::exception err;
+        std::exception_ptr err;
         std::function<void(TaskThread *)> onFinishCb = nullptr;
 
     public:
         template<typename Func, typename... Args>
-        TaskThread(int threadId, Func &&func, Args &&... args) {
+        explicit TaskThread(Func &&func, Args &&... args) {
             functionCb = [func = std::forward<Func>(func), args = std::make_tuple(
                     std::forward<Args>(args)...)]() mutable -> std::any {
                 return std::apply(func, args);
             };
-            this->threadId = threadId;
             this->taskId = GlobalTaskId++;
             this->status = TaskThreadStatus::IN_PROGRESS;
         }
 
         TaskThread(TaskThread &&other) = delete;
+
         TaskThread &operator=(TaskThread &&other) = delete;
+
         TaskThread(TaskThread &) = delete;
+
         TaskThread &operator=(TaskThread &) = delete;
 
         void invokeFunction();
@@ -60,41 +63,62 @@ namespace HttpServer {
             });
             if (status != TaskThreadStatus::IN_PROGRESS) {
                 if (status == TaskThreadStatus::SUCCESS) return std::any_cast<T>(result);
-                if (status == TaskThreadStatus::FAILED) throw err;
+                if (status == TaskThreadStatus::FAILED) std::rethrow_exception(err);
                 if (status == TaskThreadStatus::CANCELLED) throw std::runtime_error("Task Has been cancelled");
             }
             return {};
         }
 
-        void addOnFinishCallback(const std::function<void(TaskThread *)> &fn);
+        TaskThread* addOnFinishCallback(const std::function<void(TaskThread *)> &fn);
 
-        friend std::ostream& operator <<(std::ostream& os, TaskThread& t);
+        friend std::ostream &operator<<(std::ostream &os, TaskThread &t);
+
+        void setThreadId(std::thread::id threadId);
+
+        [[nodiscard]] TaskThreadStatus getStatus() const;
     };
 
     class ThreadPool {
     public:
         ThreadPool(int size, const std::string &name);
+
         explicit ThreadPool(int size);
 
         ThreadPool(ThreadPool &&other) = delete;
+
         ThreadPool &operator=(ThreadPool &&other) = delete;
+
         ThreadPool &operator=(ThreadPool &) = delete;
 
         ThreadPool(ThreadPool &) = delete;
+
         ~ThreadPool();
+
         template<typename Func, typename... Args>
         std::shared_ptr<TaskThread> submit(const Func &func, const Args &... args) {
             std::unique_lock<std::mutex> lock(mx);
-            auto taskPtr = std::shared_ptr<TaskThread>(new TaskThread(threadId, func, args...));
+            if (shutdownFlag) {
+                std::string errMsg = "You cannot schedule a new task if shutdown has been called";
+                throw std::runtime_error(errMsg);
+            }
+            auto taskPtr = std::shared_ptr<TaskThread>(new TaskThread(func, args...));
             createThread();
             taskQueue.push_back(taskPtr);
             cv.notify_all();
-            lock.unlock();
             return taskPtr;
         }
+
         void shutdown();
-        [[nodiscard]] const std::deque<std::shared_ptr<TaskThread>>& getTaskQueueState()const;
-        [[nodiscard]] const std::vector<std::thread>& getThreadsState() const;
+
+        std::atomic<bool> &taskShouldTerminate();
+
+        [[nodiscard]] const std::deque<std::shared_ptr<TaskThread>> &getTaskQueueState() const;
+
+        [[nodiscard]] const std::vector<std::thread> &getThreadsState() const;
+
+        [[nodiscard]] inline size_t getSize() const { return threadsPool.size(); }
+
+        [[nodiscard]] inline size_t getCapacity() const { return size; }
 
     private:
         std::shared_ptr<TaskThread> popTask();

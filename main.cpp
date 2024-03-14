@@ -22,17 +22,15 @@ void printPoolState(ThreadPool &pool) {
 
 int main() {
     std::cout << "Creating a task...." << std::endl;
-    ThreadPool pool(2);
+    ThreadPool pool(4);
 
-    pool.submit([]() {
-        while (true) {
+    auto longTask = pool.submit([&pool]() {
+        while (!pool.taskShouldTerminate()) {
             std::cout << "Long task running..." << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
         }
         return 0;
     });
-    printPoolState(pool);
     // Start measuring time
     auto start = std::chrono::steady_clock::now();
     std::vector<std::shared_ptr<TaskThread>> taskFutures;
@@ -40,7 +38,6 @@ int main() {
         auto t1 = pool.submit(sumUpTo, 1000000000);
         taskFutures.push_back(t1);
     }
-
     std::cout << "Waiting for all the task result" << std::endl;
     printPoolState(pool);
     int index = 0;
@@ -63,7 +60,9 @@ int main() {
         std::cout << "THis is the final " << t->get<long>() << std::endl;
     });
 
-//    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    std::cout << *longTask << std::endl;
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
     return 0;
 }

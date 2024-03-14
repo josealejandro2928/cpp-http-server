@@ -20,8 +20,8 @@ namespace HttpServer {
             if (onFinishCb) {
                 onFinishCb(this);
             }
-        } catch (std::exception &exc) {
-            err = exc;
+        } catch (...) {
+            err = std::current_exception();
             status = TaskThreadStatus::FAILED;
             condition.notify_all();
             lock.unlock();
@@ -32,11 +32,12 @@ namespace HttpServer {
 
     }
 
-    void TaskThread::addOnFinishCallback(const std::function<void(TaskThread *)> &fn) {
+    TaskThread* TaskThread::addOnFinishCallback(const std::function<void(TaskThread *)> &fn) {
         onFinishCb = fn;
         if (status != TaskThreadStatus::IN_PROGRESS) {
             onFinishCb(this);
         }
+        return this;
     }
 
     std::ostream &operator<<(std::ostream &os, TaskThread &t) {
@@ -60,6 +61,15 @@ namespace HttpServer {
         os << "TaskThread [TaskID: " << t.taskId << ", ThreadID: " << t.threadId
            << ", Status: " << statusString << "]";
         return os;
+    }
+
+    void TaskThread::setThreadId(std::thread::id id) {
+        std::scoped_lock<std::mutex> lock(this->mx);
+        threadId = id;
+    }
+
+    TaskThread::TaskThreadStatus TaskThread::getStatus() const {
+        return this->status;
     }
 
     ////////////////////////////////// Thread Pool Implementation /////////////////////////////////
@@ -95,6 +105,7 @@ namespace HttpServer {
         while (true) {
             auto task = popTask();
             if (task) {
+                task->setThreadId(std::this_thread::get_id());
                 task->invokeFunction();
             } else {
                 return;
@@ -129,6 +140,10 @@ namespace HttpServer {
 
     const std::vector<std::thread> &ThreadPool::getThreadsState() const {
         return threadsPool;
+    }
+
+    std::atomic<bool> &ThreadPool::taskShouldTerminate() {
+        return shutdownFlag;
     }
 
 

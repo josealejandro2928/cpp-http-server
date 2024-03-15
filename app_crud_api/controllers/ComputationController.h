@@ -42,6 +42,7 @@ private:
         auto requestBody = req.getBodyObject<ComputeNPrimesRequest>();
         json result = json::object();
         auto &pool = TaskWorkerService::getInstance().getPool();
+        std::cout << "Thread capacity: " << pool.getCapacity() << " Thread size: " << pool.getSize() << std::endl;
         std::vector<std::shared_ptr<hs::TaskThread>> futuresTask;
 
         for (const auto &item: requestBody.primesToCompute) {
@@ -52,7 +53,7 @@ private:
             futuresTask.push_back(std::move(taskThread));
         }
         for (auto &task: futuresTask) {
-            auto res = task->get<std::pair<string, std::vector<std::pair<long,long>>>>();
+            auto res = task->get<std::pair<string, std::vector<std::pair<long, long>>>>();
             result[res.first] = std::move(res.second);
         }
 

@@ -2,7 +2,9 @@
 // Created by pepe on 3/10/24.
 //
 
+#include <algorithm>
 #include "ThreadPool.h"
+#include "ranges"
 
 namespace HttpServer {
     int ThreadPool::GlobalThreadId = 1;
@@ -32,7 +34,7 @@ namespace HttpServer {
 
     }
 
-    TaskThread* TaskThread::addOnFinishCallback(const std::function<void(TaskThread *)> &fn) {
+    TaskThread *TaskThread::addOnFinishCallback(const std::function<void(TaskThread *)> &fn) {
         onFinishCb = fn;
         if (status != TaskThreadStatus::IN_PROGRESS) {
             onFinishCb(this);
@@ -116,7 +118,7 @@ namespace HttpServer {
 
     void ThreadPool::createThread() {
         if (threadsPool.size() < size) {
-            threadsPool.emplace_back([this]() { this->runWorker(); });
+            threadsPool.push_back(std::move(std::thread([this]() { this->runWorker(); })));
         }
     }
 
@@ -145,6 +147,5 @@ namespace HttpServer {
     std::atomic<bool> &ThreadPool::taskShouldTerminate() {
         return shutdownFlag;
     }
-
 
 }

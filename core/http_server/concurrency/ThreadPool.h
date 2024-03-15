@@ -69,7 +69,7 @@ namespace HttpServer {
             return {};
         }
 
-        TaskThread* addOnFinishCallback(const std::function<void(TaskThread *)> &fn);
+        TaskThread *addOnFinishCallback(const std::function<void(TaskThread *)> &fn);
 
         friend std::ostream &operator<<(std::ostream &os, TaskThread &t);
 

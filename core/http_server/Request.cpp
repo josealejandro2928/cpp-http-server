@@ -30,14 +30,16 @@ namespace HttpServer {
         return "";
     }
 
-    static void validateRequest(Request &req) {
+    static bool validateRequest(Request &req) {
         static const std::string validMethods[] = {"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"};
         if (std::find(std::begin(validMethods), std::end(validMethods), req.getMethod()) == std::end(validMethods)) {
             throw BadRequestException("Unsupported HTTP method");
         }
 
         if (req.getPath().empty() || req.getPath().front() != '/') {
-            throw BadRequestException("Invalid request path");
+            close(req.getNewFD());
+            req.hasSendResponseBeenCalled = true;
+            return false;
         }
 
         if (req.getMethod() == "POST" || req.getMethod() == "PUT" || req.getMethod() == "PATCH") {
@@ -53,11 +55,12 @@ namespace HttpServer {
             }
         }
         if (req.getFullPath().empty()) {
-            throw BadRequestException("Invalid request path");
+            throw BadRequestException("Invalid request path 2");
         }
         if (req.getHeader("Host").empty()) {
             throw BadRequestException("Missing Host header");
         }
+        return true;
     }
 
     Request Request::makeRequest(std::string &request) {

@@ -1,3 +1,489 @@
-Start testing: Mar 15 11:39 CET
+Start testing: Mar 15 12:40 CET
 ----------------------------------------------------------
-End testing: Mar 15 11:39 CET
+1/18 Testing: RequestTest.TestingBasicRequestObjectFormation
+1/18 Test: RequestTest.TestingBasicRequestObjectFormation
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.TestingBasicRequestObjectFormation" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.TestingBasicRequestObjectFormation" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.TestingBasicRequestObjectFormation
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.TestingBasicRequestObjectFormation
+[       OK ] RequestTest.TestingBasicRequestObjectFormation (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.TestingBasicRequestObjectFormation" end time: Mar 15 12:40 CET
+"RequestTest.TestingBasicRequestObjectFormation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/18 Testing: RequestTest.TestingQueryParams
+2/18 Test: RequestTest.TestingQueryParams
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.TestingQueryParams" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.TestingQueryParams" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.TestingQueryParams
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.TestingQueryParams
+[       OK ] RequestTest.TestingQueryParams (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.TestingQueryParams" end time: Mar 15 12:40 CET
+"RequestTest.TestingQueryParams" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/18 Testing: RequestTest.TestingPlainTextBody
+3/18 Test: RequestTest.TestingPlainTextBody
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.TestingPlainTextBody" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.TestingPlainTextBody" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.TestingPlainTextBody
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.TestingPlainTextBody
+[       OK ] RequestTest.TestingPlainTextBody (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.TestingPlainTextBody" end time: Mar 15 12:40 CET
+"RequestTest.TestingPlainTextBody" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/18 Testing: RequestTest.TestingJsonBody
+4/18 Test: RequestTest.TestingJsonBody
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.TestingJsonBody" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.TestingJsonBody" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.TestingJsonBody
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.TestingJsonBody
+[       OK ] RequestTest.TestingJsonBody (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.TestingJsonBody" end time: Mar 15 12:40 CET
+"RequestTest.TestingJsonBody" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/18 Testing: RequestTest.TestingTextRequestBodyWithNewlines
+5/18 Test: RequestTest.TestingTextRequestBodyWithNewlines
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.TestingTextRequestBodyWithNewlines" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.TestingTextRequestBodyWithNewlines" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.TestingTextRequestBodyWithNewlines
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.TestingTextRequestBodyWithNewlines
+[       OK ] RequestTest.TestingTextRequestBodyWithNewlines (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.TestingTextRequestBodyWithNewlines" end time: Mar 15 12:40 CET
+"RequestTest.TestingTextRequestBodyWithNewlines" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/18 Testing: RequestTest.MalformedRequestLineThrowsException
+6/18 Test: RequestTest.MalformedRequestLineThrowsException
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.MalformedRequestLineThrowsException" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.MalformedRequestLineThrowsException" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.MalformedRequestLineThrowsException
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.MalformedRequestLineThrowsException
+[       OK ] RequestTest.MalformedRequestLineThrowsException (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.MalformedRequestLineThrowsException" end time: Mar 15 12:40 CET
+"RequestTest.MalformedRequestLineThrowsException" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/18 Testing: RequestTest.InvalidHttpMethodThrowsException
+7/18 Test: RequestTest.InvalidHttpMethodThrowsException
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.InvalidHttpMethodThrowsException" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.InvalidHttpMethodThrowsException" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.InvalidHttpMethodThrowsException
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.InvalidHttpMethodThrowsException
+[       OK ] RequestTest.InvalidHttpMethodThrowsException (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.InvalidHttpMethodThrowsException" end time: Mar 15 12:40 CET
+"RequestTest.InvalidHttpMethodThrowsException" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/18 Testing: RequestTest.MissingContentLengthThrowsException
+8/18 Test: RequestTest.MissingContentLengthThrowsException
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.MissingContentLengthThrowsException" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.MissingContentLengthThrowsException" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.MissingContentLengthThrowsException
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.MissingContentLengthThrowsException
+[       OK ] RequestTest.MissingContentLengthThrowsException (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.MissingContentLengthThrowsException" end time: Mar 15 12:40 CET
+"RequestTest.MissingContentLengthThrowsException" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/18 Testing: RequestTest.MissingHostHeaderThrowsException
+9/18 Test: RequestTest.MissingHostHeaderThrowsException
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=RequestTest.MissingHostHeaderThrowsException" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"RequestTest.MissingHostHeaderThrowsException" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = RequestTest.MissingHostHeaderThrowsException
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from RequestTest
+[ RUN      ] RequestTest.MissingHostHeaderThrowsException
+[       OK ] RequestTest.MissingHostHeaderThrowsException (0 ms)
+[----------] 1 test from RequestTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"RequestTest.MissingHostHeaderThrowsException" end time: Mar 15 12:40 CET
+"RequestTest.MissingHostHeaderThrowsException" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/18 Testing: ThreadPoolTest.ThreadShouldBeCreatedSuccessfully
+10/18 Test: ThreadPoolTest.ThreadShouldBeCreatedSuccessfully
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=ThreadPoolTest.ThreadShouldBeCreatedSuccessfully" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"ThreadPoolTest.ThreadShouldBeCreatedSuccessfully" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ThreadPoolTest.ThreadShouldBeCreatedSuccessfully
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ThreadPoolTest
+[ RUN      ] ThreadPoolTest.ThreadShouldBeCreatedSuccessfully
+[       OK ] ThreadPoolTest.ThreadShouldBeCreatedSuccessfully (100 ms)
+[----------] 1 test from ThreadPoolTest (100 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (100 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"ThreadPoolTest.ThreadShouldBeCreatedSuccessfully" end time: Mar 15 12:40 CET
+"ThreadPoolTest.ThreadShouldBeCreatedSuccessfully" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/18 Testing: ThreadPoolTest.ShouldExecuteMultipleTasksSuccessfully
+11/18 Test: ThreadPoolTest.ShouldExecuteMultipleTasksSuccessfully
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=ThreadPoolTest.ShouldExecuteMultipleTasksSuccessfully" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"ThreadPoolTest.ShouldExecuteMultipleTasksSuccessfully" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ThreadPoolTest.ShouldExecuteMultipleTasksSuccessfully
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ThreadPoolTest
+[ RUN      ] ThreadPoolTest.ShouldExecuteMultipleTasksSuccessfully
+[       OK ] ThreadPoolTest.ShouldExecuteMultipleTasksSuccessfully (151 ms)
+[----------] 1 test from ThreadPoolTest (151 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (151 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Passed.
+"ThreadPoolTest.ShouldExecuteMultipleTasksSuccessfully" end time: Mar 15 12:40 CET
+"ThreadPoolTest.ShouldExecuteMultipleTasksSuccessfully" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/18 Testing: ThreadPoolTest.ShouldShutdownGracefullyWithPendingTasks
+12/18 Test: ThreadPoolTest.ShouldShutdownGracefullyWithPendingTasks
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=ThreadPoolTest.ShouldShutdownGracefullyWithPendingTasks" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"ThreadPoolTest.ShouldShutdownGracefullyWithPendingTasks" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ThreadPoolTest.ShouldShutdownGracefullyWithPendingTasks
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ThreadPoolTest
+[ RUN      ] ThreadPoolTest.ShouldShutdownGracefullyWithPendingTasks
+[       OK ] ThreadPoolTest.ShouldShutdownGracefullyWithPendingTasks (1000 ms)
+[----------] 1 test from ThreadPoolTest (1000 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1000 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   1.00 sec
+----------------------------------------------------------
+Test Passed.
+"ThreadPoolTest.ShouldShutdownGracefullyWithPendingTasks" end time: Mar 15 12:40 CET
+"ThreadPoolTest.ShouldShutdownGracefullyWithPendingTasks" time elapsed: 00:00:01
+----------------------------------------------------------
+
+13/18 Testing: ThreadPoolTest.ShouldReuseThreadsForTasks
+13/18 Test: ThreadPoolTest.ShouldReuseThreadsForTasks
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=ThreadPoolTest.ShouldReuseThreadsForTasks" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"ThreadPoolTest.ShouldReuseThreadsForTasks" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ThreadPoolTest.ShouldReuseThreadsForTasks
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ThreadPoolTest
+[ RUN      ] ThreadPoolTest.ShouldReuseThreadsForTasks
+[       OK ] ThreadPoolTest.ShouldReuseThreadsForTasks (50 ms)
+[----------] 1 test from ThreadPoolTest (50 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (50 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"ThreadPoolTest.ShouldReuseThreadsForTasks" end time: Mar 15 12:40 CET
+"ThreadPoolTest.ShouldReuseThreadsForTasks" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/18 Testing: ThreadPoolTest.ShouldHandleTaskExceptions
+14/18 Test: ThreadPoolTest.ShouldHandleTaskExceptions
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=ThreadPoolTest.ShouldHandleTaskExceptions" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"ThreadPoolTest.ShouldHandleTaskExceptions" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ThreadPoolTest.ShouldHandleTaskExceptions
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ThreadPoolTest
+[ RUN      ] ThreadPoolTest.ShouldHandleTaskExceptions
+[       OK ] ThreadPoolTest.ShouldHandleTaskExceptions (0 ms)
+[----------] 1 test from ThreadPoolTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ThreadPoolTest.ShouldHandleTaskExceptions" end time: Mar 15 12:40 CET
+"ThreadPoolTest.ShouldHandleTaskExceptions" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/18 Testing: ThreadPoolTest.TasksShouldExecuteInOrder
+15/18 Test: ThreadPoolTest.TasksShouldExecuteInOrder
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=ThreadPoolTest.TasksShouldExecuteInOrder" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"ThreadPoolTest.TasksShouldExecuteInOrder" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ThreadPoolTest.TasksShouldExecuteInOrder
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ThreadPoolTest
+[ RUN      ] ThreadPoolTest.TasksShouldExecuteInOrder
+[       OK ] ThreadPoolTest.TasksShouldExecuteInOrder (0 ms)
+[----------] 1 test from ThreadPoolTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ThreadPoolTest.TasksShouldExecuteInOrder" end time: Mar 15 12:40 CET
+"ThreadPoolTest.TasksShouldExecuteInOrder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/18 Testing: ThreadPoolTest.ParallelHeavyTasksWithSharedState
+16/18 Test: ThreadPoolTest.ParallelHeavyTasksWithSharedState
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=ThreadPoolTest.ParallelHeavyTasksWithSharedState" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"ThreadPoolTest.ParallelHeavyTasksWithSharedState" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ThreadPoolTest.ParallelHeavyTasksWithSharedState
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ThreadPoolTest
+[ RUN      ] ThreadPoolTest.ParallelHeavyTasksWithSharedState
+[       OK ] ThreadPoolTest.ParallelHeavyTasksWithSharedState (200 ms)
+[----------] 1 test from ThreadPoolTest (200 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (200 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.20 sec
+----------------------------------------------------------
+Test Passed.
+"ThreadPoolTest.ParallelHeavyTasksWithSharedState" end time: Mar 15 12:40 CET
+"ThreadPoolTest.ParallelHeavyTasksWithSharedState" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/18 Testing: ThreadPoolTest.ParallelHeavyTasksWithSharedStateObjects
+17/18 Test: ThreadPoolTest.ParallelHeavyTasksWithSharedStateObjects
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=ThreadPoolTest.ParallelHeavyTasksWithSharedStateObjects" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"ThreadPoolTest.ParallelHeavyTasksWithSharedStateObjects" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ThreadPoolTest.ParallelHeavyTasksWithSharedStateObjects
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ThreadPoolTest
+[ RUN      ] ThreadPoolTest.ParallelHeavyTasksWithSharedStateObjects
+[       OK ] ThreadPoolTest.ParallelHeavyTasksWithSharedStateObjects (300 ms)
+[----------] 1 test from ThreadPoolTest (300 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (300 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.30 sec
+----------------------------------------------------------
+Test Passed.
+"ThreadPoolTest.ParallelHeavyTasksWithSharedStateObjects" end time: Mar 15 12:40 CET
+"ThreadPoolTest.ParallelHeavyTasksWithSharedStateObjects" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/18 Testing: ThreadPoolTest.TestNonBlockingStateOfTask
+18/18 Test: ThreadPoolTest.TestNonBlockingStateOfTask
+Command: "/mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing/tests" "--gtest_filter=ThreadPoolTest.TestNonBlockingStateOfTask" "--gtest_also_run_disabled_tests"
+Directory: /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/testing
+"ThreadPoolTest.TestNonBlockingStateOfTask" start time: Mar 15 12:40 CET
+Output:
+----------------------------------------------------------
+Running main() from /mnt/DATA/03-CODING/C++/http-server/cmake-build-debug/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ThreadPoolTest.TestNonBlockingStateOfTask
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ThreadPoolTest
+[ RUN      ] ThreadPoolTest.TestNonBlockingStateOfTask
+[       OK ] ThreadPoolTest.TestNonBlockingStateOfTask (0 ms)
+[----------] 1 test from ThreadPoolTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ThreadPoolTest.TestNonBlockingStateOfTask" end time: Mar 15 12:40 CET
+"ThreadPoolTest.TestNonBlockingStateOfTask" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Mar 15 12:40 CET

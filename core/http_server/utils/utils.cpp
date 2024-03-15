@@ -97,11 +97,11 @@ namespace HttpServer {
     PathMethodAndQueryParams processRequestPathMethodAndQueryParams(string &request) {
         vector<string> parts = strSplit(request, ' ');
         PathMethodAndQueryParams result;
-        if (parts.size() < 2) throw BadRequestException("Invalid request path");
+        if (parts.size() < 2) throw BadRequestException("Invalid request path 3");
         result.method = StringToHttpMethod(parts[0]);
         result.fullPath = parts[1];
         vector<string> pathAndQuery = strSplit(parts[1], '?');
-        if (pathAndQuery.empty()) throw BadRequestException("Invalid request path");
+        if (pathAndQuery.empty()) throw BadRequestException("Invalid request path 4");
         result.path = pathAndQuery[0];
         if (pathAndQuery.size() > 1) {
             vector<string> queryParts = strSplit(pathAndQuery[1], '&');

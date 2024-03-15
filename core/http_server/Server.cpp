@@ -31,20 +31,20 @@ namespace HttpServer {
         request.sendResponse(request, 500, "Internal server error: " + std::string(e.what()), ContentType::TEXT);
     }
 
-    static ssize_t getContentLengthFromHeaders(std::string& data){
+    static ssize_t getContentLengthFromHeaders(std::string &data) {
         const std::string contentLength = "Content-Length: ";
         const std::string contentLength_2 = "content-length: ";
         size_t pos = std::string::npos;
         pos = data.find(contentLength);
-        if(pos == std::string::npos){
+        if (pos == std::string::npos) {
             pos = data.find(contentLength_2);
-            if(pos == std::string::npos) return 0;
+            if (pos == std::string::npos) return 0;
         }
         std::string sizeBytes;
         int index = pos + contentLength.size();
-        while(data[index]!= '\r' && data[index]!= '\n'){
-            if(data[index]){
-                sizeBytes+=data[index];
+        while (data[index] != '\r' && data[index] != '\n') {
+            if (data[index]) {
+                sizeBytes += data[index];
             }
             index++;
         }
@@ -73,8 +73,8 @@ namespace HttpServer {
                     totalBytesRead += bytesRead;
                 }
             }
-
             Request request = Request::makeRequest(requestStr);
+            if (request.hasSendResponseBeenCalled) return;
             request.setPort(this->portNum);
             request.exceptionHandler = this->globalExceptionHandler;
             request.setNewFD(newFD);

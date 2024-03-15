@@ -44,15 +44,15 @@ namespace HttpServer {
 
         friend std::ostream &operator<<(std::ostream &os, Request &req);
 
-        std::string getMethod() const;
+        [[nodiscard]] std::string getMethod() const;
 
-        std::string getPath() const;
+        [[nodiscard]] std::string getPath() const;
 
-        std::map<std::string, std::string> getQuery() const;
+        [[nodiscard]] std::map<std::string, std::string> getQuery() const;
 
-        std::string getFullPath() const;
+        [[nodiscard]] std::string getFullPath() const;
 
-        int getNewFD() const { return newFD; }
+        [[nodiscard]] int getNewFD() const { return newFD; }
 
         void setNewFD(int _newFD) { newFD = _newFD; }
 

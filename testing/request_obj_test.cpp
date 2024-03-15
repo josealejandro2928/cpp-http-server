@@ -123,19 +123,6 @@ TEST(RequestTest, InvalidHttpMethodThrowsException) {
     }
     EXPECT_TRUE(exceptionThrown) << "Expected an exception to be thrown for an invalid HTTP method.";
 }
-TEST(RequestTest, IncorrectlyFormattedRequestLineThrowsException) {
-    std::string httpRequest = "GET HTTP/1.1\r\nHost: localhost:9000\r\n\r\n"; // Incorrectly formatted request line
-
-    bool exceptionThrown = false;
-    try {
-        hs::Request request = hs::Request::makeRequest(httpRequest);
-    } catch (const hs::BadRequestException &e) {
-        exceptionThrown = true;
-    } catch (...) {
-        FAIL() << "Unexpected exception type thrown.";
-    }
-    EXPECT_TRUE(exceptionThrown) << "Expected an exception to be thrown for incorrectly formatted request line.";
-}
 
 TEST(RequestTest, MissingContentLengthThrowsException) {
     std::string httpRequest = "POST /submit HTTP/1.1\r\n"

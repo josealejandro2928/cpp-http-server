@@ -24,6 +24,7 @@ namespace HttpServer {
         Server(const char *portNum, unsigned int backLog);
 
         explicit Server(const char *portNum);
+        explicit Server(const int portNum);
 
         Router &getRouter();
 

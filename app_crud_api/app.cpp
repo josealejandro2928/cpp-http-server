@@ -10,6 +10,7 @@
 #include "http_server/exceptions/Exceptions.h"
 #include "controllers/ComputationController.h"
 #include "nlohmann/json.hpp"
+
 namespace hs = HttpServer;
 
 void globalErrorHandler(std::exception &exc, hs::Request &req) {
@@ -21,8 +22,8 @@ void globalErrorHandler(std::exception &exc, hs::Request &req) {
         req.sendJson<hs::ErrorResponseData>(req, errorResponseData.code, errorResponseData);
         return;
     }
-    auto *ptr2 = dynamic_cast<nlohmann::json::exception*>(&exc);
-    if(ptr2){
+    auto *ptr2 = dynamic_cast<nlohmann::json::exception *>(&exc);
+    if (ptr2) {
         hs::ErrorResponseData errorResponseData(422, ptr2->what());
         req.sendJson<hs::ErrorResponseData>(req, errorResponseData.code, errorResponseData);
         return;
@@ -32,7 +33,7 @@ void globalErrorHandler(std::exception &exc, hs::Request &req) {
 }
 
 int main() {
-    hs::Server server("9000");
+    hs::Server server(9000);
 
     server.getRouter().registerRoute(hs::HttpMethod::GET, "/", [](hs::Request &request) {
         request.sendText(request, 200, "Hello World");

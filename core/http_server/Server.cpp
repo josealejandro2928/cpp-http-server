@@ -24,6 +24,13 @@ namespace HttpServer {
         this->backLog = SOMAXCONN;
     }
 
+    Server::Server(const int portNum) {
+        auto port = std::to_string(portNum);
+        this->portNum = new char[port.size() + 1];
+        memcpy(this->portNum, port.c_str(), port.size() + 1);
+        this->backLog = SOMAXCONN;
+    }
+
     static void defaultServerErrorHandler(const std::exception &e, int newFD) {
         std::cerr << "Error while processing request: " << e.what() << "\n";
         Request request;
@@ -185,4 +192,5 @@ namespace HttpServer {
     void Server::setGlobalExceptionHandler(const function<void(std::exception &, Request &)> &fn) {
         this->globalExceptionHandler = fn;
     }
+
 };

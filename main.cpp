@@ -24,7 +24,7 @@ int main() {
     std::cout << "Creating a task...." << std::endl;
     ThreadPool pool(4);
 
-    auto longTask = pool.submit([&pool]() {
+    pool.submit([&pool]() {
         while (!pool.taskShouldTerminate()) {
             std::cout << "Long task running..." << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -39,14 +39,14 @@ int main() {
         taskFutures.push_back(t1);
     }
     std::cout << "Waiting for all the task result" << std::endl;
-    printPoolState(pool);
+//    printPoolState(pool);
     int index = 0;
     for (auto &t: taskFutures) {
         auto res = t->get<long>();
         std::cout << "Result of the task" << index << " Blocking: " << res << std::endl;
         index++;
     }
-    printPoolState(pool);
+//    printPoolState(pool);
 
     auto end = std::chrono::steady_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
@@ -57,10 +57,8 @@ int main() {
     });
 
     pool.submit(sumUpTo, 100)->addOnFinishCallback([](TaskThread *t) {
-        std::cout << "THis is the final " << t->get<long>() << std::endl;
+        std::cout << "This is the final " << t->get<long>() << std::endl;
     });
-
-    std::cout << *longTask << std::endl;
 
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 

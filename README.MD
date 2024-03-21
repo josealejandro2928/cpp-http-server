@@ -133,3 +133,5 @@ Logged in user: "admin@admin"
 
 That was the result of the execution of the global middleware that we declared with `router.use` and then the chain execution
 for the post route `/example`.
+
+in the project directory you can find  a example of crud api `app_crud_api`.

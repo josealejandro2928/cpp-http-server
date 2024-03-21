@@ -135,3 +135,34 @@ That was the result of the execution of the global middleware that we declared w
 for the post route `/example`.
 
 in the project directory you can find  a example of crud api `app_crud_api`.
+
+If you want to define a global custom error handler you can do it like this:
+
+```cpp
+    server.setGlobalExceptionHandler([](std::exception &exc, hs::Request &req) {
+        hs::ErrorResponseData errorResponseData(500, "Internal Server Error" + string(exc.what()));
+        req.sendJson<hs::ErrorResponseData>(req, errorResponseData.code, errorResponseData);
+    });
+```
+
+This will catch all the exceptions that are thrown in the middlewares and the route handlers, and return
+a custom error response class provided by the library with the status code and the message. For example if you throw an exception like this:
+
+```cpp
+    router.getMethod("/error", [](hs::Request &req) {
+        throw std::runtime_error("This is a custom error");
+    });
+```
+You will get the following response:
+
+```bash
+{
+    "code": 500,
+    "errors": [],
+    "message": "This is a custom error"
+}
+```
+
+By the moment the project is in early stages of development and only allow to return json responses, as Content-Type application/json and
+text/plain. In the future will be added more features like file uploads, and more content types.
+For the post, put and patch the content types allowed to be serialized by the library (behind the scenes the library relies on `nlohmann/json` library) are `application/json` and `application/x-www-form-urlencoded`.

@@ -78,7 +78,6 @@ namespace HttpServer {
     ThreadPool::ThreadPool(int size, const std::string &name) : size(size) {
         threadId = GlobalThreadId++;
         this->name = name + "_" + std::to_string(threadId);
-
     }
 
     ThreadPool::ThreadPool(int size) : size(size) {
@@ -109,7 +108,9 @@ namespace HttpServer {
             if (task) {
                 task->setThreadId(std::this_thread::get_id());
                 task->invokeFunction();
+                semaphore.release();
             } else {
+                semaphore.release();
                 return;
             }
         }
@@ -117,9 +118,11 @@ namespace HttpServer {
 
 
     void ThreadPool::createThread() {
-        if (threadsPool.size() < size) {
-            threadsPool.push_back(std::move(std::thread([this]() { this->runWorker(); })));
+        if (semaphore.try_acquire()) {
+            return;
         }
+        if (threadsPool.size() >= size) return;
+        threadsPool.push_back(std::move(std::thread([this]() { this->runWorker(); })));
     }
 
     void ThreadPool::shutdown() {
@@ -146,6 +149,12 @@ namespace HttpServer {
 
     std::atomic<bool> &ThreadPool::taskShouldTerminate() {
         return shutdownFlag;
+    }
+
+    std::ostream &operator<<(std::ostream &os, ThreadPool &t) {
+        os << "ThreadPool [Name: " << t.name << ", Size: " << t.size << ", Threads: " << t.threadsPool.size()
+           << ", Tasks: " << t.taskQueue.size() << "]";
+        return os;
     }
 
 }

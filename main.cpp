@@ -22,7 +22,7 @@ void printPoolState(ThreadPool &pool) {
 
 int main() {
     std::cout << "Creating a task...." << std::endl;
-    ThreadPool pool(4);
+    ThreadPool pool(10);
 
     pool.submit([&pool]() {
         while (!pool.taskShouldTerminate()) {

@@ -41,6 +41,7 @@ struct Task {
 
     Task(std::string title, std::string description, std::string status, User &creator);
     [[nodiscard]] TaskResponseDto toDto() const;
+    friend std::ostream &operator<<(std::ostream &os, const Task &task);
 };
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Task, id, title, description, status, userId, user)

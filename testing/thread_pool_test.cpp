@@ -229,7 +229,7 @@ TEST(ThreadPoolTest, TestNonBlockingStateOfTask) {
 
     auto taskFuture = pool.submit([n] { return n * n; });
 
-    taskFuture->addOnFinishCallback([&executedFlag](TaskThread* task) {
+    taskFuture->addOnFinishCallback([&executedFlag](TaskThread *task) {
         executedFlag = true;
         auto res = task->get<int>();
         EXPECT_EQ(res, 25);
@@ -240,4 +240,74 @@ TEST(ThreadPoolTest, TestNonBlockingStateOfTask) {
     EXPECT_EQ(res, 25);
 
     pool.shutdown();
+}
+
+TEST(ThreadPoolTest, ShouldReuseThreadsForTasks2) {
+    ThreadPool pool(4);
+    std::set<std::thread::id> threadIds;
+    std::mutex mx;
+    for (int i = 0; i < 10; i++) {
+        auto task1 = pool.submit([&threadIds, &mx]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            {
+                std::lock_guard<std::mutex> lock(mx);
+                threadIds.insert(std::this_thread::get_id());
+            }
+            return 0;
+        });
+        task1->get<int>();
+    }
+    EXPECT_EQ(threadIds.size(), 1);
+}
+
+TEST(ThreadPoolTest, ShouldReuseThreadsForTasks3) {
+    ThreadPool pool(4);
+    std::set<std::thread::id> threadIds;
+    std::mutex mx;
+    int step = 2;
+    for (int i = 0; i < 10 - step; i += 2) {
+        std::vector<std::shared_ptr<TaskThread>> tasks;
+        for (int j = 0; j < step; j++) {
+            auto task1 = pool.submit([&threadIds, &mx]() {
+                std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                {
+                    std::lock_guard<std::mutex> lock(mx);
+                    threadIds.insert(std::this_thread::get_id());
+                }
+                return 0;
+            });
+            tasks.push_back(std::move(task1));
+        }
+        for (const auto &t: tasks) {
+            t->get<int>();
+        }
+    }
+    EXPECT_EQ(threadIds.size(), 2);
+}
+
+TEST(ThreadPoolTest, ShouldExecuteTasksConcurrently) {
+    const int threadPoolSize = 4;
+    const int taskCount = 4;  // Equal to the thread pool size to ensure concurrency
+    ThreadPool pool(threadPoolSize);
+
+    std::atomic<int> executionCounter{0};
+    std::vector<std::shared_ptr<TaskThread>> tasks;
+    auto startTime = std::chrono::high_resolution_clock::now();
+
+    for (int i = 0; i < taskCount; ++i) {
+        tasks.push_back(pool.submit([&executionCounter]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100)); // Mock task workload
+            executionCounter++;
+            return 0;
+        }));
+    }
+
+    for (auto &task: tasks) {
+        task->get<int>();
+    }
+    auto endTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+    pool.shutdown();
+    ASSERT_EQ(executionCounter, taskCount);
+    EXPECT_LT(duration, taskCount * 100) << "Tasks did not execute in parallel.";
 }

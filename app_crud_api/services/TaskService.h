@@ -19,6 +19,7 @@ public:
     static Task updateTask(int id, CreateTaskRequest &);
 
     static void deleteTask(int id);
+    static void periodicTaskComputation();
 
 };
 

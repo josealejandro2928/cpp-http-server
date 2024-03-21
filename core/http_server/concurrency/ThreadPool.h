@@ -120,6 +120,8 @@ namespace HttpServer {
 
         [[nodiscard]] inline size_t getCapacity() const { return size; }
 
+        friend std::ostream &operator<<(std::ostream &os, ThreadPool &t);
+
     private:
         std::shared_ptr<TaskThread> popTask();
 
@@ -138,6 +140,7 @@ namespace HttpServer {
         std::mutex mx;
         std::deque<std::shared_ptr<TaskThread>> taskQueue;
         std::atomic<bool> shutdownFlag = false;
+        std::counting_semaphore<0> semaphore{0};
     };
 
 

@@ -57,6 +57,13 @@ int main() {
         DataStorage::getInstance(fs::current_path().parent_path() / "app_crud_api" / "data");
         AuthService::readTokensFromFile();
         hs::Logging::info("<<<<<>>>>>Tokens loaded from file<<<<<>>>>>");
+        hs::Logging::info("<<<<<>>>>>Created a thread Pool of workers<<<<<>>>>>");
+        auto& taskWorker = TaskWorkerService::getInstance(16);
+        taskWorker.runPeriodicTask([]() {
+            cout << "Running a periodic task every 30 seconds" << endl;
+        }, 30, 10);
+
+        taskWorker.runPeriodicTask(TaskService::periodicTaskComputation, 20, 5);
     });
     server.setGlobalExceptionHandler(globalErrorHandler);
 

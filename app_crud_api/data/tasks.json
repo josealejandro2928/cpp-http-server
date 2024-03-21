@@ -1,1 +1,80 @@
-[{"description":"Clean the house for the starting date","id":3,"status":"PENDING","title":"Clean my house","user":{"email":"jalejandroc2928@gmail.com","id":1,"name":"Jose Alejandro Concepcion Alvarez","password":"123456.A"},"userId":1},{"description":"Build the project for the weekend","id":7,"status":"PENDING","title":"Build the project","user":{"email":"jalejandroc2928@gmail.com","id":1,"name":"Jose Alejandro Concepcion Alvarez","password":"123456.A"},"userId":1},{"description":"Start the react native course for Amazon","id":8,"status":"IN_PROGRESS","title":"Start the React Native Course","user":{"email":"jalejandroc2928@gmail.com","id":1,"name":"Jose Alejandro Concepcion Alvarez","password":"123456.A"},"userId":1},{"description":"Build the project for the weekend","id":9,"status":"PENDING","title":"Study react course","user":{"email":"jalejandroc2928@gmail.com","id":1,"name":"Jose Alejandro Concepcion Alvarez","password":"123456.A"},"userId":1},{"description":"Build the project for the weekend","id":10,"status":"PENDING","title":"Study react course","user":{"email":"jalejandroc2928@gmail.com","id":1,"name":"Jose Alejandro Concepcion Alvarez","password":"123456.A"},"userId":1},{"description":"Build the project for the weekend","id":11,"status":"PENDING","title":"Study react course","user":{"email":"example@gmail.com","id":10,"name":"Example User","password":"12345"},"userId":10}]
+[
+  {
+    "description": "Clean the house for the starting date",
+    "id": 3,
+    "status": "PENDING",
+    "title": "Clean my house",
+    "user": {
+      "email": "jalejandroc2928@gmail.com",
+      "id": 1,
+      "name": "Jose Alejandro Concepcion Alvarez",
+      "password": "123456.A"
+    },
+    "userId": 1
+  },
+  {
+    "description": "Build the project for the weekend",
+    "id": 7,
+    "status": "PENDING",
+    "title": "Build the project",
+    "user": {
+      "email": "jalejandroc2928@gmail.com",
+      "id": 1,
+      "name": "Jose Alejandro Concepcion Alvarez",
+      "password": "123456.A"
+    },
+    "userId": 1
+  },
+  {
+    "description": "Start the react native course for Amazon",
+    "id": 8,
+    "status": "IN_PROGRESS",
+    "title": "Start the React Native Course",
+    "user": {
+      "email": "jalejandroc2928@gmail.com",
+      "id": 1,
+      "name": "Jose Alejandro Concepcion Alvarez",
+      "password": "123456.A"
+    },
+    "userId": 1
+  },
+  {
+    "description": "Build the project for the weekend",
+    "id": 9,
+    "status": "PENDING",
+    "title": "Study react course",
+    "user": {
+      "email": "jalejandroc2928@gmail.com",
+      "id": 1,
+      "name": "Jose Alejandro Concepcion Alvarez",
+      "password": "123456.A"
+    },
+    "userId": 1
+  },
+  {
+    "description": "Build the project for the weekend",
+    "id": 10,
+    "status": "PENDING",
+    "title": "Study react course",
+    "user": {
+      "email": "jalejandroc2928@gmail.com",
+      "id": 1,
+      "name": "Jose Alejandro Concepcion Alvarez",
+      "password": "123456.A"
+    },
+    "userId": 1
+  },
+  {
+    "description": "Build the project for the weekend",
+    "id": 11,
+    "status": "PENDING",
+    "title": "Study react course",
+    "user": {
+      "email": "example@gmail.com",
+      "id": 10,
+      "name": "Example User",
+      "password": "12345"
+    },
+    "userId": 10
+  }
+]

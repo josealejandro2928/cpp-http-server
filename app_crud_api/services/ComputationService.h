@@ -11,7 +11,8 @@
 class ComputationService {
 public:
     static std::vector<long> computePrimesUpToN(long n);
-    static std::vector<std::pair<long,long>> computePrimeFactors(long n);
+
+    static std::vector<std::pair<long, long>> computePrimeFactors(long n, std::vector<long> &);
 };
 
 

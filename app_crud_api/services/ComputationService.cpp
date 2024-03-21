@@ -21,18 +21,17 @@ std::vector<long> ComputationService::computePrimesUpToN(long n) {
     return res;
 }
 
-std::vector<std::pair<long, long>> ComputationService::computePrimeFactors(long n) {
-    auto primeFactors = computePrimesUpToN(n);
+std::vector<std::pair<long, long>> ComputationService::computePrimeFactors(long n, std::vector<long> &primes) {
     std::vector<std::pair<long, long>> res;
     int index = 0;
     while (n > 1 && index <= n) {
         int c = 0;
-        while (n > 1 && n % primeFactors[index] == 0) {
-            n /= primeFactors[index];
+        while (n > 1 && n % primes[index] == 0) {
+            n /= primes[index];
             c++;
         }
         if (c) {
-            res.emplace_back(primeFactors[index], c);
+            res.emplace_back(primes[index], c);
         }
         index++;
     }

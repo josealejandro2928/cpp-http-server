@@ -23,12 +23,23 @@ public:
                              basePath) {}
 
 private:
+    static std::atomic<long> backgroundTaskCounter;
+
     static void computePrimesFactor(hs::Request &req) {
         hs::Logging::info("Running the computePrimesFactor");
         auto requestBody = req.getBodyObject<ComputeNPrimesRequest>();
+        if (requestBody.primesToCompute.empty()) {
+            throw hs::BadRequestException("At least one item");
+        }
         json result = json::object();
+        auto maxItem = requestBody.primesToCompute.at(0);
+        for (auto &el: requestBody.primesToCompute) {
+            maxItem = std::max(maxItem, el);
+        }
+        auto primesNumber = ComputationService::computePrimesUpToN(maxItem);
+
         for (const auto &item: requestBody.primesToCompute) {
-            auto partial = ComputationService::computePrimeFactors(item);
+            auto partial = ComputationService::computePrimeFactors(item, primesNumber);
             result[std::to_string(item)] = std::move(partial);
         }
         json response;
@@ -40,14 +51,22 @@ private:
     static void computePrimesFactorConcurrent(hs::Request &req) {
         hs::Logging::info("Running the computePrimesFactorConcurrent");
         auto requestBody = req.getBodyObject<ComputeNPrimesRequest>();
-        json result = json::object();
+        if (requestBody.primesToCompute.empty()) {
+            throw hs::BadRequestException("At least one item");
+        }
+        json result;
         auto &pool = TaskWorkerService::getInstance().getPool();
-        std::cout << "Thread capacity: " << pool.getCapacity() << " Thread size at start: " << pool.getSize() << std::endl;
+        std::cout << pool << std::endl;
         std::vector<std::shared_ptr<hs::TaskThread>> futuresTask;
+        auto maxItem = requestBody.primesToCompute.at(0);
+        for (auto &el: requestBody.primesToCompute) {
+            maxItem = std::max(maxItem, el);
+        }
+        auto primesNumber = ComputationService::computePrimesUpToN(maxItem);
 
         for (const auto &item: requestBody.primesToCompute) {
-            auto taskThread = pool.submit([&item]() {
-                auto partial = ComputationService::computePrimeFactors(item);
+            auto taskThread = pool.submit([&item, &primesNumber]() {
+                auto partial = ComputationService::computePrimeFactors(item, primesNumber);
                 return std::make_pair(std::to_string(item), std::move(partial));
             });
             futuresTask.push_back(std::move(taskThread));
@@ -56,7 +75,6 @@ private:
             auto res = task->get<std::pair<string, std::vector<std::pair<long, long>>>>();
             result[res.first] = std::move(res.second);
         }
-        std::cout << "Thread capacity: " << pool.getCapacity() << " Thread size at end: " << pool.getSize() << std::endl;
 
         json response;
         response["status"] = "OK";
@@ -64,12 +82,33 @@ private:
         req.sendJson(req, 201, response);
     }
 
+    static void createBackgroundTask(hs::Request &req) {
+        auto &pool = TaskWorkerService::getInstance().getPool();
+        pool.submit([]() {
+            std::this_thread::sleep_for(std::chrono::seconds(5));
+            return make_pair(backgroundTaskCounter++, random());
+        })->addOnFinishCallback([](hs::TaskThread *task) {
+            try {
+                auto res = task->get<pair<long, long>>();
+                auto message = string("Background task: " + std::to_string(res.first) + " completed" + " result= " +
+                                      std::to_string(res.second));
+                hs::Logging::info(message.c_str());
+            } catch (std::exception &exc) {
+                hs::Logging::error("Error on background task:");
+                hs::Logging::error(exc.what());
+            }
+        });
+        req.sendJson(req, 201, json::object());
+    }
+
 public:
 
     void registerEndpoints() override {
         router->postMethod(basePath + "/primes-factor", computePrimesFactor);
         router->postMethod(basePath + "/primes-factor-concurrent", computePrimesFactorConcurrent);
+        router->postMethod(basePath + "/background", createBackgroundTask);
     }
 };
 
+std::atomic<long> ComputationController::backgroundTaskCounter = 0;
 #endif //HTTP_SERVER_COMPUTATIONCONTROLLER_H

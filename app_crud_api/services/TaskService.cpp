@@ -2,6 +2,7 @@
 // Created by pepe on 3/6/24.
 //
 
+#include <iostream>
 #include "TaskService.h"
 #include "http_server/utils/utils.h"
 #include "data/DataStorage.h"
@@ -76,6 +77,21 @@ void TaskService::deleteTask(int id) {
     }
     if (index == -1) throw hs::NotFoundException("Task not found with id:" + std::to_string(id));
     dataStorage.deleteTask(index);
+}
+
+void TaskService::periodicTaskComputation() {
+    auto &dataStorage = DataStorage::getInstance("");
+    auto tasks_view = dataStorage.getTasks() | std::views::filter([](Task &t) -> bool {
+        return t.status == "PENDING";
+    });
+    auto size = std::accumulate(tasks_view.begin(), tasks_view.end(), 0, [](int acc, Task &t) -> int {
+        return acc + 1;
+    });
+    std::cout << "Pending tasks:" << size << std::endl;
+    for (auto &task: tasks_view) {
+        std::cout << task << std::endl;
+    }
+
 }
 
 

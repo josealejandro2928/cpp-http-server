@@ -32,3 +32,9 @@ TaskResponseDto Task::toDto() const {
     return TaskResponseDto(id, title, description, status, userId, user.toDto());
 }
 
+std::ostream &operator<<(std::ostream &os, const Task &task) {
+    os << "Task: " << task.id << ", " << task.title << ", " << task.description << ", " << task.status << ", "
+       << task.userId
+       << ", " << task.user.name;
+    return os;
+}

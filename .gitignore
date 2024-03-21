@@ -55,6 +55,7 @@ Makefile
 # Exclude build directories
 build/
 build-*/
+cmake-build-debug/
 
 # Dependency directories
 deps/

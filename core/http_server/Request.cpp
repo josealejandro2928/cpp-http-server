@@ -141,12 +141,7 @@ namespace HttpServer {
 
         if (contentType == ContentType::JSON) {
             if (!message.empty()) {
-                try {
-                    auto json = json::parse(message);
-                    response += json.dump();
-                } catch (const json::parse_error &e) {
-                    response += "{}";
-                }
+                response += message;
             }
         } else if (contentType == ContentType::TEXT) {
             response += message;

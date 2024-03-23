@@ -41,7 +41,7 @@ namespace HttpServer {
     static ssize_t getContentLengthFromHeaders(std::string &data) {
         const std::string contentLength = "Content-Length: ";
         const std::string contentLength_2 = "content-length: ";
-        size_t pos = std::string::npos;
+        size_t pos;
         pos = data.find(contentLength);
         if (pos == std::string::npos) {
             pos = data.find(contentLength_2);
@@ -80,7 +80,7 @@ namespace HttpServer {
                     totalBytesRead += bytesRead;
                 }
             }
-            Request request = Request::makeRequest(requestStr);
+            auto request = Request::makeRequest(requestStr);
             if (request.hasSendResponseBeenCalled) return;
             request.setPort(this->portNum);
             request.exceptionHandler = this->globalExceptionHandler;

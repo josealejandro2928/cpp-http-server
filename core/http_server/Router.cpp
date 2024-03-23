@@ -121,6 +121,10 @@ namespace HttpServer {
         }
     }
 
+    void Router::switchRouter(std::shared_ptr<Request>& req) {
+        switchRouter(*req);
+    }
+
 
     static bool
     processCallbacksSequence(Request &req, vector<Middleware> &middlewares, bool isShouldReturnAtTheEnd = true) {
@@ -139,8 +143,9 @@ namespace HttpServer {
                 return true;
             }
         }
-        if (isShouldReturnAtTheEnd && !req.hasSendResponseBeenCalled) {
+        if (!req.async && isShouldReturnAtTheEnd && !req.hasSendResponseBeenCalled) {
             ErrorResponseData errorResponseData(400, "You must call sendResponse in your middleware at some point.");
+            req.async = true;
             req.sendJson<ErrorResponseData>(req, 400, errorResponseData);
         }
         return false;

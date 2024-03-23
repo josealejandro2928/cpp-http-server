@@ -103,8 +103,11 @@ namespace HttpServer {
     }
 
     void ThreadPool::runWorker() {
+        bool isFirstTime = true;
         while (true) {
             auto task = popTask();
+            if (!isFirstTime)
+                semaphore.try_acquire();
             if (task) {
                 task->setThreadId(std::this_thread::get_id());
                 task->invokeFunction();
@@ -113,6 +116,7 @@ namespace HttpServer {
                 semaphore.release();
                 return;
             }
+            isFirstTime = false;
         }
     }
 

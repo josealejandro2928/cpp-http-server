@@ -62,16 +62,27 @@ namespace HttpServer {
 
         void switchRouter(Request &req);
 
-        void getMethod(const string& path, const Middleware &);
-        void getMethod(const string& path, const std::vector<Middleware> &);
-        void postMethod(const string& path, const Middleware &);
-        void postMethod(const string& path, const std::vector<Middleware> &);
-        void putMethod(const string& path, const Middleware &);
-        void putMethod(const string& path, const std::vector<Middleware> &);
-        void patchMethod(const string& path, const Middleware &);
-        void patchMethod(const string& path, const std::vector<Middleware> &);
-        void deleteMethod(const string& path, const Middleware &);
-        void deleteMethod(const string& path, const std::vector<Middleware> &);
+        void switchRouter(std::shared_ptr<Request>& req);
+
+        void getMethod(const string &path, const Middleware &);
+
+        void getMethod(const string &path, const std::vector<Middleware> &);
+
+        void postMethod(const string &path, const Middleware &);
+
+        void postMethod(const string &path, const std::vector<Middleware> &);
+
+        void putMethod(const string &path, const Middleware &);
+
+        void putMethod(const string &path, const std::vector<Middleware> &);
+
+        void patchMethod(const string &path, const Middleware &);
+
+        void patchMethod(const string &path, const std::vector<Middleware> &);
+
+        void deleteMethod(const string &path, const Middleware &);
+
+        void deleteMethod(const string &path, const std::vector<Middleware> &);
 
     private:
         void processCallStacks(string &, Request &, map <string, vector<Middleware>> &);

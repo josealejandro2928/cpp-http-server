@@ -149,8 +149,19 @@ namespace HttpServer {
             throw HttpException("Unsupported content type: " + contentType);
         }
         hasSendResponseBeenCalled = true;
-        for (auto &cb: registerCallbacksOnFinish) {
-            cb(statusCode);
+        if (!async) {
+            for (auto &cb: registerCallbacksOnFinish) {
+                if (cb) {
+                    cb(statusCode);
+                } else {
+                    std::cerr << "Warning: null callback\n";
+                }
+            }
+        } else {
+            if (!registerCallbacksOnFinish.empty()) {
+                std::cout
+                        << "WARNING: THE REQUEST HAS BEEN CALLED IN ASYNC MODE: THEREFORE THE ON REQUEST FINISH CALLBACKS WILL NOT BE CALLED\n";
+            }
         }
         send(req.getNewFD(), response.data(), response.length(), 0);
         close(req.getNewFD());

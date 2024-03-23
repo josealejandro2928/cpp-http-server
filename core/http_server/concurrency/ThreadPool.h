@@ -102,8 +102,8 @@ namespace HttpServer {
                 throw std::runtime_error(errMsg);
             }
             auto taskPtr = std::shared_ptr<TaskThread>(new TaskThread(func, args...));
-            createThread();
             taskQueue.push_back(taskPtr);
+            createThread();
             cv.notify_all();
             return taskPtr;
         }

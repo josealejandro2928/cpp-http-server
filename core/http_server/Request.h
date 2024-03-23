@@ -79,6 +79,7 @@ namespace HttpServer {
         std::string &getRequestParam(const std::string &key);
 
         bool hasSendResponseBeenCalled = false;
+        bool async = false;
 
         void onRequestFinish(const std::function<void(int statusCode)> &cb);
 

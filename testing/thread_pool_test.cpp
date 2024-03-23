@@ -311,3 +311,36 @@ TEST(ThreadPoolTest, ShouldExecuteTasksConcurrently) {
     ASSERT_EQ(executionCounter, taskCount);
     EXPECT_LT(duration, taskCount * 100) << "Tasks did not execute in parallel.";
 }
+
+TEST(ThreadPoolTest, ShouldHandleHighLoad) {
+    const int threadPoolSize = 8;
+    const int taskCount = 1000;  // High number of tasks to simulate server load
+    ThreadPool pool(threadPoolSize);
+
+    std::atomic<int> executionCounter{0};
+    std::vector<std::shared_ptr<TaskThread>> taskFutures;
+
+    auto startTime = std::chrono::high_resolution_clock::now();
+
+    for (int i = 0; i < taskCount; ++i) {
+        auto future = pool.submit([&executionCounter]() {
+            // Simulate a task, avoid sleep to test raw throughput
+            executionCounter++;
+            return 0;
+        });
+        taskFutures.push_back(std::move(future));
+    }
+
+    for (auto &future : taskFutures) {
+        future.get();
+    }
+
+    auto endTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+
+    pool.shutdown();
+
+    ASSERT_EQ(executionCounter.load(), taskCount);
+    // With 8 threads, duration should be significantly less than taskCount * timePerTask
+    // if tasks are compute-bound and there is no significant contention.
+}

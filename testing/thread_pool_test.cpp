@@ -317,30 +317,21 @@ TEST(ThreadPoolTest, ShouldHandleHighLoad) {
     const int taskCount = 1000;  // High number of tasks to simulate server load
     ThreadPool pool(threadPoolSize);
 
-    std::atomic<int> executionCounter{0};
+    int executionCounter{0};
+    std::mutex mx;
     std::vector<std::shared_ptr<TaskThread>> taskFutures;
 
-    auto startTime = std::chrono::high_resolution_clock::now();
-
     for (int i = 0; i < taskCount; ++i) {
-        auto future = pool.submit([&executionCounter]() {
-            // Simulate a task, avoid sleep to test raw throughput
+        auto future = pool.submit([&executionCounter, &mx]() {
+            std::scoped_lock<std::mutex> lock(mx);
             executionCounter++;
             return 0;
         });
         taskFutures.push_back(std::move(future));
     }
-
-    for (auto &future : taskFutures) {
+    for (auto &future: taskFutures) {
         future.get();
     }
-
-    auto endTime = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
-
     pool.shutdown();
-
-    ASSERT_EQ(executionCounter.load(), taskCount);
-    // With 8 threads, duration should be significantly less than taskCount * timePerTask
-    // if tasks are compute-bound and there is no significant contention.
+    ASSERT_EQ(executionCounter, taskCount);
 }

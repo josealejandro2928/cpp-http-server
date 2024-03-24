@@ -5,6 +5,7 @@
 
 #include "functional"
 #include "Router.h"
+#include "concurrency/ThreadPool.h"
 
 namespace HttpServer {
     class Server {
@@ -24,7 +25,10 @@ namespace HttpServer {
         Server(const char *portNum, unsigned int backLog);
 
         explicit Server(const char *portNum);
-        explicit Server(const int portNum);
+
+        explicit Server(int portNum);
+
+        explicit Server(int portNum, unsigned int backLog);
 
         Router &getRouter();
 

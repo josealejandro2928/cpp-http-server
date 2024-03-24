@@ -101,12 +101,23 @@ private:
         req.sendJson(req, 201, json::object());
     }
 
+    static void getPrimeFactorization(hs::Request &req) {
+        int number = std::stoi(req.getQuery()["number"]);
+        auto primesNumber = ComputationService::computePrimesUpToN(number);
+        auto result = ComputationService::computePrimeFactors(number, primesNumber);
+        json response;
+        response["result"] = result;
+        response["number"] = number;
+        req.sendJson(req, 201, response);
+    }
+
 public:
 
     void registerEndpoints() override {
         router->postMethod(basePath + "/primes-factor", computePrimesFactor);
         router->postMethod(basePath + "/primes-factor-concurrent", computePrimesFactorConcurrent);
         router->postMethod(basePath + "/background", createBackgroundTask);
+        router->getMethod(basePath + "/prime-factorization", getPrimeFactorization);
     }
 };
 

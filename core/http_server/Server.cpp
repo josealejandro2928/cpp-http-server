@@ -24,11 +24,18 @@ namespace HttpServer {
         this->backLog = SOMAXCONN;
     }
 
-    Server::Server(const int portNum) {
+    Server::Server(int portNum) {
         auto port = std::to_string(portNum);
         this->portNum = new char[port.size() + 1];
         memcpy(this->portNum, port.c_str(), port.size() + 1);
         this->backLog = SOMAXCONN;
+    }
+
+    Server::Server(int portNum, unsigned int backLog) {
+        auto port = std::to_string(portNum);
+        this->portNum = new char[port.size() + 1];
+        memcpy(this->portNum, port.c_str(), port.size() + 1);
+        this->backLog = backLog;
     }
 
     static void defaultServerErrorHandler(const std::exception &e, int newFD) {
@@ -192,5 +199,6 @@ namespace HttpServer {
     void Server::setGlobalExceptionHandler(const function<void(std::exception &, Request &)> &fn) {
         this->globalExceptionHandler = fn;
     }
+
 
 };

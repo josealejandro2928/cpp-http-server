@@ -5,12 +5,13 @@
 
 #include "functional"
 #include "Router.h"
-#include "concurrency/ThreadPool.h"
+#include "concurrency/Executor.h"
 
 namespace HttpServer {
     class Server {
     private:
         char *portNum;
+        ThreadPoolExecutor *executor;
         unsigned int backLog;
         Router router;
 
@@ -37,6 +38,8 @@ namespace HttpServer {
         void onServerStart(const std::function<void()> &);
 
         void setGlobalExceptionHandler(const std::function<void(std::exception &, Request &)> &fn);
+        ~Server();
+        static size_t SERVER_THREAD_POOL_SIZE;
 
     };
 }

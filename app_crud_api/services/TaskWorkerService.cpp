@@ -15,7 +15,7 @@ TaskWorkerService &TaskWorkerService::getInstance() {
     return *instance;
 }
 
-hs::ThreadPool &TaskWorkerService::getPool() {
+hs::ThreadPoolExecutor &TaskWorkerService::getPool() {
     return *pool;
 }
 
@@ -29,16 +29,6 @@ TaskWorkerService &TaskWorkerService::getInstance(int size) {
 }
 
 TaskWorkerService::TaskWorkerService(int size) {
-    pool = new hs::ThreadPool(size);
-}
+    pool = (new hs::ThreadPoolExecutor(size))->setName("TaskWorkerExecutorService");
 
-void TaskWorkerService::runPeriodicTask(const std::function<void()> &task, int period, int delay) {
-    pool->submit([this, task, period, delay]() {
-        std::this_thread::sleep_for(std::chrono::seconds(delay));
-        while (!this->pool->taskShouldTerminate()) {
-            task();
-            std::this_thread::sleep_for(std::chrono::seconds(period));
-        }
-        return 0;
-    });
 }

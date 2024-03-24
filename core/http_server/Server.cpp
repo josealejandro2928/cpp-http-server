@@ -11,17 +11,20 @@
 #include <vector>
 #include <future>
 #include "http_server/utils/Logging.h"
+#include "http_server/utils/Logging.h"
 
 namespace HttpServer {
 
     Server::Server(const char *portNum, unsigned int backLog) {
         this->portNum = (char *) portNum;
         this->backLog = backLog;
+        this->executor = (new ThreadPoolExecutor((int)Server::SERVER_THREAD_POOL_SIZE))->setName("ServerPoolThreadExecutor");
     }
 
     Server::Server(const char *portNum) {
         this->portNum = (char *) portNum;
         this->backLog = SOMAXCONN;
+        this->executor = (new ThreadPoolExecutor((int)Server::SERVER_THREAD_POOL_SIZE))->setName("ServerPoolThreadExecutor");
     }
 
     Server::Server(int portNum) {
@@ -29,6 +32,7 @@ namespace HttpServer {
         this->portNum = new char[port.size() + 1];
         memcpy(this->portNum, port.c_str(), port.size() + 1);
         this->backLog = SOMAXCONN;
+        this->executor = (new ThreadPoolExecutor((int)Server::SERVER_THREAD_POOL_SIZE))->setName("ServerPoolThreadExecutor");
     }
 
     Server::Server(int portNum, unsigned int backLog) {
@@ -36,6 +40,7 @@ namespace HttpServer {
         this->portNum = new char[port.size() + 1];
         memcpy(this->portNum, port.c_str(), port.size() + 1);
         this->backLog = backLog;
+        this->executor = (new ThreadPoolExecutor((int)Server::SERVER_THREAD_POOL_SIZE))->setName("ServerPoolThreadExecutor");
     }
 
     static void defaultServerErrorHandler(const std::exception &e, int newFD) {
@@ -107,6 +112,11 @@ namespace HttpServer {
     }
 
     int Server::start() {
+        std::cout<< "\nStarting a new instance of cpp_http_server: " << endl;
+        std::cout<< "\t1- host: " << getHostIPAddress(getHostname()) << endl;
+        std::cout<< "\t2- port: " << portNum << endl;
+        std::cout<< "\t3- backLog: " << backLog << endl;
+        std::cout<< "\t4- SERVER_THREAD_POOL_SIZE: " << Server::SERVER_THREAD_POOL_SIZE << endl<<endl;
         addrinfo hints{}, *res;
         memset(&hints, 0, sizeof(hints));
         hints.ai_family = AF_UNSPEC;
@@ -167,8 +177,12 @@ namespace HttpServer {
                     continue;
                 }
                 cleanFuturesThreadData(futures);
-                std::future<void> response = std::async(std::launch::async, &Server::processIncomingConnections, this,
-                                                        newFD);
+//                std::future<void> response = std::async(std::launch::async, &Server::processIncomingConnections, this,
+//                                                        newFD);
+                std::future<void> response = executor->submit([this, newFD]() {
+                    processIncomingConnections(newFD);
+                });
+
                 futures.push_back(std::move(response));
                 cleanFuturesThreadData(futures);
             }
@@ -200,5 +214,16 @@ namespace HttpServer {
         this->globalExceptionHandler = fn;
     }
 
+    Server::~Server() {
+        if (portNum != nullptr) {
+            delete[] portNum;
+            portNum = nullptr;
+        }
+        if (executor != nullptr) {
+            delete executor;
+            executor = nullptr;
+        }
+    }
 
+    size_t Server::SERVER_THREAD_POOL_SIZE = 64;
 };

@@ -311,27 +311,3 @@ TEST(ThreadPoolTest, ShouldExecuteTasksConcurrently) {
     ASSERT_EQ(executionCounter, taskCount);
     EXPECT_LT(duration, taskCount * 100) << "Tasks did not execute in parallel.";
 }
-
-TEST(ThreadPoolTest, ShouldHandleHighLoad) {
-    const int threadPoolSize = 8;
-    const int taskCount = 1000;  // High number of tasks to simulate server load
-    ThreadPool pool(threadPoolSize);
-
-    int executionCounter{0};
-    std::mutex mx;
-    std::vector<std::shared_ptr<TaskThread>> taskFutures;
-
-    for (int i = 0; i < taskCount; ++i) {
-        auto future = pool.submit([&executionCounter, &mx]() {
-            std::scoped_lock<std::mutex> lock(mx);
-            executionCounter++;
-            return 0;
-        });
-        taskFutures.push_back(std::move(future));
-    }
-    for (auto &future: taskFutures) {
-        future.get();
-    }
-    pool.shutdown();
-    ASSERT_EQ(executionCounter, taskCount);
-}

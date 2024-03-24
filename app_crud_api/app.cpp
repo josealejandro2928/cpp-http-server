@@ -58,12 +58,16 @@ int main() {
         AuthService::readTokensFromFile();
         hs::Logging::info("<<<<<>>>>>Tokens loaded from file<<<<<>>>>>");
         hs::Logging::info("<<<<<>>>>>Created a thread Pool of workers<<<<<>>>>>");
-        auto& taskWorker = TaskWorkerService::getInstance(16);
-        taskWorker.runPeriodicTask([]() {
-            cout << "Running a periodic task every 30 seconds" << endl;
-        }, 30, 10);
+        auto &taskWorker = TaskWorkerService::getInstance(16).getPool();
+        taskWorker.runSchedule(
+                []() {
+                    cout << "Running a periodic task every 10 seconds" << endl;
+                },
+                chrono::seconds(10),
+                chrono::seconds(0)
+        );
 
-        taskWorker.runPeriodicTask(TaskService::periodicTaskComputation, 20, 5);
+        taskWorker.runSchedule(TaskService::periodicTaskComputation, chrono::seconds(20), chrono::seconds(10));
     });
     server.setGlobalExceptionHandler(globalErrorHandler);
 

@@ -166,3 +166,86 @@ You will get the following response:
 By the moment the project is in early stages of development and only allow to return json responses, as Content-Type application/json and
 text/plain. In the future will be added more features like file uploads, and more content types.
 For the post, put and patch the content types allowed to be serialized by the library (behind the scenes the library relies on `nlohmann/json` library) are `application/json` and `application/x-www-form-urlencoded`.
+
+## Custom Thread Pool Executor
+The project uses a custom thread pool executor to handle the requests, you can define the number of threads that the server will use to handle the requests concurrently.
+But it exposes a set of functionalities that might be useful for you.
+
+```cpp
+#include "http_server/concurrency/Executor.h"
+namespace hs = HttpServer;
+// Define a function
+long sumUpTo(int n) {
+    long sum = 0;
+    for (int i = 0; i <= n; i++) {
+        sum += i;
+    }
+    return sum;
+}
+
+int main(){
+    // Create a thread pool executor with 4 threads, by default the number of threads is the number of cores in the machine
+    hs::ThreadPoolExecutor executor(4);
+    // passing a lambda function to the submit method
+    executor.submit([]() {
+        std::cout << "This is a task" << std::endl;
+        return 0;
+    }).get();
+    
+    // Submit a task to the executor, that return a future object
+    std::vector<std::future<long>> futures;
+    for (int i = 0; i < 50; i++) {
+        futures.push_back(std::move(executor.submit(sumUpTo, 1000000)));
+    }
+    // Wait for the futures to be ready
+    for (auto &future: futures) {
+        auto result = future.get();
+        std::cout << "Result: " << result << std::endl;
+    }
+    return 0;
+}
+
+```
+Also, you can use the `ThreadPoolExecutor` to run task, and call pass a callback to be executed when the task is done.
+
+```cpp
+#include "http_server/concurrency/Executor.h"
+namespace hs = HttpServer;
+
+void onTaskDone(future<long>& f) {
+    std::cout << "Task is done" << std::endl;
+    std::cout << "Result: " << f.get() << std::endl;
+}
+
+int main(){
+    hs::ThreadPoolExecutor executor();
+    executor.run([]() {
+        std::cout << "This is a task" << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        return 42;
+    }, onTaskDone);
+    return 0;
+}
+```
+
+Another feature is the ability to run task periodically, you can use the `runSchedule`. Also, You can run a function in the future after a delay a number of times.
+
+```cpp
+#include "http_server/concurrency/Executor.h"
+namespace hs = HttpServer;
+
+int main(){
+    hs::ThreadPoolExecutor executor();
+    /// Run a task every 2 seconds with initial delay of 1 second
+    pool.runSchedule([]() {
+        std::cout << "This is a scheduled task that will be run every 2 seconds" << std::endl;
+    }, std::chrono::seconds(2), std::chrono::seconds(1));
+    
+      pool.runFunctionNthTimes([]() {
+        std::cout << "This is a task that will be executed 2 times after 4 seconds" << std::endl;
+    }, std::chrono::seconds(4), 2);
+      
+      std::cin.get();
+    return 0;
+}
+```

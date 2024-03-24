@@ -8,6 +8,10 @@
 #include <sstream>
 #include "types.h"
 #include "http_server/exceptions/Exceptions.h"
+#include <sys/socket.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 using namespace std;
 namespace HttpServer {
@@ -205,6 +209,35 @@ namespace HttpServer {
                 // And process bodyPart as needed
             }
         }
+    }
+
+    std::string getHostname() {
+        std::array<char, HOST_NAME_MAX> hostname{};
+        hostname.fill(0);
+        gethostname(hostname.data(), hostname.size());
+        return hostname.data();
+    }
+
+    std::string getHostIPAddress(const std::string &hostname) {
+        struct addrinfo hints{}, *info;
+        std::string hostIP;
+
+        std::memset(&hints, 0, sizeof(hints));
+        hints.ai_family = AF_INET; // For IPv4
+        hints.ai_socktype = SOCK_STREAM;
+        hints.ai_flags = AI_CANONNAME;
+
+        if (getaddrinfo(hostname.c_str(), nullptr, &hints, &info) == 0) {
+            for (struct addrinfo *p = info; p != nullptr; p = p->ai_next) {
+                char ip[INET_ADDRSTRLEN];
+                if (inet_ntop(AF_INET, &((struct sockaddr_in *) p->ai_addr)->sin_addr, ip, sizeof(ip))) {
+                    hostIP = ip;
+                    break; // Take the first IP
+                }
+            }
+            freeaddrinfo(info);
+        }
+        return hostIP;
     }
 
 

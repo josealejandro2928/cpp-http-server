@@ -104,7 +104,7 @@ namespace HttpServer {
             auto taskPtr = std::shared_ptr<TaskThread>(new TaskThread(func, args...));
             taskQueue.push_back(taskPtr);
             createThread();
-            cv.notify_all();
+            cv.notify_one();
             return taskPtr;
         }
 
@@ -121,6 +121,10 @@ namespace HttpServer {
         [[nodiscard]] inline size_t getCapacity() const { return size; }
 
         friend std::ostream &operator<<(std::ostream &os, ThreadPool &t);
+
+        [[nodiscard]] std::string getName() const {
+            return name;
+        }
 
     private:
         std::shared_ptr<TaskThread> popTask();

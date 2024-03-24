@@ -75,6 +75,10 @@ namespace HttpServer {
     std::map<std::string, std::vector<std::string>> processURLEncodedFormBody(std::string &);
     void parseMultipartFormData(const std::string&, const std::string&);
 
+    std::string getHostname();
+
+    std::string getHostIPAddress(const std::string &hostname);
+
 }
 
 

@@ -57,7 +57,7 @@ private:
         json result;
         auto &pool = TaskWorkerService::getInstance().getPool();
         std::cout << pool << std::endl;
-        std::vector<std::shared_ptr<hs::TaskThread>> futuresTask;
+        std::vector<std::future<std::pair<string, std::vector<std::pair<long, long>>>>> futuresTask;
         auto maxItem = requestBody.primesToCompute.at(0);
         for (auto &el: requestBody.primesToCompute) {
             maxItem = std::max(maxItem, el);
@@ -72,7 +72,7 @@ private:
             futuresTask.push_back(std::move(taskThread));
         }
         for (auto &task: futuresTask) {
-            auto res = task->get<std::pair<string, std::vector<std::pair<long, long>>>>();
+            auto res = task.get();
             result[res.first] = std::move(res.second);
         }
 
@@ -84,12 +84,12 @@ private:
 
     static void createBackgroundTask(hs::Request &req) {
         auto &pool = TaskWorkerService::getInstance().getPool();
-        pool.submit([]() {
+        pool.run([]() {
             std::this_thread::sleep_for(std::chrono::seconds(5));
             return make_pair(backgroundTaskCounter++, random());
-        })->addOnFinishCallback([](hs::TaskThread *task) {
+        }, [](auto &task) {
             try {
-                auto res = task->get<pair<long, long>>();
+                auto res = task.get();
                 auto message = string("Background task: " + std::to_string(res.first) + " completed" + " result= " +
                                       std::to_string(res.second));
                 hs::Logging::info(message.c_str());

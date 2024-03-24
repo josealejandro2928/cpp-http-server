@@ -6,17 +6,17 @@
 #define HTTP_SERVER_TASKWORKERSERVICE_H
 
 #include <iostream>
-#include "http_server/concurrency/ThreadPool.h"
+#include "http_server/concurrency/Executor.h"
 
 namespace hs = HttpServer;
 
 class TaskWorkerService {
 private:
-    hs::ThreadPool *pool;
+    hs::ThreadPoolExecutor *pool;
     static TaskWorkerService *instance;
     static std::mutex mx;
 
-    TaskWorkerService() : pool{new hs::ThreadPool(8)} {};
+    TaskWorkerService() : pool{new hs::ThreadPoolExecutor()} {};
 
     explicit TaskWorkerService(int);
 
@@ -33,7 +33,7 @@ public:
 
     TaskWorkerService &operator=(TaskWorkerService &&) = delete;
 
-    [[nodiscard]] hs::ThreadPool &getPool();
+    [[nodiscard]] hs::ThreadPoolExecutor &getPool();
 
     void runPeriodicTask(const std::function<void()> &task, int period, int delay = 0);
 

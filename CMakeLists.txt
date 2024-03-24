@@ -19,7 +19,9 @@ add_library(http_server
         core/http_server/utils/Logging.h
         core/http_server/utils/Logging.cpp
         core/http_server/concurrency/ThreadPool.h
-        core/http_server/concurrency/ThreadPool.cpp)
+        core/http_server/concurrency/ThreadPool.cpp
+        core/http_server/concurrency/Executor.h
+        core/http_server/concurrency/Executor.cpp)
 
 target_include_directories(http_server PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/core>
